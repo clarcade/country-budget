@@ -1,0 +1,23 @@
+<input type="number"
+       placeholder="Principal"
+       ng-model="view.data.mortgage.principal"
+       ng-change="validateMortgage()">
+<input type="number"
+       placeholder="Monthly Interest Rate"
+       ng-model="view.data.mortgage.monthly_interest_rate"
+       ng-change="validateMortgage()">
+<input type="number"
+       placeholder="Years to Pay off Loan"
+       ng-model="view.data.mortgage.years_to_payoff_loan"
+       ng-change="validateMortgage()">
+<input type="number"
+       placeholder="Down Payment"
+       ng-model="view.data.mortgage.down_payment"
+       ng-change="validateMortgage()">
+
+<input type="button"
+       value="Calculate Monthly Payments"
+       ng-click="calcMonthlyPayments()"
+       ng-disabled="!view.data.mortgage.valid">
+
+<div>Monthly Payments: {{view.data.mortgage.monthly_payments}}</div>

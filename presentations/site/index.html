@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="CountryBudgetApp">
+<head>
+    <meta charset="UTF-8">
+    <title>CountryBudget</title>
+    <script src="assets/angular/angular.js"></script>
+</head>
+<body>
+    <div ng-controller="MainController">
+        <input type="button" ng-click="sayHello()" value="Say Hello">
+        <div>Choose:</div>
+        <div>
+            <a href="#/mortgage">Mortgage Page</a>
+        </div>
+
+        <div ng-view></div>
+    </div>
+
+    <!-- Main App Script -->
+    <script src="CountryBudget.js"></script>
+
+    <!-- Controllers -->
+    <script src="controllers/MainController.js"></script>
+    <script src="controllers/MortgageController.js"></script>
+
+    <!-- Services -->
+    <script src="services/MortgageService.js"></script>
+    <script src="services/UserService.js"></script>
+
+    <!-- Assets -->
+    <script src="assets/restangular/dist/restangular.js"></script>
+    <script src="assets/lodash/lodash.js"></script>
+    <script src="assets/angular-route/angular-route.js"></script>
+</body>
+</html>

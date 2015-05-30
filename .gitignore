@@ -1,0 +1,7 @@
+.idea/
+domain/
+node_modules/
+vendor/bin/
+vendor/composer/
+vendor/autoload.php
+presentations/site/assets/
