@@ -1,0 +1,99 @@
+$left_column_width_size: 15%;
+$center_column_width_size: 100% - $left_column_width_size;
+
+html, body, div, section, p, h1, header, footer, ng-include,
+nav, ul, li, a, figure, img, aside, form, input {
+   margin: 0;
+   padding: 0;
+}
+
+html, body {
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   background-color: #111111;
+}
+
+.center-text, header h1, footer p {
+   text-align: center;
+}
+
+header h1 {
+   padding-left: $left_column_width_size;
+}
+
+.main-content-container {
+   display: inline-block;
+   width: 100%;
+   height: 100%;
+   background-color: #777777;
+}
+
+.center-content {
+   width: $center_column_width_size;
+   background-color: orange;
+   height: 100%;
+   position: relative;
+   overflow: auto;
+}
+
+.left-content, .right-content {
+   width: $left_column_width_size;
+   background-color: lawngreen;
+   height: 100%;
+}
+
+.left-content {
+   float: left;
+}
+.right-content {
+   float: right;
+}
+
+header, footer {
+   padding: 10px 0;
+}
+
+.header-right-content {
+   float: right;
+   width: $left_column_width_size;
+   background-color: darkturquoise;
+}
+
+.header-figure {
+   float: right;
+   position: relative;
+   right: 10%;
+}
+
+.header-links {
+   line-height: 2;
+}
+
+.left-nav {
+// fill in later
+}
+
+input
+
+// delete me later
+header, footer {
+   background-color: #ffe87c;
+}
+
+// clearfix
+//.clearfix:after {
+//   visibility: hidden;
+//   display: block;
+//   font-size: 0;
+//   content: " ";
+//   clear: both;
+//   height: 0;
+//}
+//.clearfix { display: inline-block; }
+///* start commented backslash hack \*/
+//* html .clearfix { height: 1%; }
+//.clearfix { display: block; }
+///* close commented backslash hack */

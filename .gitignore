@@ -3,4 +3,4 @@ domain/
 node_modules/
 vendor/
 vendor/peej/tonic/
-presentations/site/assets/
+presentations/site/assets/vendor/

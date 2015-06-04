@@ -4,6 +4,7 @@
   "devDependencies": {
     "del": "^1.1.1",
     "gulp": "^3.8.11",
-    "gulp-bower2": "0.0.8"
+    "gulp-bower2": "0.0.8",
+    "gulp-sass": "^2.0.1"
   }
 }
