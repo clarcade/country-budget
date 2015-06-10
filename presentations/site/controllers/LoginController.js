@@ -20,24 +20,14 @@ app.controller('LoginController', [
          scope.view.try_submit = true;
 
          if (form.$valid) {
-            console.log("Submitting");
-
-            //authentication_service.login(user).then(
-            //   function(response) {
-            //      var user = response.user;
-            //
-            //      if (angular.isDefined(user)) {
-            //         user_service.setUser(user);
-            //
-            //         location.path('#/home');
-            //      } else {
-            //         console.log("Incorrect username or password.");
-            //      }
-            //   },
-            //   function(error) {
-            //      console.log("The following error occurred: " + error.message);
-            //   }
-            //);
+            authentication_service.login(scope.view.user).then(
+               function() {
+                  location.path('#/home');
+               },
+               function(error) {
+                  console.log(error);
+               }
+            );
          } else {
             console.log("Form not valid");
          }
