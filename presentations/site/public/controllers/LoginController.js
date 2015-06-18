@@ -16,13 +16,12 @@ app.controller('LoginController', [
       scope.view.try_submit = false;
 
       scope.submit = function (form) {
-         console.log(form);
          scope.view.try_submit = true;
 
          if (form.$valid) {
             authentication_service.login(scope.view.user).then(
                function() {
-                  location.path('#/home');
+                  location.path('/group');
                },
                function(error) {
                   console.log(error);

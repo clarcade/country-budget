@@ -4,3 +4,6 @@ node_modules/
 vendor/
 vendor/peej/tonic/
 presentations/site/assets/vendor/
+presentations/site/assets/images/
+presentations/site/assets/stylesheets/css/
+phpinfo.php

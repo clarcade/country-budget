@@ -1,0 +1,20 @@
+<secure-wrapper>
+   <div>
+      <table st-table="rowCollection">
+         <thead>
+            <tr>
+               <th>Finance</th>
+               <th>Actual</th>
+               <th>What If</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr ng-repeat="row in rowCollection">
+               <td>{{row.label}}</td>
+               <td>{{row.actual}}</td>
+               <td>{{row.what_if}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</secure-wrapper>

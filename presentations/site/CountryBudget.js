@@ -1,24 +1,44 @@
-var app = angular.module('CountryBudgetApp', ['restangular', 'ngRoute']);
+var app = angular.module('CountryBudgetApp', [
+   'restangular',
+   'ngRoute',
+   'ngStorage'
+]);
 
 app.config([
    '$routeProvider',
    'RestangularProvider',
    function ($routeProvider,
-             RestangularProvider) {
+             restangular_provider) {
       // Route Settings
       $routeProvider
          .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'HomeController',
-            resolve: {
-               'auth': ['AuthenticationService',
-                  function (authentication_service) {
-                     return authentication_service.checkAccess();
-                  }]
-            }
+            templateUrl: 'public/views/home.html',
+            controller: 'HomeController'
          })
+         .when('/home', {
+            templateUrl: 'public/views/home.html',
+            controller: 'HomeController'
+         })
+         .when('/login', {
+            templateUrl: 'public/views/login.html',
+            controller: 'LoginController'
+         })
+         .when('/register', {
+            templateUrl: 'public/views/register.html',
+            controller: 'RegisterController'
+         })
+         //.when('/allusers', {
+         //   templateUrl: 'secure/views/allusers.html',
+         //   controller: 'AllUsersController',
+         //   resolve: {
+         //      'auth': ['AuthenticationService',
+         //         function (authentication_service) {
+         //            return authentication_service.checkAccess();
+         //         }]
+         //   }
+         //})
          .when('/group', {
-            templateUrl: 'views/group.html',
+            templateUrl: 'secure/views/group.html',
             controller: 'GroupController',
             resolve: {
                'auth': ['AuthenticationService',
@@ -28,7 +48,7 @@ app.config([
             }
          })
          .when('/individual', {
-            templateUrl: 'views/individual.html',
+            templateUrl: 'secure/views/individual.html',
             controller: 'IndividualController',
             resolve: {
                'auth': ['AuthenticationService',
@@ -38,7 +58,7 @@ app.config([
             }
          })
          .when('/settings', {
-            templateUrl: 'views/settings.html',
+            templateUrl: 'secure/views/settings.html',
             controller: 'SettingsController',
             resolve: {
                'auth': ['AuthenticationService',
@@ -47,21 +67,13 @@ app.config([
                   }]
             }
          })
-         .when('/login', {
-            templateUrl: 'views/login.html',
-            controller: 'LoginController'
-         })
-         .when('/register', {
-            templateUrl: 'views/register.html',
-            controller: 'RegisterController'
-         })
          .otherwise({
             redirectTo: '/'
          });
 
       // Restangular Settings
-      RestangularProvider.setBaseUrl('http://api.countrybudget.lan');
-      RestangularProvider.setRequestSuffix('?XDEBUG_SESSION_START=PHPSTORM'); // works
+      restangular_provider.setBaseUrl('http://api.countrybudget.lan');
+      restangular_provider.setRequestSuffix('?XDEBUG_SESSION_START=PHPSTORM'); // works
 
       //RestangularProvider.setDefaultHttpFields({
       //   'withCredentials': true

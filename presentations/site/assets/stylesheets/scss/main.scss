@@ -13,7 +13,7 @@ html, body {
 }
 
 body {
-   background-color: #111111;
+   background-color: brown;
 }
 
 .center-text, header h1, footer p {
@@ -29,6 +29,10 @@ header h1 {
    width: 100%;
    height: 100%;
    background-color: #777777;
+
+   &:after {
+      clear: both;
+   }
 }
 
 .center-content {
@@ -62,13 +66,22 @@ header, footer {
    background-color: darkturquoise;
 }
 
-.header-figure {
+.gear-figure {
    float: right;
    position: relative;
-   right: 10%;
+   right: 2%;
+}
+
+.home-figure {
+   float: left;
+   position: relative;
+   margin-left: 2%;
 }
 
 .header-links {
+   float: right;
+   width: 11%;
+   //background-color: darkturquoise;
    line-height: 2;
 }
 
@@ -76,7 +89,9 @@ header, footer {
 // fill in later
 }
 
-input
+.my-ngview, .my-transclude {
+   height: 100%;
+}
 
 // delete me later
 header, footer {
