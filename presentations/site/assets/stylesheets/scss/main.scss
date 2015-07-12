@@ -98,6 +98,13 @@ header, footer {
    background-color: #ffe87c;
 }
 
+.selectable-month {
+   display: inline-block;
+   width: percentage(1/12);
+   //margin-left: 5px;
+   //margin-right: 5px;
+}
+
 // clearfix
 //.clearfix:after {
 //   visibility: hidden;

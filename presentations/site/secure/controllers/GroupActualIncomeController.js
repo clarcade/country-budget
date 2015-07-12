@@ -1,0 +1,51 @@
+app.controller('GroupActualIncomeController', [
+   '$scope',
+   'CommonService',
+   'GroupService',
+   function(scope,
+            common_service,
+            group_service) {
+      common_service.setPageTitle('Group Income - Actual');
+      scope.view = {};
+      scope.view.year_collection = [];
+      scope.view.month_collection = [];
+
+      group_service.getActualIncomeData().then(
+         function () {
+            scope.view.group_actual_income = group_service.group_actual_income_data;
+
+            var temp_actual = null;
+            var count = scope.view.group_actual_income.length;
+            for (var i = 0; i < count; i++) {
+               temp_actual += Number(scope.view.group_actual_income[i].amount);
+            }
+
+            scope.view.total_actual_group_income = temp_actual;
+         }
+      );
+
+      // Year Data -- Make into a directive later
+      var date = new Date();
+      var current_year = date.getFullYear();
+      scope.view.selected_year = current_year;
+      var temp_year = current_year - 5;
+      for (var i = 0; i < 11; i++) {
+         scope.view.year_collection.push(temp_year++);
+      }
+
+      // Month Data -- Make into a directive later
+      scope.view.month_collection.push({id: 1, name: "January"});
+      scope.view.month_collection.push({id: 2, name: "February"});
+      scope.view.month_collection.push({id: 3, name: "March"});
+      scope.view.month_collection.push({id: 4, name: "April"});
+      scope.view.month_collection.push({id: 5, name: "May"});
+      scope.view.month_collection.push({id: 6, name: "June"});
+      scope.view.month_collection.push({id: 7, name: "July"});
+      scope.view.month_collection.push({id: 8, name: "August"});
+      scope.view.month_collection.push({id: 9, name: "September"});
+      scope.view.month_collection.push({id: 10, name: "October"});
+      scope.view.month_collection.push({id: 11, name: "November"});
+      scope.view.month_collection.push({id: 12, name: "December"});
+      scope.view.selected_month = date.getMonth();
+   }
+]);

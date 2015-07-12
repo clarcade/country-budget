@@ -47,6 +47,16 @@ app.config([
                   }]
             }
          })
+         .when('/groupactualincome', {
+            templateUrl: 'secure/views/groupactualincome.html',
+            controller: 'GroupActualIncomeController',
+            resolve: {
+               'auth': ['AuthenticationService',
+                  function (authentication_service) {
+                     return authentication_service.checkAccess();
+                  }]
+            }
+         })
          .when('/individual', {
             templateUrl: 'secure/views/individual.html',
             controller: 'IndividualController',
@@ -74,18 +84,6 @@ app.config([
       // Restangular Settings
       restangular_provider.setBaseUrl('http://api.countrybudget.lan');
       restangular_provider.setRequestSuffix('?XDEBUG_SESSION_START=PHPSTORM'); // works
-
-      //RestangularProvider.setDefaultHttpFields({
-      //   'withCredentials': true
-      //});
-      //RestangularProvider.setDefaultHeaders({
-      //   'Content-Type': 'application/json',
-      //   'Allow-Control-Allow-Origin': 'http://dev.countrybudget.lan',
-      //   'Allow-Control-Allow-Origin': '*',
-      //   'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
-      //   'Access-Control-Allow-Headers': 'origin, x-requested-with, content-type',
-      //   'Access-Control-Allow-Credentials': 'true'
-      //});
    }
 ]);
 
@@ -105,7 +103,7 @@ app.run([
 
       root_scope.$on('$locationChangeStart',
          function (event, next, current) {
-            console.log("locationChangeStart");
+            //console.log("locationChangeStart");
          }
       );
    }

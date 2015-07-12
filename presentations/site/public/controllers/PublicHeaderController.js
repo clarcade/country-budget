@@ -9,8 +9,6 @@ app.controller('PublicHeaderController', [
       scope.view.page_info = common_service.getPageInfo();
       scope.view.user = authentication_service.auth.user;
 
-      scope.logout = function () {
-         authentication_service.logout();
-      };
+      scope.logout = authentication_service.logout;
    }
 ]);

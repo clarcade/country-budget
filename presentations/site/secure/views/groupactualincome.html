@@ -1,0 +1,41 @@
+<secure-wrapper>
+   <select ng-model="view.selected_month"
+           ng-options="month.id as month.name for month in view.month_collection"></select>
+
+   <select ng-model="view.selected_year"
+           ng-options="year for year in view.year_collection"></select>
+
+   <table st-table="view.group_actual_income">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Notes</th>
+            <th>Date</th>
+            <th>Actions</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr ng-repeat="row in view.group_actual_income">
+            <!--<td>{{row.description}}</td>-->
+            <td>{{row.name}}</td>
+            <td>{{row.amount}}</td>
+            <td>{{row.type}}</td>
+            <td>{{row.notes}}</td>
+            <td>{{row.date}}</td>
+            <td>Edit Clone</td>
+         </tr>
+      </tbody>
+   </table>
+
+   <div>
+      Income Total: <span>{{view.total_actual_group_income}}</span>
+   </div>
+
+   <button>Add Income</button>
+
+   <!--<div>-->
+      <!--<span class="selectable-month" ng-repeat="month in view.month_collection">{{month}}</span>-->
+   <!--</div>-->
+</secure-wrapper>

@@ -20,11 +20,12 @@ app.controller('LoginController', [
 
          if (form.$valid) {
             authentication_service.login(scope.view.user).then(
-               function() {
-                  location.path('/group');
-               },
-               function(error) {
-                  console.log(error);
+               function(response) {
+                  if (angular.isDefined(response.user)) {
+                     location.path('/group');
+                  } else {
+                     console.log(response.error);
+                  }
                }
             );
          } else {

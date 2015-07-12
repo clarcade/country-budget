@@ -1,6 +1,6 @@
 <secure-wrapper>
-   <div>
-      <table st-table="rowCollection">
+   <div ng-if="view.data_loaded">
+      <table>
          <thead>
             <tr>
                <th>Finance</th>
@@ -9,10 +9,10 @@
             </tr>
          </thead>
          <tbody>
-            <tr ng-repeat="row in rowCollection">
-               <td>{{row.label}}</td>
-               <td>{{row.actual}}</td>
-               <td>{{row.what_if}}</td>
+            <tr>
+               <td>Income</td>
+               <td><a href="#/groupactualincome">{{view.group_actual_income}}</a></td>
+               <td>{{0}}</td>
             </tr>
          </tbody>
       </table>
