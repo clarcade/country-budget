@@ -1,4 +1,5 @@
 <secure-wrapper>
+   <div ng-if="!view.data_loaded">Data Still Loading...</div>
    <div ng-if="view.data_loaded">
       <table>
          <thead>
@@ -11,7 +12,21 @@
          <tbody>
             <tr>
                <td>Income</td>
-               <td><a href="#/groupactualincome">{{view.group_actual_income}}</a></td>
+               <td>
+                  <a href="#/group/income/actual">{{view.group_actual_income}}</a>
+               </td>
+               <td>{{0}}</td>
+            </tr>
+            <tr>
+               <td>Expense</td>
+               <td>
+                  <a href="#/group/expense/actual">{{view.group_actual_expense}}</a>
+               </td>
+               <td>{{0}}</td>
+            </tr>
+            <tr>
+               <td>Revenue</td>
+               <td>{{view.group_actual_revenue}}</td>
                <td>{{0}}</td>
             </tr>
          </tbody>

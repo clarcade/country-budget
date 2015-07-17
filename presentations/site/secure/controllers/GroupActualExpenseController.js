@@ -1,4 +1,4 @@
-app.controller('GroupActualIncomeController', [
+app.controller('GroupActualExpenseController', [
    '$scope',
    'CommonService',
    'GroupService',
@@ -7,27 +7,27 @@ app.controller('GroupActualIncomeController', [
             common_service,
             group_service,
             location) {
-      common_service.setPageTitle('Group Income - Actual');
+      common_service.setPageTitle('Group Expense - Actual');
       scope.view = {};
       scope.view.year_collection = [];
       scope.view.month_collection = [];
 
-      group_service.getActualIncomeData().then(
+      group_service.getActualExpenseData().then(
          function () {
-            scope.view.group_actual_income = group_service.group_actual_income_data;
+            scope.view.group_actual_expense = group_service.group_actual_expense_data;
 
             var temp_actual = 0;
-            var count = scope.view.group_actual_income.length;
+            var count = scope.view.group_actual_expense.length;
             for (var i = 0; i < count; i++) {
-               temp_actual += Number(scope.view.group_actual_income[i].amount);
+               temp_actual += Number(scope.view.group_actual_expense[i].amount);
             }
 
-            scope.view.total_actual_group_income = temp_actual;
+            scope.view.total_actual_group_expense = temp_actual;
          }
       );
 
-      scope.addGroupActualIncome = function () {
-         location.path("/group/income/actual/newitem");
+      scope.addGroupActualExpense = function () {
+         location.path("/group/expense/actual/newitem");
       };
 
       // Year Data -- Make into a directive later

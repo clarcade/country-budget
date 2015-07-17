@@ -1,0 +1,34 @@
+Item name:
+<input type="text"
+       name="name"
+       ng-model="view.item.name"
+       required>
+<span ng-if="view.try_submit">
+   <span ng-if="income_item_form.name.$error.required">
+      Required.
+   </span>
+</span>
+
+<br>
+
+Amount:
+<input type="number"
+       name="amount"
+       ng-model="view.item.amount"
+       required>
+<span ng-if="view.try_submit">
+   <span ng-if="income_item_form.amount.$error.required">
+      Required.
+   </span>
+   <span ng-if="income_item_form.amount.$error.number">
+      Must be a number.
+   </span>
+</span>
+
+<br>
+
+Notes:
+<textarea cols="25"
+          rows="5"
+          name="notes"
+          ng-model="view.item.notes"></textarea>

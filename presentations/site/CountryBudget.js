@@ -47,9 +47,39 @@ app.config([
                   }]
             }
          })
-         .when('/groupactualincome', {
+         .when('/group/income/actual', {
             templateUrl: 'secure/views/groupactualincome.html',
             controller: 'GroupActualIncomeController',
+            resolve: {
+               'auth': ['AuthenticationService',
+                  function (authentication_service) {
+                     return authentication_service.checkAccess();
+                  }]
+            }
+         })
+         .when('/group/income/actual/newitem', {
+            templateUrl: 'secure/views/groupactualincomenewitem.html',
+            controller: 'GroupActualIncomeNewItemController',
+            resolve: {
+               'auth': ['AuthenticationService',
+                  function (authentication_service) {
+                     return authentication_service.checkAccess();
+                  }]
+            }
+         })
+         .when('/group/expense/actual', {
+            templateUrl: 'secure/views/groupactualexpense.html',
+            controller: 'GroupActualExpenseController',
+            resolve: {
+               'auth': ['AuthenticationService',
+                  function (authentication_service) {
+                     return authentication_service.checkAccess();
+                  }]
+            }
+         })
+         .when('/group/expense/actual/newitem', {
+            templateUrl: 'secure/views/groupactualexpensenewitem.html',
+            controller: 'GroupActualExpenseNewItemController',
             resolve: {
                'auth': ['AuthenticationService',
                   function (authentication_service) {

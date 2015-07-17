@@ -1,0 +1,20 @@
+<secure-wrapper>
+   <form name="income_item_form" novalidate>
+      Type: <input type="text" ng-model="view.item.type">
+      <!-- This is better for the expense items -->
+      <!--Type: <select ng-if="view.item_types"-->
+              <!--ng-model="view.item.type"-->
+              <!--ng-options="type for type in view.item_types"-->
+              <!--ng-change="updateTemplateType()"></select>-->
+
+      <br>
+
+      <ng-include src="'secure/views/basicitem.html'"></ng-include>
+
+      <br>
+
+      <input type="button"
+             value="Submit"
+             ng-click="submit(income_item_form)">
+   </form>
+</secure-wrapper>

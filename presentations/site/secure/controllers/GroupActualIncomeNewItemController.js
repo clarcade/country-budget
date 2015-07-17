@@ -1,4 +1,4 @@
-app.controller('GroupActualIncomeController', [
+app.controller('GroupActualIncomeNewItemController', [
    '$scope',
    'CommonService',
    'GroupService',
@@ -7,28 +7,35 @@ app.controller('GroupActualIncomeController', [
             common_service,
             group_service,
             location) {
-      common_service.setPageTitle('Group Income - Actual');
+      common_service.setPageTitle('Group Income - Actual - Add Item');
       scope.view = {};
+      scope.view.item = {};
       scope.view.year_collection = [];
       scope.view.month_collection = [];
+      //scope.view.item_types = [
+      //   "basic",
+      //   "mortgage"
+      //];
+      //scope.view.item.type = scope.view.item_types[0];
 
-      group_service.getActualIncomeData().then(
-         function () {
-            scope.view.group_actual_income = group_service.group_actual_income_data;
-
-            var temp_actual = 0;
-            var count = scope.view.group_actual_income.length;
-            for (var i = 0; i < count; i++) {
-               temp_actual += Number(scope.view.group_actual_income[i].amount);
-            }
-
-            scope.view.total_actual_group_income = temp_actual;
+      scope.submit = function (form) {
+         if (form.$valid) {
+            group_service.addActualIncomeItem(scope.view.item);
+         } else {
+            console.log("Form not valid");
          }
-      );
-
-      scope.addGroupActualIncome = function () {
-         location.path("/group/income/actual/newitem");
       };
+
+      //scope.updateTemplateType = function() {
+      //   console.log("Updating template.");
+      //
+      //   if ((scope.view.item.type !== null) &&
+      //       (scope.view.item.type !== "")) {
+      //      scope.view.template_type = '/secure/views/' + scope.view.item.type + 'item.html';
+      //   }
+      //};
+      //
+      //scope.updateTemplateType();
 
       // Year Data -- Make into a directive later
       var date = new Date();

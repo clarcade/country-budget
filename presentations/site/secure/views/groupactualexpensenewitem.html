@@ -1,0 +1,21 @@
+<secure-wrapper>
+   <form name="expense_item_form" novalidate>
+      Type: <select ng-if="view.item_types"
+              ng-model="view.item.type"
+              ng-options="type for type in view.item_types"
+              ng-change="updateTemplateType()"></select>
+
+      <br>
+
+      <div ng-if="view.template_type">
+         <ng-include
+            src="view.template_type"></ng-include>
+
+         <br>
+
+         <input type="button"
+                value="Submit"
+                ng-click="submit(expense_item_form)">
+      </div>
+   </form>
+</secure-wrapper>
