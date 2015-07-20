@@ -2,36 +2,47 @@
    <div ng-if="!view.group_actual_income">Data Loading...</div>
    <div ng-if="view.group_actual_income">
       <div ng-if="view.group_actual_income.length > 0">
-         <select ng-model="view.selected_month"
-                 ng-options="month.id as month.name for month in view.month_collection"></select>
+         <!-- Use these two for sorting later -->
+         <!--<select ng-model="view.selected_month"-->
+                 <!--ng-options="month.id as month.name for month in view.month_collection"></select>-->
 
-         <select ng-model="view.selected_year"
-                 ng-options="year for year in view.year_collection"></select>
+         <!--<select ng-model="view.selected_year"-->
+                 <!--ng-options="year for year in view.year_collection"></select>-->
 
          <table st-table="view.group_actual_income">
             <thead>
                <tr>
-                  <th>Name</th>
-                  <th>Amount</th>
-                  <th>Type</th>
+                  <th st-sort="name">Name</th>
+                  <th st-sort="amount">Amount</th>
+                  <th st-sort="type">Type</th>
                   <th>Notes</th>
-                  <th>Date</th>
+                  <th st-sort="date" st-sort-default="reverse">Date</th>
                   <th>Actions</th>
                </tr>
             </thead>
             <tbody>
                <tr ng-repeat="row in view.group_actual_income">
                   <td>{{row.name}}</td>
-                  <td>{{row.amount}}</td>
+                  <td>{{row.amount | currency}}</td>
                   <td>{{row.type}}</td>
                   <td>{{row.notes}}</td>
-                  <td>{{row.date}}</td>
+                  <td>{{row.date | date : 'mediumDate' : 'UTC'}}</td>
                   <td>Edit Clone</td>
                </tr>
             </tbody>
+            <tfoot>
+               <tr>
+                  <td colspan="6">
+                     <div st-pagination="" st-items-by-page="15" st-displayed-pages="3"></div>
+                  </td>
+               </tr>
+            </tfoot>
          </table>
+
+         <br>
+
          <div>
-            Income Total: <span>{{view.total_actual_group_income}}</span>
+            Income Total: <span>{{view.total_actual_group_income | currency}}</span>
          </div>
 
          <br>

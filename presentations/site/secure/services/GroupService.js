@@ -21,6 +21,11 @@ app.factory('GroupService', [
                function (response) {
                   if (angular.isDefined(response.group_actual_income_data) &&
                      (response.group_actual_income_data !== null)) {
+                     var count = response.group_actual_income_data.length;
+                     for (var i = 0; i < count; i++) {
+                        response.group_actual_income_data[i].date = new Date(response.group_actual_income_data[i].date);
+                     }
+
                      group_service.group_actual_income_data = response.group_actual_income_data;
                   }
                },

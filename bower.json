@@ -14,6 +14,6 @@
     "restangular": "~1.5.1",
     "d3": "~3.5.5",
     "ngstorage": "~0.3.4",
-    "angular-smart-table": "~2.1.0"
+    "angular-smart-table": "~2.1.1"
   }
 }

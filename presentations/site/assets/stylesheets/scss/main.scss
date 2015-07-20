@@ -1,5 +1,6 @@
 $left_column_width_size: 15%;
-$center_column_width_size: 100% - $left_column_width_size;
+//$center_column_width_size: 100% - $left_column_width_size; // When only leftbar is used
+$center_column_width_size: 100% - (2 * $left_column_width_size); // When leftbar and rightbar are used
 
 html, body, div, section, p, h1, header, footer, ng-include,
 nav, ul, li, a, figure, img, aside, form, input {
