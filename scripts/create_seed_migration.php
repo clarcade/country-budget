@@ -40,6 +40,28 @@ VALUES
 , 1, UTC_TIMESTAMP()
 , 1, UTC_TIMESTAMP());
 
+SELECT \'group_basic_expense\' AS "INSERT INTO";
+INSERT INTO group_basic_expense
+( `name`
+, `type`
+, `amount`
+, `group_id`
+, `notes`
+, `what_if`
+, `created_by`
+, `creation_date`
+, `last_updated_by`
+, `last_update_date`)
+VALUES
+( \'Burger ' . ($i + 1) . '\'
+, \'Fast Food\'
+, 6
+, 2
+, \'Red Robin\'
+, 0
+, 1, UTC_TIMESTAMP()
+, 1, UTC_TIMESTAMP());
+
 ';
 }
 
