@@ -3,35 +3,48 @@
    <div ng-if="view.group_actual_expense">
       <div ng-if="view.group_actual_expense.length > 0">
          <select ng-model="view.selected_month"
-                 ng-options="month.id as month.name for month in view.month_collection"></select>
+                 ng-options="month.id as month.name for month in view.month_collection"
+                 ng-change="rowQuery()"></select>
 
          <select ng-model="view.selected_year"
-                 ng-options="year for year in view.year_collection"></select>
+                 ng-options="year for year in view.year_collection"
+                 ng-change="rowQuery()"></select>
 
-         <table st-table="view.group_actual_expense">
+         <table st-table="view.row_collection"
+                st-pipe="rowQuery">
             <thead>
-            <tr>
-               <th>Name</th>
-               <th>Amount</th>
-               <th>Type</th>
-               <th>Notes</th>
-               <th>Date</th>
-               <th>Actions</th>
-            </tr>
+               <tr>
+                  <th st-sort="name">Name</th>
+                  <th st-sort="amount">Amount</th>
+                  <th st-sort="type">Type</th>
+                  <th>Notes</th>
+                  <th st-sort="date" st-sort-default="reverse">Date</th>
+                  <th>Actions</th>
+               </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="row in view.group_actual_expense">
-               <td>{{row.name}}</td>
-               <td>{{row.amount}}</td>
-               <td>{{row.type}}</td>
-               <td>{{row.notes}}</td>
-               <td>{{row.date}}</td>
-               <td>Edit Clone</td>
-            </tr>
+               <tr ng-repeat="row in view.row_collection">
+                  <td>{{row.name}}</td>
+                  <td>{{row.amount | currency}}</td>
+                  <td>{{row.type}}</td>
+                  <td>{{row.notes}}</td>
+                  <td>{{row.date | date : 'mediumDate' : 'UTC'}}</td>
+                  <td>Edit Clone</td>
+               </tr>
             </tbody>
+            <tfoot>
+               <tr>
+                  <td colspan="6">
+                     <div st-pagination=""
+                          st-items-by-page="view.items_per_page"
+                          st-displayed-pages="view.displayed_pages"></div>
+                  </td>
+               </tr>
+            </tfoot>
          </table>
+
          <div>
-            Expense Total: <span>{{view.total_actual_group_expense}}</span>
+            Expense Total: <span>{{view.total_actual_group_expense | currency}}</span>
          </div>
 
          <br>
@@ -40,6 +53,9 @@
          No items saved.
       </div>
 
-      <input type="button" ng-click="addGroupActualExpense()" value="Add Item">
+      <input type="button"
+             ng-click="addGroupActualExpense()"
+             value="Add Item"
+             class="button">
    </div>
 </secure-wrapper>

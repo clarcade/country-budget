@@ -2,13 +2,6 @@
    <div ng-if="!view.group_actual_income">Data Loading...</div>
    <div ng-if="view.group_actual_income">
       <div ng-if="view.group_actual_income.length > 0">
-         <!-- Use these two for sorting later -->
-         <!--<select ng-model="view.selected_month"-->
-                 <!--ng-options="month.id as month.name for month in view.month_collection"></select>-->
-
-         <!--<select ng-model="view.selected_year"-->
-                 <!--ng-options="year for year in view.year_collection"></select>-->
-
          <table st-table="view.group_actual_income">
             <thead>
                <tr>
@@ -39,8 +32,6 @@
             </tfoot>
          </table>
 
-         <br>
-
          <div>
             Income Total: <span>{{view.total_actual_group_income | currency}}</span>
          </div>
@@ -51,6 +42,9 @@
          No items saved.
       </div>
 
-      <input type="button" ng-click="addGroupActualIncome()" value="Add Item">
+      <input type="button"
+             ng-click="addGroupActualIncome()"
+             value="Add Item"
+             class="button">
    </div>
 </secure-wrapper>

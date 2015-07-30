@@ -33,7 +33,7 @@ INSERT INTO group_basic_income
 VALUES
 ( \'ISDC ' . ($i + 1) . '\'
 , \'Check\'
-, 2000
+, 100
 , 2
 , \'InsideSales.com check\'
 , 0

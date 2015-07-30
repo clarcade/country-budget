@@ -7,7 +7,9 @@
    </figure>
    <div class="header-links">
       <a href="#/login" ng-if="!view.user.id">Log In</a>
-      <button ng-if="view.user.id" ng-click="logout()">Log out</button>
+      <button ng-if="view.user.id"
+              ng-click="logout()"
+              class="button">Log out</button>
    </div>
    <h1>{{view.page_info.page_title}}</h1>
 </header>
