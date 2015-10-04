@@ -5,21 +5,21 @@ var sass = require('gulp-sass');
 
 gulp.task('clean', function(cb) {
    del([
-      'presentations/site/assets/vendor/*'
+      'assets/vendor/*'
    ], cb);
 });
 
 gulp.task('bower', ['clean'], function() {
    return bower()
-      .pipe(gulp.dest('presentations/site/assets/vendor/'))
+      .pipe(gulp.dest('assets/vendor/'))
 });
 
 gulp.task('sass', function () {
-   gulp.src('./presentations/site/assets/stylesheets/scss/*.scss')
+   gulp.src('./assets/stylesheets/scss/*.scss')
        .pipe(sass().on('error', sass.logError))
-       .pipe(gulp.dest('./presentations/site/assets/stylesheets/css'));
+       .pipe(gulp.dest('./assets/stylesheets/css'));
 });
 
 gulp.task('sass:watch', function () {
-   gulp.watch('./presentations/site/assets/stylesheets/scss/*.scss', ['sass']);
+   gulp.watch('./assets/stylesheets/scss/*.scss', ['sass']);
 });

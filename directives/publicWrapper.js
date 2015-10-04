@@ -3,7 +3,7 @@ app.directive('publicWrapper',
       return {
          restrict: 'E',
          transclude: true,
-         templateUrl: 'public/templates/publicwrapper.html'
+         templateUrl: 'templates/publicwrapper.html'
       };
    }
 );

@@ -3,7 +3,7 @@ app.directive('secureWrapper',
       return {
          restrict: 'E',
          transclude: true,
-         templateUrl: 'secure/templates/securewrapper.html'
+         templateUrl: 'templates/securewrapper.html'
       };
    }
 );
