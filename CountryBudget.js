@@ -1,15 +1,17 @@
 var app = angular.module('CountryBudgetApp', [
-   'restangular',
+   //'restangular',
    'ngRoute',
-   'ngStorage',
-   'smart-table'
+   //'ngStorage',
+   //'smart-table',
+   'ui.bootstrap',
+   'ngAnimate'
 ]);
 
 app.config([
    '$routeProvider',
-   'RestangularProvider',
-   function ($routeProvider,
-             restangular_provider) {
+   //'RestangularProvider',
+   function ($routeProvider/*,
+             restangular_provider*/) {
       // Route Settings
       $routeProvider
          .when('/', {
@@ -20,52 +22,52 @@ app.config([
             templateUrl: 'views/home.html',
             controller: 'HomeController'
          })
-         .when('/login', {
-            templateUrl: 'views/login.html',
-            controller: 'LoginController'
-         })
-         .when('/register', {
-            templateUrl: 'views/register.html',
-            controller: 'RegisterController'
-         })
-         .when('/group', {
-            templateUrl: 'views/group.html',
-            controller: 'GroupController',
-            resolve: {
-               'auth': ['AuthenticationService',
-                  function (authentication_service) {
-                     return authentication_service.checkAccess();
-                  }]
-            }
-         })
+         //.when('/login', {
+         //   templateUrl: 'views/login.html',
+         //   controller: 'LoginController'
+         //})
+         //.when('/register', {
+         //   templateUrl: 'views/register.html',
+         //   controller: 'RegisterController'
+         //})
+         //.when('/group', {
+         //   templateUrl: 'views/group.html',
+         //   controller: 'GroupController',
+         //   resolve: {
+         //      'auth': ['AuthenticationService',
+         //         function (authentication_service) {
+         //            return authentication_service.checkAccess();
+         //         }]
+         //   }
+         //})
          .otherwise({
             redirectTo: '/'
          });
 
       // Restangular Settings
-      restangular_provider.setBaseUrl('http://api.countrybudget.lan');
-      restangular_provider.setRequestSuffix('?XDEBUG_SESSION_START=PHPSTORM'); // works
+      //restangular_provider.setBaseUrl('http://api.countrybudget.lan');
+      //restangular_provider.setRequestSuffix('?XDEBUG_SESSION_START=PHPSTORM'); // works
    }
 ]);
 
-app.run([
-   '$rootScope',
-   '$location',
-   function (root_scope,
-             location) {
-      root_scope.$on('$routeChangeError',
-         function (event, current, previous, rejection) {
-            if (rejection === 'login_error') {
-               console.log("You must log in.");
-               location.path("/login");
-            }
-         }
-      );
-
-      root_scope.$on('$locationChangeStart',
-         function (event, next, current) {
-            //console.log("locationChangeStart");
-         }
-      );
-   }
-]);
+//app.run([
+//   '$rootScope',
+//   '$location',
+//   function (root_scope,
+//             location) {
+//      root_scope.$on('$routeChangeError',
+//         function (event, current, previous, rejection) {
+//            if (rejection === 'login_error') {
+//               console.log("You must log in.");
+//               location.path("/login");
+//            }
+//         }
+//      );
+//
+//      root_scope.$on('$locationChangeStart',
+//         function (event, next, current) {
+//            //console.log("locationChangeStart");
+//         }
+//      );
+//   }
+//]);

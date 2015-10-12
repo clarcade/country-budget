@@ -1,11 +1,34 @@
-// Don't need this now, but I may need it later so I'll leave it for now.
 app.factory('UserService', [
-   'Restangular',
-   'AuthenticationService',
-   function(restangular,
-            authentication_service) {
+   'ItemService',
+   function(item_service) {
       var user_service = {};
-      user_service.user = authentication_service.auth.user;
+      user_service.user = {};
+      user_service.user.income_items = [];
+      user_service.user.expense_items = [];
+
+      user_service.addItem = function() {
+         console.log("Do add item stuff.");
+         item_service.addItem().result.then(
+            function (income_item) {
+               console.log("income_item: ", income_item);
+            },
+            function (response) {
+               console.log("response: ", response);
+            }
+         );
+      };
+
+      user_service.editRemoveItem = function() {
+         console.log("Do edit/remove item stuff.");
+         item_service.editRemoveItem().result.then(
+            function (response) {
+               console.log("editRemoveItem: Success.");
+            },
+            function (response) {
+               console.log("response: ", response);
+            }
+         );
+      };
 
       return user_service;
    }

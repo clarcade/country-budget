@@ -1,241 +1,28 @@
-$table_header_color_1: #0087AD;
-$table_header_color_2: #07C8FF;
-//$table_cell_color_1: #B8B9B9;
-//$table_cell_color_2: #6E6F6F;
-//$table_cell_color_1: #AA8839;
-//$table_cell_color_2: #AA4839;
-//$table_cell_color_1: #BE00F4;
-//$table_cell_color_2: #6F008F;
-$table_cell_color_1: #AFFFFF;
-$table_cell_color_2: #17daff;
-$button_linear_color_1: #AFFFFF;
-$button_linear_color_2: #17daff;
-$button_border_color: #6161FF;
-
-$left_column_width_size: 15%;
-//$center_column_width_size: 100% - $left_column_width_size; // When only leftbar is used
-$center_column_width_size: 100% - (2 * $left_column_width_size); // When leftbar and rightbar are used
-
-@mixin border-radius($radius) {
-   -webkit-border-radius: $radius;
-   -moz-border-radius: $radius;
-   -ms-border-radius: $radius;
-   border-radius: $radius;
-}
-
-@mixin border-top-left-radius($radius) {
-   -webkit-border-top-left-radius: $radius;
-   -moz-border-top-left-radius: $radius;
-   -ms-border-top-left-radius: $radius;
-   border-top-left-radius: $radius;
-}
-
-@mixin border-top-right-radius($radius) {
-   -webkit-border-top-right-radius: $radius;
-   -moz-border-top-right-radius: $radius;
-   -ms-border-top-right-radius: $radius;
-   border-top-right-radius: $radius;
-}
-
-@mixin border-bottom-left-radius($radius) {
-   -webkit-border-bottom-left-radius: $radius;
-   -moz-border-bottom-left-radius: $radius;
-   -ms-border-bottom-left-radius: $radius;
-   border-bottom-left-radius: $radius;
-}
-
-@mixin border-bottom-right-radius($radius) {
-   -webkit-border-bottom-right-radius: $radius;
-   -moz-border-bottom-right-radius: $radius;
-   -ms-border-bottom-right-radius: $radius;
-   border-bottom-right-radius: $radius;
-}
-
-@mixin vertical-linear-gradient($color_1, $color_2) {
-   background: -webkit-linear-gradient($color_1, $color_2);
-   background: -moz-linear-gradient($color_1, $color_2);
-   background: -ms-linear-gradient($color_1, $color_2);
-   background: linear-gradient($color_1, $color_2);
-}
-
-html, body, div, section, p, h1, header, footer, ng-include,
-nav, ul, li, a, figure, img, aside, form, input {
+.countrybudget {
    margin: 0;
    padding: 0;
-}
-
-html, body {
    height: 100%;
    width: 100%;
-}
 
-body {
-   background-color: brown;
-}
-
-.center-text, header h1, footer p {
-   text-align: center;
-}
-
-header h1 {
-   padding-left: $left_column_width_size;
-}
-
-.main-content-container {
-   display: inline-block;
-   width: 100%;
-   height: 100%;
-   background-color: #777777;
-
-   &:after {
-      clear: both;
-   }
-}
-
-.center-content {
-   width: $center_column_width_size;
-   background-color: orange;
-   height: 100%;
-   position: relative;
-   overflow: auto;
-}
-
-.left-content, .right-content {
-   width: $left_column_width_size;
-   background-color: lawngreen;
-   height: 100%;
-}
-
-.left-content {
-   float: left;
-}
-.right-content {
-   float: right;
-}
-
-header, footer {
-   padding: 10px 0;
-}
-
-.header-right-content {
-   float: right;
-   width: $left_column_width_size;
-   background-color: darkturquoise;
-}
-
-.gear-figure {
-   float: right;
-   position: relative;
-   right: 2%;
-}
-
-.home-figure {
-   float: left;
-   position: relative;
-   margin-left: 2%;
-}
-
-.header-links {
-   float: right;
-   width: 11%;
-   //background-color: darkturquoise;
-   line-height: 2;
-}
-
-.left-nav {
-// fill in later
-}
-
-.my-ngview, .my-transclude {
-   height: 100%;
-}
-
-// delete me later
-header, footer {
-   background-color: #ffe87c;
-}
-
-.selectable-month {
-   display: inline-block;
-   width: percentage(1/12);
-   //margin-left: 5px;
-   //margin-right: 5px;
-}
-
-table {
-   width: 100%;
-   text-align: center;
-   vertical-align: middle;
-   border-collapse: collapse;
-   margin: 0 auto;
-   //border: 1px solid black;
-
-   thead {
-      tr {
-         th {
-            //border: 1px solid black;
-            @include vertical-linear-gradient(
-               $table_header_color_2,
-               $table_header_color_1
-            );
-
-            &:first-child {
-               @include border-top-left-radius(5px);
-            }
-
-            &:last-child {
-               @include border-top-right-radius(5px);
-            }
-         }
-      }
+   body, div, section, p, h1, header, footer, ng-include,
+   nav, ul, li, a, figure, img, aside, form, input {
+      margin: 0;
+      padding: 0;
    }
 
-   tbody {
-      tr:nth-child(odd) {
-         background-color: $table_cell_color_2;
-
-         td {
-            //border: 1px solid black;
-            //background-color: $table_cell_color_2;
-         }
-      }
-      tr:nth-child(even) {
-         background-color: $table_cell_color_1;
-
-         td {
-            //border: 1px solid black;
-            //background-color: $table_cell_color_1;
-         }
-      }
-      tr:last-child td {
-         &:first-child {
-            @include border-bottom-left-radius(5px);
-         }
-         &:last-child {
-            @include border-bottom-right-radius(5px);
-         }
-      }
+   body {
+      height: 100%;
+      width: 100%;
+      background-color: #5bc0de;
    }
 
-   tfoot {
-      li {
-         display: inline-block;
-         position: relative;
-         //background-color: brown;
-         padding: 10px;
-         cursor: pointer;
-         color: white;
+   .nav, .pagination, .carousel, .panel-title a { cursor: pointer; } // Needed by angular-ui bootstrap
 
-         &.active {
-            color: $table_header_color_1;
-         }
-      }
+   .input-container {
+      margin: 10px 0;
    }
-}
 
-.button {
-   border: 1px solid $button_border_color;
-   padding: 5px 10px;
-   @include border-radius(8px);
-   @include vertical-linear-gradient($button_linear_color_1, $button_linear_color_2);
+   .modal-dialog {
+      margin: 0 auto;
+   }
 }

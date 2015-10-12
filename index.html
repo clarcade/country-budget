@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html ng-app="CountryBudgetApp">
+<html ng-app="CountryBudgetApp" class="countrybudget">
    <head>
-      <meta charset="UTF-8">
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>CountryBudget</title>
-      <link rel="stylesheet" type="text/css" href="assets/stylesheets/css/main.css">
+      <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
       <script src="assets/vendor/angular/angular.js"></script>
+      <link rel="stylesheet" type="text/css" href="assets/stylesheets/css/main.css">
+      <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
    </head>
    <body>
       <div ng-view class="my-ngview"></div>
@@ -12,40 +17,27 @@
       <!-- Main App Script -->
       <script src="CountryBudget.js"></script>
 
-      <!-- Public Controllers -->
+      <!-- Controllers -->
+      <script src="controllers/AddItemController.js"></script>
+      <script src="controllers/EditRemoveItemController.js"></script>
       <script src="controllers/HomeController.js"></script>
-      <script src="controllers/LoginController.js"></script>
-      <script src="controllers/PublicHeaderController.js"></script>
-      <script src="controllers/RegisterController.js"></script>
-
-      <!-- Secure Controllers -->
-      <script src="controllers/AllUsersController.js"></script>
-      <script src="controllers/GroupActualExpenseController.js"></script>
-      <script src="controllers/GroupActualExpenseNewItemController.js"></script>
-      <script src="controllers/GroupActualIncomeController.js"></script>
-      <script src="controllers/GroupActualIncomeNewItemController.js"></script>
-      <script src="controllers/GroupController.js"></script>
-      <script src="controllers/IndividualController.js"></script>
-      <script src="controllers/MortgageController.js"></script>
-      <script src="controllers/SecureHeaderController.js"></script>
-      <script src="controllers/SettingsController.js"></script>
 
       <!-- Services -->
-      <script src="services/AuthenticationService.js"></script>
-      <script src="services/CommonService.js"></script>
-      <script src="services/MortgageService.js"></script>
-      <script src="services/GroupService.js"></script>
+      <script src="services/ItemService.js"></script>
       <script src="services/UserService.js"></script>
 
       <!-- Assets -->
       <script src="assets/vendor/angular-route/angular-route.js"></script>
-      <script src="assets/vendor/angular-smart-table/dist/smart-table.js"></script>
+      <!--<script src="assets/vendor/angular-smart-table/dist/smart-table.js"></script>-->
       <script src="assets/vendor/lodash/lodash.js"></script>
-      <script src="assets/vendor/ngstorage/ngStorage.js"></script>
-      <script src="assets/vendor/restangular/dist/restangular.js"></script>
+      <!--<script src="assets/vendor/ngstorage/ngStorage.js"></script>-->
+      <!--<script src="assets/vendor/restangular/dist/restangular.js"></script>-->
+      <script src="assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="assets/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="assets/vendor/angular-animate/angular-animate.js"></script>
 
       <!-- Directives -->
-      <script src="directives/publicWrapper.js"></script>
-      <script src="directives/secureWrapper.js"></script>
+      <!--<script src="directives/publicWrapper.js"></script>-->
+      <!--<script src="directives/secureWrapper.js"></script>-->
    </body>
 </html>
