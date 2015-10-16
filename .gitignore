@@ -1,9 +1,6 @@
 .idea/
-domain/
 node_modules/
 vendor/
-vendor/peej/tonic/
 assets/vendor/
 assets/images/
 assets/stylesheets/css/
-phpinfo.php
