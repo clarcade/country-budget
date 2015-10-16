@@ -54,7 +54,16 @@
 
          <div ng-if="view.item.recurrence_type">
             <div ng-if="view.item.recurrence_type === 'None'">
-               <div ng-model="view.item.date">Date-Picker here</div>
+               <!--<div ng-model="view.item.date">Date-Picker here</div>-->
+               <input type="text"
+                      datepicker-options="view.date_options"
+                      ng-model="view.item.date"
+                      ng-required="true">
+               <!--<input type="text"-->
+                      <!--datepicker-options="view.date_options"-->
+                      <!--ng-model="view.item.date"-->
+                      <!--date-disabled="disabled(date, mode)"-->
+                      <!--ng-required="true">-->
                <div>
                   Value:
                   <input type="number" ng-model="view.item.value">

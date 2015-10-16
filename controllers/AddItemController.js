@@ -5,6 +5,11 @@ app.controller('AddItemController', [
              modal_instance) {
       $scope.view = {};
       $scope.view.item = {};
+      $scope.view.date_options = {
+         "close-text": "Close",
+         "is-open": false,
+         "uib-datepicker-popup": 'yyyy/MM/dd'
+      };
 
       $scope.done = function () {
          modal_instance.close('done clicked');
