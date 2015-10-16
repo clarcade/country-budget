@@ -4,8 +4,8 @@
    height: 100%;
    width: 100%;
 
-   body, div, section, p, h1, header, footer, ng-include,
-   nav, ul, li, a, figure, img, aside, form, input {
+   body, div, section, p, h1, header, footer, nav, ul, li, a,
+   figure, img, aside, form, input {
       margin: 0;
       padding: 0;
    }
@@ -16,13 +16,9 @@
       background-color: #5bc0de;
    }
 
-   .nav, .pagination, .carousel, .panel-title a { cursor: pointer; } // Needed by angular-ui bootstrap
-
-   .input-container {
-      margin: 10px 0;
-   }
-
-   .modal-dialog {
-      margin: 0 auto;
+   .button {
+      background-color: #4285f4;
+      color: #ffffff;
+      font-size: 14px;
    }
 }
