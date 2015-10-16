@@ -8,5 +8,6 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "polymer": "Polymer/polymer#^1.1.0"
   }
 }
