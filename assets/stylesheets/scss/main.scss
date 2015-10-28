@@ -16,9 +16,21 @@
       background-color: #5bc0de;
    }
 
+   paper-dialog {
+      position: relative;
+      margin: 0 auto;
+      width: 90%;
+   }
+
    .button {
       background-color: #4285f4;
       color: #ffffff;
       font-size: 14px;
+   }
+
+   .dialog-container {
+      position: absolute;
+      top: 0;
+      width: 100%;
    }
 }

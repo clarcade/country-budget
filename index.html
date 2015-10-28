@@ -7,15 +7,65 @@
       <link rel="stylesheet" type="text/css" href="stylesheets/css/main.css">
    </head>
    <body>
-      <!--<proto-element></proto-element>-->
       <section>
          <h1>What-If Calculator</h1>
          <p>Use this calculator to determine how expenses may effect your budget by entering in your current balance, and any actual or 'what-if' income and expenses.</p>
       </section>
       <section>
          <div>
-            <paper-button raised class="button">Add Item</paper-button>
-            <paper-button raised class="button">Edit/Remove Item</paper-button>
+            <paper-button raised
+                          class="button"
+                          onclick="country_budget.openAddItemDialog()">Add Item</paper-button>
+            <paper-button raised
+                          class="button">Edit/Remove Item</paper-button>
+            <!--<paper-dialog id="addItemDialog"-->
+                          <!--modal="true"-->
+                          <!--opened="false">-->
+            <div>
+               here
+               <p>here2</p>
+               <p>here3</p>
+               <p>here4</p>
+               <p>here5</p>
+               <p>here6</p>
+               <p>here7</p>
+               <p>here8</p>
+            </div>
+            <div class="dialog-container">
+               <paper-dialog id="addItemDialog" withBackdrop="true">
+                  <h2>header</h2>
+                  <div>modal body</div>
+                  <paper-button raised
+                                class="button"
+                                dialog-confirm>Add</paper-button>
+                  <paper-button raised
+                                class="button"
+                                dialog-dismiss>Cancel</paper-button>
+               </paper-dialog>
+               <!--<paper-dialog modal="true"-->
+                             <!--id="addItemDialog"-->
+                             <!--noCancelOnOutsideClick="true"-->
+                             <!--withBackdrop="true">-->
+                  <!--<h2>header</h2>-->
+                  <!--<div>modal body</div>-->
+                  <!--<paper-button raised-->
+                                <!--class="button"-->
+                                <!--dialog-confirm>Add</paper-button>-->
+                  <!--<paper-button raised-->
+                                <!--class="button"-->
+                                <!--dialog-dismiss>Cancel</paper-button>-->
+               <!--</paper-dialog>-->
+            </div>
+            <p>after1</p>
+            <p>after2</p>
+            <p>after3</p>
+            <p>after4</p>
+            <p>after5</p>
+            <p>after6</p>
+            <p>after7</p>
+            <p>after8</p>
+            <p>after9</p>
+            <p>after10</p>
          </div>
       </section>
 
@@ -25,5 +75,6 @@
       <!-- Assets -->
       <link rel="import" href="components/proto-element.html">
       <link rel="import" href="vendor/paper-button/paper-button.html">
+      <link rel="import" href="vendor/paper-dialog/paper-dialog.html">
    </body>
 </html>
