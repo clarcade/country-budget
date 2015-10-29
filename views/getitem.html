@@ -5,16 +5,14 @@
   </div>
   <div>
     Revenue Type:
-    <select ng-model="view.item.revenue_type">
-      <option>Income</option>
-      <option>Expense</option>
+    <select ng-model="view.item.revenue_type"
+            ng-options="revenue_type for revenue_type in view.revenue_types">
     </select>
   </div>
   <div>
     Item Type:
-    <select ng-model="view.item.item_type">
-      <option>Actual</option>
-      <option>What-If</option>
+    <select ng-model="view.item.item_type"
+            ng-options="item_type for item_type in view.item_types">
     </select>
   </div>
   <!--<div>-->
@@ -30,27 +28,19 @@
   <div ng-if="view.item.revenue_type">
     {{view.item.revenue_type}} Type:
     <select ng-model="view.item.template_type"
-            ng-if="view.item.revenue_type === 'Income'">
-      <option>Normal</option>
-      <option>CD</option>
-      <option>Other non-simple income</option>
+            ng-if="view.item.revenue_type === 'Income'"
+            ng-options="template_type for template_type in view.income_template_types">
     </select>
     <select ng-model="view.item.template_type"
-            ng-if="view.item.revenue_type === 'Expense'">
-      <option>Normal</option>
-      <option>Morgage Loan</option>
-      <option>Auto Loan</option>
-      <option>Other non-simple purchase</option>
+            ng-if="view.item.revenue_type === 'Expense'"
+            ng-options="template_type for template_type in view.expense_template_types">
     </select>
   </div>
   <div ng-if="view.item.template_type">
     <div ng-if="view.item.template_type === 'Normal'">
       Recurrence Type:
-      <select ng-model="view.item.recurrence_type">
-        <option>None</option>
-        <option>Bi-Weekly</option>
-        <option>Monthly</option>
-        <option>Yearly</option>
+      <select ng-model="view.item.recurrence_type"
+              ng-options="recurrence_type for recurrence_type in view.recurrence_types">
       </select>
     </div>
     <div ng-if="view.item.recurrence_type">
@@ -69,8 +59,11 @@
                  datepicker-options="view.date_options">
         </div>
         <div>
-          Value:
-          <input type="number" ng-model="view.item.value">
+          Value: $
+          <input type="number"
+                 ng-model="view.item.value"
+                 pattern="[0-9]+([,\.][0-9]{1,2})?$"
+                 step="0.01">
         </div>
       </div>
       <div ng-if="view.item.recurrence_type !== 'None'">

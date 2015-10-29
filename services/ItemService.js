@@ -15,6 +15,7 @@ app.factory('ItemService', [
     item_service.addItem = function () {
       console.log("ItemService: addItem");
       console.log("This is where we make a post for addItem");
+      console.log("On success update user's cached items");
     };
 
     item_service.editRemoveItem = function () {
