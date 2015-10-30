@@ -1,39 +1,42 @@
 .countrybudget {
-   margin: 0;
-   padding: 0;
-   height: 100%;
-   width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 
-   body, div, section, p, h1, header, footer, ng-include,
-   nav, ul, li, a, figure, img, aside, form, input {
-      margin: 0;
-      padding: 0;
-   }
+  body, div, section, p, h1, header, footer, ng-include,
+  nav, ul, li, a, figure, img, aside, form, input {
+    margin: 0;
+    padding: 0;
+  }
 
-   body {
-      height: 100%;
-      width: 100%;
-      background-color: #5bc0de;
-   }
+  body {
+    height: 100%;
+    width: 100%;
+    background-color: #5bc0de;
+  }
 
-   .nav, .pagination, .carousel, .panel-title a { cursor: pointer; } // Needed by angular-ui bootstrap
+  .nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+  }
+  // Needed by angular-ui bootstrap
 
-   .input-container {
-      margin: 10px 0;
-   }
+  .input-container {
+    margin: 10px 0;
+  }
 
-   .modal-dialog {
-      margin: 0 auto;
-   }
+  .modal-dialog {
+    margin: 0 auto;
+  }
 
-   .datepicker-container {
-      input {
-         width: 300px;
-         display: inline-block;
-      }
-      button {
-         position: relative;
-         bottom: 1px;
-      }
-   }
+  .datepicker-container {
+    input {
+      width: 300px;
+      display: inline-block;
+    }
+    button {
+      position: relative;
+      bottom: 1px;
+    }
+  }
 }
