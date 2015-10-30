@@ -11,7 +11,7 @@ app.controller('HomeController', [
       console.log("HomeController: addItem");
       item_service.getItem().result.then(
         function (item) {
-          item_service.addItem(user_service.user.id, item);
+          return item_service.addItem(user_service.user.id, item);
         },
         function (error) {
           if (error) {
@@ -19,6 +19,13 @@ app.controller('HomeController', [
           } else {
             console.log("Failed to get item.");
           }
+        }
+      ).then(
+        function (response) {
+          console.log("response: ", response);
+        },
+        function (error) {
+          console.log("error: ", error);
         }
       );
     };

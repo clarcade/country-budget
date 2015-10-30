@@ -1,12 +1,15 @@
 var app = angular.module('CountryBudgetApp', [
   'ngRoute',
   'ui.bootstrap',
-  'ngAnimate'
+  'ngAnimate',
+  'restangular'
 ]);
 
 app.config([
   '$routeProvider',
-  function ($routeProvider) {
+  'RestangularProvider',
+  function ($routeProvider,
+            restangular_provider) {
     // Route Settings
     $routeProvider
       .when('/', {
@@ -20,5 +23,9 @@ app.config([
       .otherwise({
         redirectTo: '/'
       });
+
+    // Restangular Settings
+    //restangular_provider.setBaseUrl('http://api.countrybudget.lan');
+    restangular_provider.setBaseUrl('http://localhost:3000');
   }
 ]);
