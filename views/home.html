@@ -10,6 +10,32 @@
     <button class="btn btn-primary" ng-click="editRemoveItem()">Edit/Remove Item</button>
   </div>
   <div>
-    Reports go here.
+    <table st-table="view.user_items" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Revenue Type</th>
+          <th>Item Type</th>
+          <th>Template Type</th>
+          <th>Recurrence Type</th>
+          <th>Date</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in view.user_items">
+          <td>{{item.name}}</td>
+          <td>{{item.revenue_type}}</td>
+          <td>{{item.item_type}}</td>
+          <td>{{item.template_type}}</td>
+          <td>{{item.recurrence_type}}</td>
+          <td>{{item.date | date:'medium'}}</td>
+          <td>{{item.value}}</td>
+        </tr>
+        <tr>
+          <td colspan="7" style="text-align:right; padding-right:5%;">Total: {{view.item_value_total}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>

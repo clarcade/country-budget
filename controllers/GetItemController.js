@@ -5,6 +5,7 @@ app.controller('GetItemController', [
             modal_instance) {
     $scope.view = {};
     $scope.view.item = {};
+    $scope.view.try_submit = false;
     $scope.view.revenue_types = [
       'Income',
       'Expense'
@@ -51,9 +52,15 @@ app.controller('GetItemController', [
       $scope.status.opened = true;
     };
 
-    $scope.done = function () {
+    $scope.done = function (form) {
+      $scope.view.try_submit = true;
       console.log("GetItemController: done");
-      modal_instance.close($scope.view.item);
+      console.log("valid: ", form.$valid);
+      if (form.$valid) {
+        modal_instance.close($scope.view.item);
+      } else {
+        console.log("Form not valid.");
+      }
     };
 
     $scope.cancel = function () {

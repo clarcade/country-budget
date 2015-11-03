@@ -2,30 +2,64 @@ app.controller('HomeController', [
   '$scope',
   'UserService',
   'ItemService',
+  '$modal',
   function ($scope,
             user_service,
-            item_service) {
+            item_service,
+            $modal) {
+    var user_id = user_service.user.id;
+
     $scope.view = {};
+
+    item_service.getAllItems(user_id).then(
+      function (items) {
+        console.log("items: ", items.plain());
+        $scope.view.user_items = items.plain();
+        var length = $scope.view.user_items.length;
+        var sum = 0;
+        for (var i = 0; i < length; i++) {
+          sum += $scope.view.user_items[i].value;
+        }
+        console.log("sum: ", sum);
+
+        $scope.view.item_value_total = sum;
+      },
+      function (response) {
+        console.log("response: ", response);
+        console.log("something bad happened 1.");
+      }
+    );
 
     $scope.addItem = function () {
       console.log("HomeController: addItem");
-      item_service.getItem().result.then(
+
+      var get_item_modal = $modal.open({
+        templateUrl: 'views/getitem.html',
+        controller: 'GetItemController',
+        size: 'lg'
+      });
+
+      get_item_modal.result.then(
         function (item) {
-          return item_service.addItem(user_service.user.id, item);
+          return item_service.addItem(user_id, item);
         },
-        function (error) {
-          if (error) {
-            console.log("error: ", error);
-          } else {
-            console.log("Failed to get item.");
+        function (response) {
+          if (response) {
+            console.log("response: ", response);
           }
         }
       ).then(
-        function (response) {
-          console.log("response: ", response);
+        function (item) {
+          console.log("Successfully added item.");
+          console.log("item: ", item);
+          $scope.view.user_items.push(item);
         },
         function (error) {
-          console.log("error: ", error);
+          if (error && error.data) {
+            console.error("Error: ", error.data);
+          } else {
+            console.error("Error: unknown");
+          }
         }
       );
     };

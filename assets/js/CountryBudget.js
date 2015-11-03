@@ -2,7 +2,9 @@ var app = angular.module('CountryBudgetApp', [
   'ngRoute',
   'ui.bootstrap',
   'ngAnimate',
-  'restangular'
+  'restangular',
+  'ngStorage',
+  'smart-table'
 ]);
 
 app.config([

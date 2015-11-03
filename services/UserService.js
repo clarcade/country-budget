@@ -4,8 +4,6 @@ app.factory('UserService', [
     var user_service = {};
     user_service.user = {};
     user_service.user.id = 123;
-    user_service.user.income_items = [];
-    user_service.user.expense_items = [];
 
     //user_service.addItem = function () {
     //  console.log("Do add item stuff.");
