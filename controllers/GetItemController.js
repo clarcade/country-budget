@@ -36,10 +36,23 @@ app.controller('GetItemController', [
       'Yearly'
     ];
     $scope.view.item.recurrence_type = $scope.view.recurrence_types[0];
+    $scope.view.recurrence_end_types = [
+      'No End Date',
+      'With End Date'
+    ];
+    $scope.view.item.recurrence_end_type = $scope.view.recurrence_end_types[0];
     $scope.view.item.value = 0.00;
-    $scope.view.item.date = new Date();
-    $scope.status = {};
-    $scope.status.opened = false;
+    var new_date = new Date();
+    $scope.view.item.start_date = new_date;
+    $scope.view.item.end_date = new Date(
+      new_date.getFullYear(),
+      new_date.getMonth(),
+      new_date.getDate()
+    );
+    $scope.start_status = {};
+    $scope.start_status.opened = false;
+    $scope.end_status = {};
+    $scope.end_status.opened = false;
     $scope.view.date_options = {
       //formatYear: 'yy',
       startingDay: 1
@@ -47,9 +60,13 @@ app.controller('GetItemController', [
     $scope.maxDate = new Date(2020, 5, 22);
     $scope.minDate = new Date();
 
-    $scope.open = function () {
+    var valid_dates = [];
+    valid_dates.push($scope.view.item.start_date);
+
+    $scope.open = function (selectedStatus) {
       console.log("GetItemController: open");
-      $scope.status.opened = true;
+      console.log("selectedStatus: ", selectedStatus);
+      selectedStatus.opened = true;
     };
 
     $scope.done = function (form) {
@@ -57,6 +74,9 @@ app.controller('GetItemController', [
       console.log("GetItemController: done");
       console.log("valid: ", form.$valid);
       if (form.$valid) {
+        if ($scope.view.item.recurrence_type && $scope.view.item.recurrence_type === 'None') {
+          delete $scope.view.item.end_date;
+        }
         modal_instance.close($scope.view.item);
       } else {
         console.log("Form not valid.");
@@ -66,6 +86,45 @@ app.controller('GetItemController', [
     $scope.cancel = function () {
       console.log("GetItemController: cancel");
       modal_instance.dismiss('modal dismissed');
+    };
+
+    $scope.updateEndDatePicker = function () {
+      valid_dates = [];
+
+      var temp_date = new Date(
+        $scope.view.item.start_date.getFullYear(),
+        $scope.view.item.start_date.getMonth(),
+        $scope.view.item.start_date.getDate()
+      );
+      valid_dates.push(temp_date);
+
+      $scope.view.item.end_date = temp_date;
+    };
+
+    $scope.disableDates = function (date, mode) {
+      var disable = true;
+
+      if ($scope.view.item.recurrence_type === 'Bi-Weekly') {
+        while (valid_dates[valid_dates.length - 1].getTime() < date.getTime()) {
+          var temp_date = new Date(valid_dates[valid_dates.length - 1].toDateString());
+          temp_date.setDate(temp_date.getDate() + 14);
+          valid_dates.push(temp_date);
+        }
+
+        var length = valid_dates.length;
+        for (var i = 0; i < length; i++) {
+          if (valid_dates[i].getTime() === date.getTime()) {
+            i = length;
+            disable = false;
+          }
+        }
+      }/* else if ($scope.view.item.recurrence_type === 'Monthly') {
+
+      } else if ($scope.view.item.recurrence_type === 'Yearly') {
+
+      }*/
+
+      return disable;
     };
   }
 ]);

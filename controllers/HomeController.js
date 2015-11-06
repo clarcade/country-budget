@@ -50,9 +50,12 @@ app.controller('HomeController', [
         }
       ).then(
         function (item) {
-          console.log("Successfully added item.");
-          console.log("item: ", item);
-          $scope.view.user_items.push(item);
+          if (item && item.value) {
+            console.log("Successfully added item.");
+            console.log("item: ", item);
+            $scope.view.user_items.push(item);
+            $scope.view.item_value_total += item.value;
+          }
         },
         function (error) {
           if (error && error.data) {

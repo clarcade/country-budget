@@ -40,47 +40,94 @@
         <select ng-model="view.item.recurrence_type"
                 ng-options="recurrence_type for recurrence_type in view.recurrence_types">
         </select>
+        <select ng-if="view.item.recurrence_type && view.item.recurrence_type !== 'None'"
+                ng-model="view.item.recurrence_end_type"
+                ng-options="recurrence_end_type for recurrence_end_type in view.recurrence_end_types">
+        </select>
       </div>
       <div ng-if="view.item.recurrence_type">
         <div ng-if="view.item.recurrence_type === 'None'">
           <div class="datepicker-container">
             <button type="button"
                     class="btn btn-default"
-                    ng-click="open()">
+                    ng-click="open(start_status)">
               <i class="glyphicon glyphicon-calendar"></i>
             </button>
             <input type="text"
                    class="form-control"
-                   ng-model="view.item.date"
+                   ng-model="view.item.start_date"
                    datepicker-popup
-                   is-open="status.opened"
+                   is-open="start_status.opened"
                    datepicker-options="view.date_options"
-                   name="date"
+                   name="start_date"
                    required>
             <span ng-if="view.try_submit === true">
-               <span ng-if="item_form.date.$error.required">
-                  Required
-               </span>
-            </span>
-          </div>
-          <div>
-            Value: $
-            <input type="number"
-                   ng-model="view.item.value"
-                   pattern="[0-9]+([,\.][0-9]{1,2})?$"
-                   step="0.01"
-                   name="value"
-                   required>
-            <span ng-if="view.try_submit === true">
-               <span ng-if="item_form.value.$error.required">
+               <span ng-if="item_form.start_date.$error.required">
                   Required
                </span>
             </span>
           </div>
         </div>
         <div ng-if="view.item.recurrence_type !== 'None'">
-          <div>Start Date-Picker here</div>
-          <div>End Date-Picker here</div>
+          <div class="datepicker-container">
+            <button type="button"
+                    class="btn btn-default"
+                    ng-click="open(start_status)">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+            <input type="text"
+                   class="form-control"
+                   ng-model="view.item.start_date"
+                   datepicker-popup
+                   is-open="start_status.opened"
+                   datepicker-options="view.date_options"
+                   name="start_date"
+                   ng-change="updateEndDatePicker()"
+                   required>
+            <span ng-if="view.try_submit === true">
+               <span ng-if="item_form.start_date.$error.required">
+                  Required
+               </span>
+            </span>
+          </div>
+          <div ng-if="view.item.recurrence_end_type === 'With End Date'"
+               class="datepicker-container">
+            <button type="button"
+                    class="btn btn-default"
+                    ng-click="open(end_status)">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+            <input type="text"
+                   class="form-control"
+                   ng-model="view.item.end_date"
+                   datepicker-popup
+                   is-open="end_status.opened"
+                   datepicker-options="view.date_options"
+                   min-date="view.item.start_date"
+                   date-disabled="disableDates(date, mode)"
+                   name="end_date"
+                   required>
+            <span ng-if="view.try_submit === true">
+               <span ng-if="item_form.end_date.$error.required">
+                  Required
+               </span>
+            </span>
+          </div>
+        </div>
+        <div>
+          Value: $
+          <input type="number"
+                 ng-model="view.item.value"
+                 pattern="[0-9]+([,\.][0-9]{1,2})?$"
+                 step="0.01"
+                 name="value"
+                 min="0"
+                 required>
+            <span ng-if="view.try_submit === true">
+               <span ng-if="item_form.value.$error.required">
+                  Required
+               </span>
+            </span>
         </div>
       </div>
       <div ng-if="view.item.template_type !== 'Normal'">

@@ -9,8 +9,9 @@
     <button class="btn btn-primary" ng-click="addItem()">Add Item</button>
     <button class="btn btn-primary" ng-click="editRemoveItem()">Edit/Remove Item</button>
   </div>
-  <div>
-    <table st-table="view.user_items" class="table table-striped">
+  <div ng-if="view.user_items.length > 0">
+    <table st-table="view.user_items"
+           class="table table-striped">
       <thead>
         <tr>
           <th>Name</th>
@@ -18,7 +19,8 @@
           <th>Item Type</th>
           <th>Template Type</th>
           <th>Recurrence Type</th>
-          <th>Date</th>
+          <th>Start Date</th>
+          <th>End Date</th>
           <th>Value</th>
         </tr>
       </thead>
@@ -29,12 +31,13 @@
           <td>{{item.item_type}}</td>
           <td>{{item.template_type}}</td>
           <td>{{item.recurrence_type}}</td>
-          <td>{{item.date | date:'medium'}}</td>
+          <td>{{item.start_date | date:'medium'}}</td>
+          <td>{{item.end_date | date:'medium'}}</td>
           <td>{{item.value}}</td>
         </tr>
-        <tr>
-          <td colspan="7" style="text-align:right; padding-right:5%;">Total: {{view.item_value_total}}</td>
-        </tr>
+        <!--<tr>-->
+          <!--<td colspan="7" style="text-align:right; padding-right:5%;">Total: {{view.item_value_total}}</td>-->
+        <!--</tr>-->
       </tbody>
     </table>
   </div>
