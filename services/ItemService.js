@@ -8,10 +8,6 @@ app.factory('ItemService', [
       return restangular
         .one('user', user_id)
         .getList('items');
-      //return restangular
-      //  .one('user', user_id)
-      //  .one('items')
-      //  .get();
     };
 
     item_service.addItem = function (user_id, item) {
@@ -20,7 +16,6 @@ app.factory('ItemService', [
         .one('user', user_id)
         .all('item')
         .post(item);
-      //console.log("On success update user's cached items");
     };
 
     //item_service.editRemoveItem = function () {

@@ -1,0 +1,54 @@
+<div>
+  <form name="budget_form" novalidate>
+    <div>
+      <span>Name:</span>
+      <input type="text"
+             ng-model="view.budget.name"
+             name="name"
+             required>
+      <span ng-if="view.try_submit === true">
+         <span ng-if="budget_form.name.$error.required">
+            Required
+         </span>
+      </span>
+    </div>
+    <div>
+      <span>Recurrence Type:</span>
+      <select ng-model="view.budget.recurrence_type"
+              ng-options="recurrence_type for recurrence_type in view.recurrence_types"
+              ng-change="refreshDatepickers()">
+      </select>
+      <select ng-if="view.budget.recurrence_type &&
+                     view.budget.recurrence_type !== 'None'"
+              ng-model="view.budget.recurrence_end_type"
+              ng-options="recurrence_end_type for recurrence_end_type in view.recurrence_end_types"
+              ng-change="updateEndDates()">
+      </select>
+    </div>
+    <div id="datepickers-container" ng-if="view.budget.recurrence_type"></div>
+    <div>Value: $
+      <input type='number'
+             ng-model='view.budget.value'
+             pattern='[0-9]+([,\\.][0-9]{1,2})?$'
+             step='0.01'
+             name='value'
+             min='0'
+             required>
+      <span ng-if='view.try_submit === true'>
+        <span ng-if='budget_form.value.$error.required'>
+          Required
+        </span>
+      </span>
+    </div>
+    <div>
+      <input type="button"
+             class="btn btn-primary"
+             value="Done"
+             ng-click="done(budget_form)">
+      <input type="button"
+             class="btn btn-primary"
+             value="Cancel"
+             ng-click="cancel()">
+    </div>
+  </form>
+</div>

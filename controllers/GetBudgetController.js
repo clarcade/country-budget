@@ -1,54 +1,27 @@
-app.controller('GetItemController', [
+app.controller('GetBudgetController', [
   '$scope',
   '$modalInstance',
   '$compile',
-  'BudgetService',
-  'UserService',
   function ($scope,
             modal_instance,
-            $compile,
-            budget_service,
-            user_service) {
+            $compile) {
     $scope.view = {};
     $scope.view.loaded = false;
-    $scope.view.item = {};
+    $scope.view.budget = {};
     $scope.view.try_submit = false;
-    $scope.view.revenue_types = [
-      'Income',
-      'Expense'
-    ];
-    $scope.view.item.revenue_type = $scope.view.revenue_types[0];
-    $scope.view.item_types = [
-      'Actual',
-      'What-If'
-    ];
-    $scope.view.item.item_type = $scope.view.item_types[0];
-    $scope.view.income_template_types = [
-      'Normal',
-      'CD',
-      'Other'
-    ];
-    $scope.view.item.template_type = $scope.view.income_template_types[0];
-    $scope.view.expense_template_types = [
-      'Normal',
-      'Mortgage Loan',
-      'Auto Loan',
-      'Other non-simple purchase'
-    ];
-    $scope.view.item.template_type = $scope.view.expense_template_types[0];
     $scope.view.recurrence_types = [
       'None',
       'Bi-Weekly',
       'Monthly',
       'Yearly'
     ];
-    $scope.view.item.recurrence_type = $scope.view.recurrence_types[0];
+    $scope.view.budget.recurrence_type = $scope.view.recurrence_types[0];
     $scope.view.recurrence_end_types = [
       'No End Date',
       'With End Date'
     ];
-    $scope.view.item.recurrence_end_type = $scope.view.recurrence_end_types[0];
-    $scope.view.item.value = 0.00;
+    $scope.view.budget.recurrence_end_type = $scope.view.recurrence_end_types[0];
+    $scope.view.budget.value = 0.00;
     $scope.start_status = {};
     $scope.start_status.opened = false;
     $scope.end_status = {};
@@ -56,48 +29,19 @@ app.controller('GetItemController', [
     $scope.view.date_options = {
       'startingDay': 1
     };
-    $scope.maxDate = new Date(2020);
-    $scope.view.item.budgets = {};
+    $scope.maxDate = new Date(2050);
 
     var today_date = new Date();
     var valid_dates = null;
-    var user_id = user_service.user.id;
-
-    budget_service.getAllBudgets(user_id).then(
-      function (budgets) {
-        console.log("budgets: ", budgets.plain());
-        $scope.view.user_budgets = budgets.plain();
-      },
-      function (response) {
-        console.log("response: ", response);
-        console.log("something bad happened 2.");
-      }
-    );
-
-    $scope.updateItemBudgets = function (budget) {
-      if (budget.active) {
-        if(!$scope.view.item.budgets[budget.name]) {
-          $scope.view.item.budgets[budget.name] = {
-            name: budget.name,
-            value: budget.value
-          };
-        }
-      } else {
-        if ($scope.view.item.budgets[budget.name]) {
-          delete $scope.view.item.budgets[budget.name];
-        }
-      }
-      console.log("item: ", $scope.view.item);
-    };
 
     $scope.updateEndDates = function () {
-      var recurrence_end_type = $scope.view.item.recurrence_end_type;
+      var recurrence_end_type = $scope.view.budget.recurrence_end_type;
 
       if (recurrence_end_type && recurrence_end_type === 'With End Date') {
-        var recurrence_type = $scope.view.item.recurrence_type;
+        var recurrence_type = $scope.view.budget.recurrence_type;
 
-        var start_date = $scope.view.item.start_date;
-        var end_date = $scope.view.item.end_date ? $scope.view.item.end_date : null;
+        var start_date = $scope.view.budget.start_date;
+        var end_date = $scope.view.budget.end_date ? $scope.view.budget.end_date : null;
         var reset_date = end_date ? end_date : start_date;
         var temp_min_date = null;
 
@@ -170,29 +114,29 @@ app.controller('GetItemController', [
         }
 
         $scope.minDate = temp_min_date;
-        $scope.view.item.end_date = reset_date;
+        $scope.view.budget.end_date = reset_date;
         valid_dates = [];
         valid_dates.push(reset_date);
       }
     };
 
     var updateStartDates = function () {
-      var recurrence_type = $scope.view.item.recurrence_type;
+      var recurrence_type = $scope.view.budget.recurrence_type;
 
       if (recurrence_type === 'Monthly') {
-        $scope.view.item.start_date = new Date(
+        $scope.view.budget.start_date = new Date(
           today_date.getFullYear(),
           today_date.getMonth()
         );
         $scope.view.date_mode = 'month';
       } else if (recurrence_type === 'Yearly') {
-        $scope.view.item.start_date = new Date(
+        $scope.view.budget.start_date = new Date(
           today_date.getFullYear(),
           0
         );
         $scope.view.date_mode = 'year';
       } else {
-        $scope.view.item.start_date = new Date(
+        $scope.view.budget.start_date = new Date(
           today_date.getFullYear(),
           today_date.getMonth(),
           today_date.getDate()
@@ -210,51 +154,51 @@ app.controller('GetItemController', [
       $scope.updateDatePickerMode();
 
       var datepicker_html = "" +
-        "<div ng-if=\"view.item.recurrence_type === 'None'\">" +
+        "<div ng-if=\"view.budget.recurrence_type === 'None'\">" +
         "  <div class='datepicker-container'>" +
         "    <button type='button' class='btn btn-default'" +
         "            ng-click='open(start_status)'>" +
         "      <i class='glyphicon glyphicon-calendar'></i>" +
         "    </button>" +
         "    <input type='text' class='form-control'" +
-        "           ng-model='view.item.start_date' datepicker-popup" +
+        "           ng-model='view.budget.start_date' datepicker-popup" +
         "           is-open='start_status.opened'" +
         "           datepicker-options='view.date_options'" +
         "           name='start_date' required>" +
         "    <span ng-if='view.try_submit === true'>" +
-        "      <span ng-if='item_form.start_date.$error.required'>" +
+        "      <span ng-if='budget_form.start_date.$error.required'>" +
         "        Required" +
         "      </span>" +
         "    </span>" +
         "  </div>" +
         "</div>" +
-        "<div ng-if=\"view.item.recurrence_type !== 'None'\">" +
+        "<div ng-if=\"view.budget.recurrence_type !== 'None'\">" +
         "  <div class='datepicker-container'>" +
         "    <button type='button' class='btn btn-default'" +
         "            ng-click='open(start_status)'>" +
         "      <i class='glyphicon glyphicon-calendar'></i>" +
         "    </button>" +
         "    <input type='text' class='form-control'" +
-        "           ng-model='view.item.start_date' datepicker-popup" +
+        "           ng-model='view.budget.start_date' datepicker-popup" +
         "           is-open='start_status.opened'" +
         "           datepicker-options='view.date_options'" +
         "           name='start_date'" +
         "           min-mode=\"'" + $scope.view.date_mode + "'\"" +
         "           ng-change='updateEndDates()' required>" +
         "    <span ng-if='view.try_submit === true'>" +
-        "      <span ng-if='item_form.start_date.$error.required'>" +
+        "      <span ng-if='budget_form.start_date.$error.required'>" +
         "        Required" +
         "      </span>" +
         "    </span>" +
         "  </div>" +
-        "  <div ng-if=\"view.item.recurrence_end_type === 'With End Date'\"" +
+        "  <div ng-if=\"view.budget.recurrence_end_type === 'With End Date'\"" +
         "       class='datepicker-container'>" +
         "    <button type='button' class='btn btn-default'" +
         "            ng-click='open(end_status)'>" +
         "      <i class='glyphicon glyphicon-calendar'></i>" +
         "    </button>" +
         "    <input type='text' class='form-control'" +
-        "           ng-model='view.item.end_date'" +
+        "           ng-model='view.budget.end_date'" +
         "           datepicker-popup" +
         "           is-open='end_status.opened'" +
         "           datepicker-options='view.date_options'" +
@@ -263,25 +207,11 @@ app.controller('GetItemController', [
         "           date-disabled='disableDates(date, mode)'" +
         "           name='end_date' required>" +
         "    <span ng-if='view.try_submit === true'>" +
-        "      <span ng-if='item_form.end_date.$error.required'>" +
+        "      <span ng-if='budget_form.end_date.$error.required'>" +
         "        Required" +
         "      </span>" +
         "    </span>" +
         "  </div>" +
-        "</div>" +
-        "<div>Value: $" +
-        "  <input type='number'" +
-        "         ng-model='view.item.value'" +
-        "         pattern='[0-9]+([,\\.][0-9]{1,2})?$'" +
-        "         step='0.01'" +
-        "         name='value'" +
-        "         min='0'" +
-        "         required>" +
-        "  <span ng-if='view.try_submit === true'>" +
-        "    <span ng-if='item_form.value.$error.required'>" +
-        "      Required" +
-        "    </span>" +
-        "  </span>" +
         "</div>";
 
       var compiled_html = $compile(datepicker_html);
@@ -291,9 +221,9 @@ app.controller('GetItemController', [
     };
 
     $scope.updateDatePickerMode = function () {
-      if ($scope.view.item.recurrence_type === 'Monthly') {
+      if ($scope.view.budget.recurrence_type === 'Monthly') {
         $scope.view.date_options['datepicker-mode'] = "'month'";
-      } else if ($scope.view.item.recurrence_type === 'Yearly') {
+      } else if ($scope.view.budget.recurrence_type === 'Yearly') {
         $scope.view.date_options['datepicker-mode'] = "'year'";
       } else {
         $scope.view.date_options['datepicker-mode'] = "'day'";
@@ -307,10 +237,10 @@ app.controller('GetItemController', [
     $scope.done = function (form) {
       $scope.view.try_submit = true;
       if (form.$valid) {
-        if ($scope.view.item.recurrence_type && $scope.view.item.recurrence_type === 'None') {
-          delete $scope.view.item.end_date;
+        if ($scope.view.budget.recurrence_type && $scope.view.budget.recurrence_type === 'None') {
+          delete $scope.view.budget.end_date;
         }
-        modal_instance.close($scope.view.item);
+        modal_instance.close($scope.view.budget);
       } else {
         console.log("Form not valid.");
       }
@@ -323,7 +253,7 @@ app.controller('GetItemController', [
     $scope.disableDates = function (date, mode) {
       var disable = true;
 
-      if ($scope.view.item.recurrence_type === 'Bi-Weekly') {
+      if ($scope.view.budget.recurrence_type === 'Bi-Weekly') {
         while (valid_dates[valid_dates.length - 1].getTime() < date.getTime()) {
           var temp_date = new Date(valid_dates[valid_dates.length - 1].toDateString());
           temp_date.setDate(temp_date.getDate() + 14);

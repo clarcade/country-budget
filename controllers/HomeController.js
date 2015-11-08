@@ -2,10 +2,12 @@ app.controller('HomeController', [
   '$scope',
   'UserService',
   'ItemService',
+  'BudgetService',
   '$modal',
   function ($scope,
             user_service,
             item_service,
+            budget_service,
             $modal) {
     var user_id = user_service.user.id;
 
@@ -15,14 +17,14 @@ app.controller('HomeController', [
       function (items) {
         console.log("items: ", items.plain());
         $scope.view.user_items = items.plain();
-        var length = $scope.view.user_items.length;
-        var sum = 0;
-        for (var i = 0; i < length; i++) {
-          sum += $scope.view.user_items[i].value;
-        }
-        console.log("sum: ", sum);
-
-        $scope.view.item_value_total = sum;
+        //var length = $scope.view.user_items.length;
+        //var sum = 0;
+        //for (var i = 0; i < length; i++) {
+        //  sum += $scope.view.user_items[i].value;
+        //}
+        //console.log("sum: ", sum);
+        //
+        //$scope.view.item_value_total = sum;
       },
       function (response) {
         console.log("response: ", response);
@@ -55,6 +57,41 @@ app.controller('HomeController', [
             console.log("item: ", item);
             $scope.view.user_items.push(item);
             $scope.view.item_value_total += item.value;
+          }
+        },
+        function (error) {
+          if (error && error.data) {
+            console.error("Error: ", error.data);
+          } else {
+            console.error("Error: unknown");
+          }
+        }
+      );
+    };
+
+    $scope.addBudget = function () {
+      console.log("HomeController: addBudget");
+
+      var get_budget_modal = $modal.open({
+        templateUrl: 'views/getbudget.html',
+        controller: 'GetBudgetController',
+        size: 'lg'
+      });
+
+      get_budget_modal.result.then(
+        function (budget) {
+          return budget_service.addBudget(user_id, budget);
+        },
+        function (response) {
+          if (response) {
+            console.log("response: ", response);
+          }
+        }
+      ).then(
+        function (budget) {
+          if (budget && budget.name) {
+            console.log("Successfully added budget.");
+            console.log("budget: ", budget);
           }
         },
         function (error) {
