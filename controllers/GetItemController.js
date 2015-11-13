@@ -57,7 +57,7 @@ app.controller('GetItemController', [
       'startingDay': 1
     };
     $scope.maxDate = new Date(2020);
-    $scope.view.item.budgets = {};
+    $scope.view.item.budgets = [];
 
     var today_date = new Date();
     var valid_dates = null;
@@ -74,20 +74,18 @@ app.controller('GetItemController', [
       }
     );
 
-    $scope.updateItemBudgets = function (budget) {
-      if (budget.active) {
-        if(!$scope.view.item.budgets[budget.name]) {
-          $scope.view.item.budgets[budget.name] = {
-            name: budget.name,
-            value: budget.value
-          };
-        }
-      } else {
-        if ($scope.view.item.budgets[budget.name]) {
-          delete $scope.view.item.budgets[budget.name];
+    $scope.updateItemBudgets = function () {
+      var budgets = $scope.view.user_budgets;
+      var length = budgets.length;
+
+      for (var i = 0; i < length; i++) {
+        if (budgets[i].active) {
+          $scope.view.item.budgets.push({
+            name: budgets[i].name,
+            value: budgets[i].expense_value
+          });
         }
       }
-      console.log("item: ", $scope.view.item);
     };
 
     $scope.updateEndDates = function () {
@@ -307,9 +305,12 @@ app.controller('GetItemController', [
     $scope.done = function (form) {
       $scope.view.try_submit = true;
       if (form.$valid) {
-        if ($scope.view.item.recurrence_type && $scope.view.item.recurrence_type === 'None') {
+        if ($scope.view.item.recurrence_type &&
+            ($scope.view.item.recurrence_type === 'None')) {
           delete $scope.view.item.end_date;
         }
+
+        $scope.updateItemBudgets();
         modal_instance.close($scope.view.item);
       } else {
         console.log("Form not valid.");

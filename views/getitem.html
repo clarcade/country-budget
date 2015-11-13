@@ -51,20 +51,28 @@
       <div ng-if="view.item.revenue_type === 'Expense'">
         <span>Categories To Apply:</span>
         <div ng-repeat="budget in view.user_budgets">
-          <button type="button"
-                  class="btn btn-primary"
-                  btn-checkbox
-                  ng-model="budget.active"
-                  ng-change="updateItemBudgets(budget)">
-            {{budget.name}}
-          </button>
-          <input ng-if="budget.active"
-                 type="number"
-                 step="0.01"
-                 min="0"
-                 pattern='[0-9]+([,\\.][0-9]{1,2})?$'
-                 placeholder="input value here"
-                 required>
+          <ng-form name="budget_field_form">
+            <button type="button"
+                    class="btn btn-primary"
+                    btn-checkbox
+                    ng-model="budget.active">
+              {{budget.name}}
+            </button>
+            <input ng-if="budget.active"
+                   ng-model="budget.expense_value"
+                   type="number"
+                   step="0.01"
+                   min="0"
+                   pattern='[0-9]+([,\\.][0-9]{1,2})?$'
+                   placeholder="input value here"
+                   name="budget_value"
+                   required>
+            <span ng-if="view.try_submit === true">
+               <span ng-if="budget_field_form.budget_value.$error.required">
+                  Required
+               </span>
+            </span>
+          </ng-form>
         </div>
       </div>
       <div ng-if="view.item.template_type !== 'Normal'">
