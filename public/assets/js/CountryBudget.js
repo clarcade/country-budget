@@ -15,11 +15,11 @@ app.config([
     // Route Settings
     $routeProvider
       .when('/', {
-        templateUrl: 'views/home.html',
+        templateUrl: 'static/views/home.html',
         controller: 'HomeController'
       })
       .when('/home', {
-        templateUrl: 'views/home.html',
+        templateUrl: 'static/views/home.html',
         controller: 'HomeController'
       })
       .otherwise({

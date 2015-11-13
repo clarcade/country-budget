@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="CountryBudgetApp" class="countrybudget">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CountryBudget</title>
+    <script src="static/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="static/assets/vendor/angular/angular.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="static/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div ng-view class="my-ngview"></div>
+
+    <!-- Main App Script -->
+    <script src="static/assets/js/CountryBudget.js"></script>
+
+    <!-- Controllers -->
+    <script src="static/controllers/EditRemoveItemController.js"></script>
+    <script src="static/controllers/GetBudgetController.js"></script>
+    <script src="static/controllers/GetItemController.js"></script>
+    <script src="static/controllers/HomeController.js"></script>
+
+    <!-- Services -->
+    <script src="static/services/BudgetService.js"></script>
+    <script src="static/services/ItemService.js"></script>
+    <script src="static/services/UserService.js"></script>
+
+    <!-- Assets -->
+    <script src="static/assets/vendor/angular-route/angular-route.js"></script>
+    <script src="static/assets/vendor/lodash/lodash.js"></script>
+    <script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="static/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="static/assets/vendor/angular-animate/angular-animate.js"></script>
+    <script src="static/assets/vendor/restangular/dist/restangular.min.js"></script>
+    <script src="static/assets/vendor/ngstorage/ngStorage.js"></script>
+    <script src="static/assets/vendor/angular-smart-table/dist/smart-table.js"></script>
+  </body>
+</html>

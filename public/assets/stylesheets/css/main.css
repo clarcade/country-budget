@@ -1,0 +1,27 @@
+.countrybudget {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%; }
+  .countrybudget body, .countrybudget div, .countrybudget section, .countrybudget p, .countrybudget h1, .countrybudget header, .countrybudget footer, .countrybudget ng-include,
+  .countrybudget nav, .countrybudget ul, .countrybudget li, .countrybudget a, .countrybudget figure, .countrybudget img, .countrybudget aside, .countrybudget form, .countrybudget input {
+    margin: 0;
+    padding: 0; }
+  .countrybudget body {
+    height: 100%;
+    width: 100%;
+    background-color: #5bc0de; }
+  .countrybudget .nav, .countrybudget .pagination, .countrybudget .carousel, .countrybudget .panel-title a {
+    cursor: pointer; }
+  .countrybudget .input-container {
+    margin: 10px 0; }
+  .countrybudget .modal-dialog {
+    margin: 0 auto; }
+  .countrybudget .datepicker-container input {
+    width: 300px;
+    display: inline-block; }
+  .countrybudget .datepicker-container button {
+    position: relative;
+    bottom: 1px; }
+  .countrybudget .center-text {
+    text-align: center; }

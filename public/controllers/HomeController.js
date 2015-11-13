@@ -36,7 +36,7 @@ app.controller('HomeController', [
       console.log("HomeController: addItem");
 
       var get_item_modal = $modal.open({
-        templateUrl: 'views/getitem.html',
+        templateUrl: 'static/views/getitem.html',
         controller: 'GetItemController',
         size: 'lg'
       });
@@ -73,7 +73,7 @@ app.controller('HomeController', [
       console.log("HomeController: addBudget");
 
       var get_budget_modal = $modal.open({
-        templateUrl: 'views/getbudget.html',
+        templateUrl: 'static/views/getbudget.html',
         controller: 'GetBudgetController',
         size: 'lg'
       });

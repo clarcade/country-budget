@@ -13,14 +13,15 @@ var app = express();
 
 app.use(body_parser.json()); // support json encoded bodies
 app.use(body_parser.urlencoded({ extended: true })); // support encoded bodies
-app.use('/assets', express.static('assets'));
-app.use('/controllers', express.static('controllers'));
-app.use('/services', express.static('services'));
-app.use('/views', express.static('views'));
+app.use('/static', express.static('public'));
+//app.use('/assets', express.static('assets'));
+//app.use('/controllers', express.static('controllers'));
+//app.use('/services', express.static('services'));
+//app.use('/views', express.static('views'));
 
 app.route('/')
   .get(function (req, res) {
-    res.sendFile(__dirname + '/views/index.html');
+    res.sendFile(__dirname + '/public/views/index.html');
   });
 
 // THIS IS TEMPORARY. REPLACE BACKEND STUFF WITH BACKEND IMPLEMENTATION SUCH AS countrybudget-domain
