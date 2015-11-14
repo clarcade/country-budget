@@ -1,4 +1,5 @@
 var express = require('express');
+var item_service = require('../services/itemService.js');
 var item_router = express.Router({mergeParams: true});
 
 item_router.route('/')
@@ -64,52 +65,21 @@ item_router.route('/')
 
           db_item.user_id = user_id;
 
-          // Insert item into database
-          var mongo_client = require('mongodb').MongoClient;
-          var url = 'mongodb://localhost:27017/test';
-
-          mongo_client.connect(url, function (err, db) {
-            // Check if failed to connect to db
-            if (err) {
-              console.log("err: ", err);
-              res.status(500).send('Failed to add item.');
-            } else {
-              //if (db_item.budgets) {
-              //  // TODO: if item touches budgets, update the budgets then save the item to db
-              //  updateBudgets(db_item.budgets);
-              //
-              //  var cursor = db.collection('budgets').find( { "name":  } );
-              //  cursor.each(function(err, doc) {
-              //    if (err) {
-              //      console.log("err: ", err);
-              //      db.close();
-              //      res.send("Couldn't retrieve user items");
-              //    } else if (doc != null) {
-              //      user_items.push(doc);
-              //    } else {
-              //      console.log("user_items: ", user_items);
-              //      db.close();
-              //      res.send(user_items);
-              //    }
-              //  });
-              //} else {
-              // otherwise, just save item to db
-              db.collection('items').insertOne(
-                db_item,
-                function(err, result) {
-                  if (err) {
-                    console.log("err: ", err);
-                    res.status(500).send('Failed to add item.');
-                  } else {
-                    res.send(db_item);
-                  }
-
-                  db.close();
-                }
-              );
-              //}
-            }
-          });
+          try {
+            var promise = item_service.addItem(db_item);
+            promise.then(
+              function (item) {
+                res.send(item);
+              },
+              function (err) {
+                console.log("Error: ", err);
+                res.status(500).send("Failed to add item");
+              }
+            )
+          } catch (err) {
+            console.log("Error: ", err);
+            res.status(500).send("Failed to add item");
+          }
         }
       }
     }

@@ -1,4 +1,5 @@
 var express = require('express');
+var budget_service = require('../services/budgetService.js');
 var budget_router = express.Router({mergeParams: true});
 
 budget_router.route('/')
@@ -41,33 +42,23 @@ budget_router.route('/')
           db_budget.current_value = response_budget.value;
           db_budget.start_date = response_budget.start_date;
           db_budget.recurrence_type = response_budget.recurrence_type;
-
           db_budget.user_id = user_id;
 
-          // Insert item into database
-          var mongo_client = require('mongodb').MongoClient;
-          var url = 'mongodb://localhost:27017/test';
-
-          mongo_client.connect(url, function (err, db) {
-            if (err) {
-              console.log("err: ", err);
-              res.status(500).send('Failed to add budget.');
-            } else {
-              db.collection('budgets').insertOne(
-                db_budget,
-                function(err, result) {
-                  if (err) {
-                    console.log("err: ", err);
-                    res.status(500).send('Failed to add budget.');
-                  } else {
-                    res.send(db_budget);
-                  }
-
-                  db.close();
-                }
-              );
-            }
-          });
+          try {
+            var promise = budget_service.addBudget(db_budget);
+            promise.then(
+              function () {
+                res.send(db_budget);
+              },
+              function (err) {
+                console.log("Error: ", err);
+                res.status(500).send("Failed to add budget.");
+              }
+            );
+          } catch (err) {
+            console.log("Error: ", err);
+            res.status(500).send('Failed to add budget');
+          }
         }
       }
     }
