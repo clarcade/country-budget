@@ -1,15 +1,14 @@
 var q = require('q');
+var DB_SERVICE = require('./dbService.js');
 
-var ITEMS_SERVICE = (function (items_service, q) {
+var ITEMS_SERVICE = (function (items_service,
+                               q,
+                               db_service) {
   items_service.getUserItems = function (user_id) {
     var deferred = q.defer();
-    var mongo_client = require('mongodb').MongoClient;
-    var url = 'mongodb://localhost:27017/test';
 
-    mongo_client.connect(url, function (err, db) {
-      if (err) {
-        deferred.reject(err);
-      } else {
+    db_service.getInstance().then(
+      function (db) {
         var user_items = [];
         var cursor = db.collection('items').find( { "user_id": user_id } );
         cursor.each(function(err, doc) {
@@ -23,13 +22,18 @@ var ITEMS_SERVICE = (function (items_service, q) {
             deferred.resolve(user_items);
           }
         });
+      },
+      function (err) {
+        deferred.reject(err);
       }
-    });
+    );
 
     return deferred.promise;
   };
 
   return items_service;
-}(ITEMS_SERVICE || {}, q));
+}(ITEMS_SERVICE || {},
+  q,
+  DB_SERVICE));
 
 module.exports = ITEMS_SERVICE;

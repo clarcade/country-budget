@@ -1,39 +1,19 @@
 var q = require('q');
+var DB_SERVICE = require('./dbService.js');
+var BUDGETS_SERVICE = require('./budgetsService.js');
 
-var ITEM_SERVICE = (function (item_service, q) {
-  item_service.addItem = function (item) {
+var ITEM_SERVICE = (function (item_service,
+                              q,
+                              budgets_service,
+                              db_service) {
+  var addItemToDB = function (item) {
     var deferred = q.defer();
-    var mongo_client = require('mongodb').MongoClient;
-    var url = 'mongodb://localhost:27017/test';
 
-    mongo_client.connect(url, function (err, db) {
-      // Check if failed to connect to db
-      if (err) {
-        deferred.reject(err);
-      } else {
-        //if (db_item.budgets) {
-        //  // TODO: if item touches budgets, update the budgets then save the item to db
-        //  updateBudgets(db_item.budgets);
-        //
-        //  var cursor = db.collection('budgets').find( { "name":  } );
-        //  cursor.each(function(err, doc) {
-        //    if (err) {
-        //      console.log("err: ", err);
-        //      db.close();
-        //      res.send("Couldn't retrieve user items");
-        //    } else if (doc != null) {
-        //      user_items.push(doc);
-        //    } else {
-        //      console.log("user_items: ", user_items);
-        //      db.close();
-        //      res.send(user_items);
-        //    }
-        //  });
-        //} else {
-        // otherwise, just save item to db
+    db_service.getInstance().then(
+      function (db) {
         db.collection('items').insertOne(
           item,
-          function(err, result) {
+          function (err, result) {
             if (err) {
               deferred.reject(err);
             } else {
@@ -43,14 +23,54 @@ var ITEM_SERVICE = (function (item_service, q) {
             db.close();
           }
         );
-        //}
+      },
+      function (err) {
+        deferred.reject(err);
       }
-    });
+    );
+
+    return deferred.promise;
+  };
+
+  item_service.addItem = function (item) {
+    var deferred = q.defer();
+
+    //if (item.budgets) {
+    //  var budgets_promise = budgets_service.updateBudgets(item.budgets, item.user_id);
+    //  budgets_promise.then(
+    //    function () {
+    //      return addItemToDB(item);
+    //    },
+    //    function (err) {
+    //      deferred.reject(err);
+    //    }
+    //  ).then(
+    //    function (item) {
+    //      deferred.resolve(item);
+    //    },
+    //    function (err) {
+    //      deferred.reject(err);
+    //    }
+    //  );
+    //} else {
+      // otherwise, just save item to db
+      addItemToDB(item).then(
+        function (item) {
+          deferred.resolve(item);
+        },
+        function (err) {
+          deferred.reject(err);
+        }
+      );
+    //}
 
     return deferred.promise;
   };
 
   return item_service;
-}(ITEM_SERVICE || {}, q));
+}(ITEM_SERVICE || {},
+  q,
+  BUDGETS_SERVICE,
+  DB_SERVICE));
 
 module.exports = ITEM_SERVICE;
