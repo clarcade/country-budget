@@ -31,29 +31,65 @@ var BUDGET_SERVICE = (function (budget_service,
   };
 
   budget_service.getBudgetByNameAndUserID = function (name, user_id) {
+    console.log("getBudgetByNameAndUserID");
     var deferred = q.defer();
-    var mongo_client = require('mongodb').MongoClient;
-    var url = 'mongodb://localhost:27017/test';
 
-    mongo_client.connect(url, function (err, db) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        var user_budgets = [];
-        var cursor = db.collection('budgets').find( { "user_id": user_id } );
+    db_service.getInstance().then(
+      function (db) {
+        var cursor = db.collection('budgets').find(
+          {
+            "name": name,
+            "user_id": user_id
+          }
+        );
         cursor.each(function(err, doc) {
           if (err) {
             db.close();
             deferred.reject(err);
           } else if (doc != null) {
-            user_budgets.push(doc);
-          } else {
+            console.log("doc: ", doc);
+            deferred.resolve(doc);
             db.close();
-            deferred.resolve(user_budgets);
+          } else {
+            console.log("here");
           }
         });
+      },
+      function (err) {
+        deferred.reject(err);
       }
-    });
+    );
+
+    return deferred.promise;
+  };
+
+  budget_service.updateCurrentBudgetValueByID = function (budget_id, new_current_value) {
+    var deferred = q.defer();
+
+    db_service.getInstance().then(
+      function (db) {
+        db.collection('budgets').updateOne(
+          {
+            "_id": budget_id
+          },
+          {
+            $set: { 'current_value': new_current_value }
+          },
+          function (err, results) {
+            if (err) {
+              deferred.reject(err);
+              db.close();
+            } else {
+              deferred.resolve();
+              db.close();
+            }
+          }
+        );
+      },
+      function (err) {
+        deferred.reject(err);
+      }
+    );
 
     return deferred.promise;
   };

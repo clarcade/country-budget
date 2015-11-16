@@ -35,24 +35,24 @@ var ITEM_SERVICE = (function (item_service,
   item_service.addItem = function (item) {
     var deferred = q.defer();
 
-    //if (item.budgets) {
-    //  var budgets_promise = budgets_service.updateBudgets(item.budgets, item.user_id);
-    //  budgets_promise.then(
-    //    function () {
-    //      return addItemToDB(item);
-    //    },
-    //    function (err) {
-    //      deferred.reject(err);
-    //    }
-    //  ).then(
-    //    function (item) {
-    //      deferred.resolve(item);
-    //    },
-    //    function (err) {
-    //      deferred.reject(err);
-    //    }
-    //  );
-    //} else {
+    if (item.budgets) {
+      var budgets_promise = budgets_service.updateBudgets(item.budgets, item.user_id);
+      budgets_promise.then(
+        function () {
+          return addItemToDB(item);
+        },
+        function (err) {
+          deferred.reject(err);
+        }
+      ).then(
+        function (item) {
+          deferred.resolve(item);
+        },
+        function (err) {
+          deferred.reject(err);
+        }
+      );
+    } else {
       // otherwise, just save item to db
       addItemToDB(item).then(
         function (item) {
@@ -62,7 +62,7 @@ var ITEM_SERVICE = (function (item_service,
           deferred.reject(err);
         }
       );
-    //}
+    }
 
     return deferred.promise;
   };

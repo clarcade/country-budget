@@ -1,9 +1,11 @@
 var q = require('q');
 var DB_SERVICE = require('./dbService.js');
+var BUDGET_SERVICE = require('../services/budgetService.js');
 
 var BUDGETS_SERVICE = (function (budgets_service,
                                  q,
-                                 db_service) {
+                                 db_service,
+                                 budget_service) {
   budgets_service.getUserBudgets = function (user_id) {
     var deferred = q.defer();
 
@@ -33,53 +35,66 @@ var BUDGETS_SERVICE = (function (budgets_service,
 
   budgets_service.updateBudgets = function (budgets, user_id) {
     var deferred = q.defer();
-    var length = budgets.length;
-    var promises = [];
 
-    var mongo_client = require('mongodb').MongoClient;
-    var url = 'mongodb://localhost:27017/test';
-
-    var db_connection = mongo_client.connect(url, function (err, db) {
-      // Check if failed to connect to db
-      if (err) {
-        deferred.reject(err);
-      } else {
+    // TODO: Figure out trickiness of changing i and new_deferred variables in budget_promise.then(), make more robust
+    db_service.getInstance().then(
+      function (db) {
+        var length = budgets.length;
+        var promises = [];
+        var promise_map = {};
         for (var i = 0; i < length; i++) {
           var new_deferred = q.defer();
-          promises.push(new_deferred);
+          promises.push(new_deferred.promise);
+          promise_map[i] = new_deferred;
 
-          // TODO 1: find budget by name & user_id
-          // TODO 2: update budget by setting budget.current_value = budget.current_value - budgets[i].value
+          var budget_promise = budget_service.getBudgetByNameAndUserID(budgets[i].name, user_id);
+          budget_promise.then(
+            function (current_budget) {
+              var target_index = null;
 
-          //var cursor = db.collection('budgets').updateOne(
-          //  {
-          //    "name": budgets[i].name,
-          //    "user_id": budgets[i].user_id
-          //  },
-          //  {
-          //    $set: { 'current_value':  } // TODO
-          //  },
-          //  function (err, results) {
-          //    if (err) {
-          //      new_deferred.reject(err);
-          //    } else {
-          //      new_deferred.resolve();
-          //    }
-          //  }
-          //);
+              for (var i = 0; i < length; i++) {
+                if (budgets[i].name === current_budget.name) {
+                  target_index = i;
+                  i = length;
+                }
+              }
+
+              if (typeof target_index === 'number') {
+                var new_current_value = current_budget.current_value - budgets[target_index].value;
+
+                budget_service.updateCurrentBudgetValueByID(current_budget['_id'], new_current_value).then(
+                  function () {
+                    promise_map[target_index].resolve();
+                  },
+                  function (err) {
+                    promise_map[target_index].reject(err);
+                  }
+                );
+              } else {
+                deferred.reject("Failed utterly");
+              }
+            },
+            function (err) {
+              deferred.reject(err);
+            }
+          );
         }
-      }
-    });
-    console.log("db_connection: ", db_connection);
 
-    q.all(promises).then(
-      function () {
-        deferred.resolve();
-        db_connection.close();
+        q.all(promises).then(
+          function () {
+            console.log("Finished success");
+            deferred.resolve();
+            db.close();
+          },
+          function (err) {
+            console.log("Finished fail");
+            deferred.reject(err);
+            db.close();
+          }
+        );
       },
       function (err) {
         deferred.reject(err);
-        db_connection.close();
       }
     );
 
@@ -89,6 +104,7 @@ var BUDGETS_SERVICE = (function (budgets_service,
   return budgets_service;
 }(BUDGETS_SERVICE || {},
   q,
-  DB_SERVICE));
+  DB_SERVICE,
+  BUDGET_SERVICE));
 
 module.exports = BUDGETS_SERVICE;
