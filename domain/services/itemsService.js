@@ -13,12 +13,10 @@ var ITEMS_SERVICE = (function (items_service,
         var cursor = db.collection('items').find( { "user_id": user_id } );
         cursor.each(function(err, doc) {
           if (err) {
-            db.close();
             deferred.reject(err);
           } else if (doc != null) {
             user_items.push(doc);
           } else {
-            db.close();
             deferred.resolve(user_items);
           }
         });

@@ -17,8 +17,6 @@ var BUDGET_SERVICE = (function (budget_service,
             } else {
               deferred.resolve(budget);
             }
-
-            db.close();
           }
         );
       },
@@ -31,7 +29,6 @@ var BUDGET_SERVICE = (function (budget_service,
   };
 
   budget_service.getBudgetByNameAndUserID = function (name, user_id) {
-    console.log("getBudgetByNameAndUserID");
     var deferred = q.defer();
 
     db_service.getInstance().then(
@@ -44,15 +41,12 @@ var BUDGET_SERVICE = (function (budget_service,
         );
         cursor.each(function(err, doc) {
           if (err) {
-            db.close();
             deferred.reject(err);
           } else if (doc != null) {
-            console.log("doc: ", doc);
             deferred.resolve(doc);
-            db.close();
-          } else {
+          }/* else {
             console.log("here");
-          }
+          }*/
         });
       },
       function (err) {
@@ -78,10 +72,8 @@ var BUDGET_SERVICE = (function (budget_service,
           function (err, results) {
             if (err) {
               deferred.reject(err);
-              db.close();
             } else {
               deferred.resolve();
-              db.close();
             }
           }
         );

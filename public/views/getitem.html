@@ -58,6 +58,7 @@
                     ng-model="budget.active">
               {{budget.name}}
             </button>
+            <span>Amount left in budget: {{budget.current_value}}</span>
             <input ng-if="budget.active"
                    ng-model="budget.expense_value"
                    type="number"

@@ -19,8 +19,6 @@ var ITEM_SERVICE = (function (item_service,
             } else {
               deferred.resolve(item);
             }
-
-            db.close();
           }
         );
       },
