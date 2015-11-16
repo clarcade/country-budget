@@ -9,9 +9,9 @@ var ITEM_SERVICE = (function (item_service,
   var addItemToDB = function (item) {
     var deferred = q.defer();
 
-    db_service.getInstance().then(
-      function (db) {
-        db.collection('items').insertOne(
+    db_service.getItemsCollection().then(
+      function (items_collection) {
+        items_collection.insertOne(
           item,
           function (err, result) {
             if (err) {

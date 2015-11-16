@@ -7,9 +7,9 @@ var BUDGET_SERVICE = (function (budget_service,
   budget_service.addBudget = function (budget) {
     var deferred = q.defer();
 
-    db_service.getInstance().then(
-      function (db) {
-        db.collection('budgets').insertOne(
+    db_service.getBudgetsCollection().then(
+      function (budgets_collection) {
+        budgets_collection.insertOne(
           budget,
           function(err, result) {
             if (err) {
@@ -31,9 +31,9 @@ var BUDGET_SERVICE = (function (budget_service,
   budget_service.getBudgetByNameAndUserID = function (name, user_id) {
     var deferred = q.defer();
 
-    db_service.getInstance().then(
-      function (db) {
-        var cursor = db.collection('budgets').find(
+    db_service.getBudgetsCollection().then(
+      function (budgets_collection) {
+        var cursor = budgets_collection.find(
           {
             "name": name,
             "user_id": user_id
@@ -60,9 +60,9 @@ var BUDGET_SERVICE = (function (budget_service,
   budget_service.updateCurrentBudgetValueByID = function (budget_id, new_current_value) {
     var deferred = q.defer();
 
-    db_service.getInstance().then(
-      function (db) {
-        db.collection('budgets').updateOne(
+    db_service.getBudgetsCollection().then(
+      function (budgets_collection) {
+        budgets_collection.updateOne(
           {
             "_id": budget_id
           },

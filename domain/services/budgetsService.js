@@ -9,10 +9,10 @@ var BUDGETS_SERVICE = (function (budgets_service,
   budgets_service.getUserBudgets = function (user_id) {
     var deferred = q.defer();
 
-    db_service.getInstance().then(
-      function (db) {
+    db_service.getBudgetsCollection().then(
+      function (budgets_collection) {
         var user_budgets = [];
-        var cursor = db.collection('budgets').find( { "user_id": user_id } );
+        var cursor = budgets_collection.find( { "user_id": user_id } );
         cursor.each(function(err, doc) {
           if (err) {
             deferred.reject(err);

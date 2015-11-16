@@ -4,22 +4,6 @@ var mongo = require('mongodb');
 var DB_SERVICE = (function (db_service,
                             mongo,
                             q) {
-  //db_service.getInstance = function () {
-  //  var deferred = q.defer();
-  //  var mongo_client = require('mongodb').MongoClient;
-  //  var url = 'mongodb://localhost:27017/test';
-  //
-  //  mongo_client.connect(url, function (err, db) {
-  //    if (err) {
-  //      deferred.reject(err);
-  //    } else {
-  //      deferred.resolve(db);
-  //    }
-  //  });
-  //
-  //  return deferred.promise;
-  //};
-
   var db = null;
   var main_deferred = q.defer();
   var main_promise = main_deferred.promise;
@@ -44,8 +28,7 @@ var DB_SERVICE = (function (db_service,
     }
   });
 
-  //db_service.getDBInstance = function () {
-  db_service.getInstance = function () {
+  db_service.getDBInstance = function () {
     if (!get_db_instance_deferred) {
       get_db_instance_deferred = q.defer();
 
@@ -137,7 +120,6 @@ var DB_SERVICE = (function (db_service,
             done_deferred.reject();
           } else {
             if (collections) {
-              //console.log("collections: ", collections);
               var future_promises_length = collections.length - 1; // Minus 1 for 'system.indexes' collection
               var check_if_done = 0;
 

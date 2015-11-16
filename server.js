@@ -42,7 +42,7 @@ function startServer() {
 
 // TODO: Use this to seed the database
 //var DB_SERVICE = require('./dbService.js');
-//DB_SERVICE.getInstance().then(
+//DB_SERVICE.getDBInstance().then(
 //  function (db) {
 //
 //  },

@@ -7,10 +7,10 @@ var ITEMS_SERVICE = (function (items_service,
   items_service.getUserItems = function (user_id) {
     var deferred = q.defer();
 
-    db_service.getInstance().then(
-      function (db) {
+    db_service.getItemsCollection().then(
+      function (items_collection) {
         var user_items = [];
-        var cursor = db.collection('items').find( { "user_id": user_id } );
+        var cursor = items_collection.find( { "user_id": user_id } );
         cursor.each(function(err, doc) {
           if (err) {
             deferred.reject(err);
