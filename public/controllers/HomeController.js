@@ -15,7 +15,7 @@ app.controller('HomeController', [
 
     item_service.getAllItems(user_id).then(
       function (items) {
-        console.log("items: ", items.plain());
+        //console.log("items: ", items.plain());
         $scope.view.user_items = items.plain();
         //var length = $scope.view.user_items.length;
         //var sum = 0;
@@ -27,13 +27,12 @@ app.controller('HomeController', [
         //$scope.view.item_value_total = sum;
       },
       function (response) {
-        console.log("response: ", response);
-        console.log("something bad happened 1.");
+        console.error("response: ", response);
       }
     );
 
     $scope.addItem = function () {
-      console.log("HomeController: addItem");
+      //console.log("HomeController: addItem");
 
       var get_item_modal = $modal.open({
         templateUrl: 'static/views/getitem.html',
@@ -47,30 +46,26 @@ app.controller('HomeController', [
         },
         function (response) {
           if (response) {
-            console.log("response: ", response);
+            console.error("response: ", response);
           }
         }
       ).then(
         function (item) {
           if (item && item.value) {
-            console.log("Successfully added item.");
-            console.log("item: ", item);
+            //console.log("Successfully added item.");
+            //console.log("item: ", item);
             $scope.view.user_items.push(item);
             $scope.view.item_value_total += item.value;
           }
         },
         function (error) {
-          if (error && error.data) {
-            console.error("Error: ", error.data);
-          } else {
-            console.error("Error: unknown");
-          }
+          console.error("Error: ", error.data);
         }
       );
     };
 
     $scope.addBudget = function () {
-      console.log("HomeController: addBudget");
+      //console.log("HomeController: addBudget");
 
       var get_budget_modal = $modal.open({
         templateUrl: 'static/views/getbudget.html',
@@ -84,22 +79,18 @@ app.controller('HomeController', [
         },
         function (response) {
           if (response) {
-            console.log("response: ", response);
+            console.error("response: ", response);
           }
         }
       ).then(
         function (budget) {
           if (budget && budget.name) {
-            console.log("Successfully added budget.");
-            console.log("budget: ", budget);
+            //console.log("Successfully added budget.");
+            //console.log("budget: ", budget);
           }
         },
         function (error) {
-          if (error && error.data) {
-            console.error("Error: ", error.data);
-          } else {
-            console.error("Error: unknown");
-          }
+          console.error("Error: ", error);
         }
       );
     };

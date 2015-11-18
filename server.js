@@ -1,7 +1,6 @@
 var body_parser = require('body-parser');
 var express = require('express');
 var app = express();
-var DB_SERVICE = require('./domain/services/dbService.js');
 
 function startServer() {
   app.use(body_parser.json()); // support json encoded bodies
@@ -29,26 +28,5 @@ function startServer() {
     console.log("started server");
   });
 }
-
-// Use this to drop ALL collections
-//DB_SERVICE.dropAllCollections().then(
-//  function () {
-//    startServer();
-//  },
-//  function () {
-//    console.error("Doh!");
-//  }
-//);
-
-// TODO: Use this to seed the database
-//var DB_SERVICE = require('./dbService.js');
-//DB_SERVICE.getDBInstance().then(
-//  function (db) {
-//
-//  },
-//  function (err) {
-//    console.error(err);
-//  }
-//);
 
 startServer();

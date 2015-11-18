@@ -2,9 +2,13 @@ app.controller('GetBudgetController', [
   '$scope',
   '$modalInstance',
   '$compile',
+  'BudgetService',
+  'UserService',
   function ($scope,
             modal_instance,
-            $compile) {
+            $compile,
+            budget_service,
+            user_service) {
     $scope.view = {};
     $scope.view.loaded = false;
     $scope.view.budget = {};
@@ -30,9 +34,21 @@ app.controller('GetBudgetController', [
       'startingDay': 1
     };
     $scope.maxDate = new Date(2050);
+    $scope.view.budgets = null;
 
     var today_date = new Date();
     var valid_dates = null;
+    var user_id = user_service.user.id;
+
+    budget_service.getAllBudgets(user_id).then(
+      function (budgets) {
+        //console.log("budgets: ", budgets.plain());
+        $scope.view.budgets = budgets.plain();
+      },
+      function (response) {
+        console.error(response);
+      }
+    );
 
     $scope.updateEndDates = function () {
       var recurrence_end_type = $scope.view.budget.recurrence_end_type;
@@ -242,7 +258,7 @@ app.controller('GetBudgetController', [
         }
         modal_instance.close($scope.view.budget);
       } else {
-        console.log("Form not valid.");
+        console.error("Form not valid.");
       }
     };
 

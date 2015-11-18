@@ -65,12 +65,11 @@ app.controller('GetItemController', [
 
     budget_service.getAllBudgets(user_id).then(
       function (budgets) {
-        console.log("budgets: ", budgets.plain());
+        //console.log("budgets: ", budgets.plain());
         $scope.view.user_budgets = budgets.plain();
       },
       function (response) {
-        console.log("response: ", response);
-        console.log("something bad happened 2.");
+        console.error("response: ", response);
       }
     );
 
@@ -266,21 +265,23 @@ app.controller('GetItemController', [
         "      </span>" +
         "    </span>" +
         "  </div>" +
-        "</div>" +
-        "<div>Value: $" +
-        "  <input type='number'" +
-        "         ng-model='view.item.value'" +
-        "         pattern='[0-9]+([,\\.][0-9]{1,2})?$'" +
-        "         step='0.01'" +
-        "         name='value'" +
-        "         min='0'" +
-        "         required>" +
-        "  <span ng-if='view.try_submit === true'>" +
-        "    <span ng-if='item_form.value.$error.required'>" +
-        "      Required" +
-        "    </span>" +
-        "  </span>" +
         "</div>";
+        //"</div>" +
+        //"<div>" +
+        //"  <span>Value: $</span>" +
+        //"  <input type='number'" +
+        //"         ng-model='view.item.value'" +
+        //"         pattern='[0-9]+([,\\.][0-9]{1,2})?$'" +
+        //"         step='0.01'" +
+        //"         name='value'" +
+        //"         min='0'" +
+        //"         required>" +
+        //"  <span ng-if='view.try_submit === true'>" +
+        //"    <span ng-if='item_form.value.$error.required'>" +
+        //"      Required" +
+        //"    </span>" +
+        //"  </span>" +
+        //"</div>";
 
       var compiled_html = $compile(datepicker_html);
       var content = compiled_html($scope);
@@ -313,7 +314,7 @@ app.controller('GetItemController', [
         $scope.updateItemBudgets();
         modal_instance.close($scope.view.item);
       } else {
-        console.log("Form not valid.");
+        console.error("Form not valid.");
       }
     };
 

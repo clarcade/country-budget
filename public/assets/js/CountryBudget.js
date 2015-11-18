@@ -4,7 +4,8 @@ var app = angular.module('CountryBudgetApp', [
   'ngAnimate',
   'restangular',
   'ngStorage',
-  'smart-table'
+  'smart-table',
+  'ngMessages'
 ]);
 
 app.config([

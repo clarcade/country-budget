@@ -5,11 +5,12 @@
       <input type="text"
              ng-model="view.budget.name"
              name="name"
+             validate-budget-name="view.budgets"
              required>
-      <span ng-if="view.try_submit === true">
-         <span ng-if="budget_form.name.$error.required">
-            Required
-         </span>
+      <span ng-if="view.try_submit === true"
+            ng-messages="budget_form.name.$error">
+        <span ng-message="required">Required</span>
+        <span ng-message="same_name">Another budget already has this name</span>
       </span>
     </div>
     <div>
@@ -26,7 +27,8 @@
       </select>
     </div>
     <div id="datepickers-container" ng-if="view.budget.recurrence_type"></div>
-    <div>Value: $
+    <div>
+      <span>Value: </span>
       <input type='number'
              ng-model='view.budget.value'
              pattern='[0-9]+([,\\.][0-9]{1,2})?$'
@@ -34,10 +36,8 @@
              name='value'
              min='0'
              required>
-      <span ng-if='view.try_submit === true'>
-        <span ng-if='budget_form.value.$error.required'>
-          Required
-        </span>
+      <span ng-if='view.try_submit === true' ng-messages="budget_form.value.$error">
+        <span ng-message='required'>Required</span>
       </span>
     </div>
     <div>

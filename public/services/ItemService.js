@@ -5,13 +5,22 @@ app.factory('ItemService', [
     var item_service = {};
 
     item_service.getAllItems = function (user_id) {
+      if (!user_id) {
+        console.error("user_id not provided");
+      }
+
       return restangular
         .one('user', user_id)
         .getList('items');
     };
 
     item_service.addItem = function (user_id, item) {
-      console.log("ItemService: addItem");
+      //console.log("ItemService: addItem");
+
+      if (!user_id) {
+        console.error("user_id not provided");
+      }
+
       return restangular
         .one('user', user_id)
         .all('item')
