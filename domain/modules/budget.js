@@ -39,7 +39,6 @@ budget_router.route('/')
         if (is_valid) {
           db_budget.name = response_budget.name;
           db_budget.value = response_budget.value;
-          db_budget.current_value = response_budget.value;
           db_budget.start_date = response_budget.start_date;
           db_budget.recurrence_type = response_budget.recurrence_type;
           db_budget.user_id = user_id;

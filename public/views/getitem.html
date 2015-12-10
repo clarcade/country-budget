@@ -63,15 +63,16 @@
             </span>
           </span>
       </div>
-      <div ng-if="view.item.revenue_type === 'Expense'">
-        <span>Categories To Apply:</span>
+      <!--<div ng-if="view.item.revenue_type === 'Expense' && view.item.value && view.item.value > 0">-->
+      <div ng-if="view.item.value && view.item.value > 0">
+        <span>Apply to Category:</span>
         <div ng-repeat="budget in view.user_budgets">
           <ng-form name="budget_field_form">
             <button type="button"
                     class="btn btn-primary"
                     btn-checkbox
                     ng-model="budget.active">{{budget.name}}</button>
-            <span>Amount left in budget: {{budget.current_value}}</span>
+            <span>Amount left in budget: {{budget.value}}</span>
             <input ng-if="budget.active"
                    ng-model="budget.expense_value"
                    type="number"

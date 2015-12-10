@@ -34,7 +34,7 @@ var ITEM_SERVICE = (function (item_service,
     var deferred = q.defer();
 
     if (item.budgets) {
-      var budgets_promise = budgets_service.updateBudgets(item.budgets, item.user_id);
+      var budgets_promise = budgets_service.updateBudgets(item.budgets, item.revenue_type, item.user_id);
       budgets_promise.then(
         function () {
           return addItemToDB(item);

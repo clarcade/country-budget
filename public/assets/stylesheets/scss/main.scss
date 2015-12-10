@@ -16,6 +16,12 @@
     background-color: #5bc0de;
   }
 
+  circle {
+    display: block;
+    margin: 0 auto;
+    fill: steelblue;
+  }
+
   .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
   }

@@ -57,7 +57,7 @@ var BUDGET_SERVICE = (function (budget_service,
     return deferred.promise;
   };
 
-  budget_service.updateCurrentBudgetValueByID = function (budget_id, new_current_value) {
+  budget_service.updateCurrentBudgetValueByID = function (budget_id, new_value) {
     var deferred = q.defer();
 
     db_service.getBudgetsCollection().then(
@@ -67,7 +67,7 @@ var BUDGET_SERVICE = (function (budget_service,
             "_id": budget_id
           },
           {
-            $set: { 'current_value': new_current_value }
+            $set: { 'value': new_value }
           },
           function (err, results) {
             if (err) {

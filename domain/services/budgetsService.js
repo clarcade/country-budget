@@ -31,7 +31,7 @@ var BUDGETS_SERVICE = (function (budgets_service,
     return deferred.promise;
   };
 
-  budgets_service.updateBudgets = function (budgets, user_id) {
+  budgets_service.updateBudgets = function (budgets, revenue_type, user_id) {
     var deferred = q.defer();
 
     // TODO: Figure out trickiness of changing i and new_deferred variables in budget_promise.then(), make more robust like db_service.dropAllCollections
@@ -56,9 +56,15 @@ var BUDGETS_SERVICE = (function (budgets_service,
           }
 
           if (typeof target_index === 'number') {
-            var new_current_value = current_budget.current_value - budgets[target_index].value;
+            var new_value = null;
 
-            budget_service.updateCurrentBudgetValueByID(current_budget['_id'], new_current_value).then(
+            if (revenue_type === "Expense") {
+              new_value = current_budget.value - budgets[target_index].value;
+            } else {
+              new_value = current_budget.value + budgets[target_index].value;
+            }
+
+            budget_service.updateCurrentBudgetValueByID(current_budget['_id'], new_value).then(
               function () {
                 promise_map[target_index].resolve();
               },

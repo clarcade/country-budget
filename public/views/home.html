@@ -1,47 +1,16 @@
 <section>
-  <h1>What-If Calculator</h1>
-
-  <p>Use this calculator to determine how expenses may effect your budget by entering in
-    your current balance, and any actual or 'what-if' income and expenses.</p>
-</section>
-<section>
   <div class="buttons-container">
-    <button class="btn btn-primary" ng-click="addItem()">Add Item</button>
+    <button class="btn btn-primary"
+            ng-click="addItem()"
+            ng-if="view.user_budgets && view.user_budgets.length > 0">Add Item</button>
     <!--<button class="btn btn-primary" ng-click="editRemoveItem()">Edit/Remove Item</button>-->
-    <button class="btn btn-primary" ng-click="addBudget()">Add Budget</button>
+    <button class="btn btn-primary"
+            ng-click="addBudget()">Add Budget</button>
   </div>
-  <!-- this would be useful as a directive -->
-  <div ng-if="view.user_items.length > 0">
-    <table st-table="view.user_items"
-           class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Revenue Type</th>
-          <th>Item Type</th>
-          <th>Template Type</th>
-          <th>Recurrence Type</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in view.user_items">
-          <td>{{item.name}}</td>
-          <td>{{item.revenue_type}}</td>
-          <td>{{item.item_type}}</td>
-          <td>{{item.template_type}}</td>
-          <td>{{item.recurrence_type}}</td>
-          <td>{{item.start_date | date:'medium'}}</td>
-          <td ng-if="item.end_date">{{item.end_date | date:'medium'}}</td>
-          <td ng-if="!item.end_date">-</td>
-          <td>{{item.value}}</td>
-        </tr>
-        <!--<tr>-->
-          <!--<td colspan="7" style="text-align:right; padding-right:5%;">Total: {{view.item_value_total}}</td>-->
-        <!--</tr>-->
-      </tbody>
-    </table>
-  </div>
+  <div ng-if="view.user_budgets && view.user_budgets.length > 0"
+       cb-circles-report
+       data="view.user_budgets"></div>
+  <!--<div ng-if="view.user_items && view.user_items.length > 0"-->
+       <!--cb-table-->
+       <!--data="view.user_items"></div>-->
 </section>

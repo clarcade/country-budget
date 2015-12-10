@@ -11,20 +11,49 @@ app.controller('HomeController', [
             $modal) {
     var user_id = user_service.user.id;
 
+    var updateBudgets = function (new_budgets, revenue_type) {
+      var new_budgets_length = new_budgets.length;
+      var budgets = $scope.view.user_budgets;
+      var length = budgets.length;
+
+      for (var i = 0; i < new_budgets_length; i++) {
+        for (var j = 0; j < length; j++) {
+          if (new_budgets[i].name === budgets[j].name) {
+            console.log("old budget value: ", budgets[j].value);
+            if (revenue_type === "Expense") {
+              budgets[j].value -= new_budgets[i].value;
+            } else {
+              budgets[j].value += new_budgets[i].value;
+            }
+            console.log("new budget value: ", budgets[j].value);
+
+            i = new_budgets_length;
+            j = length;
+          }
+        }
+      }
+    };
+
     $scope.view = {};
 
+    budget_service.getAllBudgets(user_id).then(
+      function (response) {
+        if (response && response.length > 0) {
+          var budgets = response.plain();
+          //console.log("budgets: ", budgets);
+          $scope.view.user_budgets = budgets;
+        }
+      },
+      function (error) {
+        console.error(error);
+      }
+    );
+
     item_service.getAllItems(user_id).then(
-      function (items) {
-        //console.log("items: ", items.plain());
-        $scope.view.user_items = items.plain();
-        //var length = $scope.view.user_items.length;
-        //var sum = 0;
-        //for (var i = 0; i < length; i++) {
-        //  sum += $scope.view.user_items[i].value;
-        //}
-        //console.log("sum: ", sum);
-        //
-        //$scope.view.item_value_total = sum;
+      function (response) {
+        var items = response.plain();
+        //console.log("items: ", items);
+        $scope.view.user_items = items;
       },
       function (response) {
         console.error("response: ", response);
@@ -50,12 +79,15 @@ app.controller('HomeController', [
           }
         }
       ).then(
-        function (item) {
-          if (item && item.value) {
-            //console.log("Successfully added item.");
-            //console.log("item: ", item);
+        function (response) {
+          if (response && response.value) {
+            var item = response.plain();
+            console.log("Successfully added item.");
+            console.log("item: ", item);
             $scope.view.user_items.push(item);
-            $scope.view.item_value_total += item.value;
+            if (item.budgets && item.budgets.length > 0) {
+              updateBudgets(item.budgets, item.revenue_type);
+            }
           }
         },
         function (error) {
@@ -83,10 +115,15 @@ app.controller('HomeController', [
           }
         }
       ).then(
-        function (budget) {
-          if (budget && budget.name) {
-            //console.log("Successfully added budget.");
-            //console.log("budget: ", budget);
+        function (response) {
+          if (response && response.name) {
+            var budget = response.plain();
+
+            if (!$scope.view.user_budgets) {
+              $scope.view.user_budgets = [];
+            }
+
+            $scope.view.user_budgets.push(budget);
           }
         },
         function (error) {
