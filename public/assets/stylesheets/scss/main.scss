@@ -1,52 +1,161 @@
-.countrybudget {
+.nation-budget {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  color: white;
 
-  body, div, section, p, h1, header, footer, ng-include,
+  body, div, section, p, h1, h2, header, footer,
   nav, ul, li, a, figure, img, aside, form, input {
     margin: 0;
     padding: 0;
   }
-
   body {
     height: 100%;
     width: 100%;
-    background-color: #5bc0de;
+    //background-color: #5bc0de;
+    //background-color: black;
+    background-color: darkturquoise;
+    display: flex;
+    flex-direction: column;
   }
-
-  circle {
-    display: block;
-    margin: 0 auto;
-    fill: steelblue;
+  header {
+    padding: 30px 0;
+    display: flex;
+    flex-direction: row;
+    background-color: darkturquoise;
   }
-
-  .nav, .pagination, .carousel, .panel-title a {
-    cursor: pointer;
+  header > div {
+    width: 33.3%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
   }
-  // Needed by angular-ui bootstrap
-
-  .input-container {
-    margin: 10px 0;
+  .company-logo {
+    font-size: 30px;
+    margin-left: 10%;
+    text-decoration: none;
+    color: white;
   }
-
-  .modal-dialog {
-    margin: 0 auto;
+  footer {
+    margin: 40px 0;
   }
-
-  .datepicker-container {
-    input {
-      width: 300px;
-      display: inline-block;
-    }
-    button {
-      position: relative;
-      bottom: 1px;
-    }
-  }
-
-  .center-text {
+  h1, h2 {
+    font-size: 30px;
     text-align: center;
+  }
+  .h1-container {
+    display: flex;
+    justify-content: center;
+  }
+  .flex-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  // New Stuff Here
+  .logged-out-homepage {
+    //color: white;
+    //color: black;
+
+    /*header,*/ section > div {
+      //padding-top: 30px;
+      margin-top: 30px;
+    }
+    section > div:first-child {
+      margin-top: 0;
+    }
+    //header {
+    //  padding: 30px 0;
+    //  display: flex;
+    //  flex-direction: row;
+    //  background-color: darkturquoise;
+    //}
+    //footer {
+    //  margin: 40px 0 0 0;
+    //}
+    //h1 {
+    //  font-size: 30px;
+    //  text-align: center;
+    //}
+    section {
+      //background-color: black;
+    }
+    header, footer {
+      //background-color: black;
+    }
+    //header > div {
+    //  width: 33.3%;
+    //  flex-grow: 1;
+    //  display: flex;
+    //  align-items: center;
+    //}
+    //.company-logo {
+    //  font-size: 30px;
+    //  margin-left: 10%;
+    //}
+    .get-started-container {
+      display: flex;
+      justify-content: center;
+      //padding: 20px 0;
+      //background-color: black;
+    }
+    .get-started-button {
+      font-size: 23px;
+      vertical-align: middle;
+      padding: 10px;
+      background-color: white;
+    }
+    .family-pic {
+      margin: 0 auto;
+      display: block;
+      width: 100%;
+      height: 450px;
+    }
+    //.flex-center {
+    //  display: flex;
+    //  justify-content: center;
+    //}
+    .highlights-container {
+      display: flex;
+      flex-direction: row;
+    }
+    .highlights-container > div {
+      display: flex;
+      flex-direction: column;
+      width: 33.3%;
+      justify-content: flex-start;
+      align-items: center;
+      flex-grow: 1;
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .highlights-container img {
+      display: block;
+      height: 200px;
+      width: 200px;
+      margin: 10px 0 0 0;
+    }
+  }
+
+  .register-page {
+    input {
+      height: 30px;
+      width: 200px;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+    .get-started-container {
+      display: flex;
+      justify-content: center;
+    }
+    .register-button {
+      height: auto;
+      margin: 0;
+      font-size: 23px;
+      vertical-align: middle;
+      padding: 10px;
+      background-color: white;
+    }
   }
 }

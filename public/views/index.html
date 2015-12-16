@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html ng-app="CountryBudgetApp" class="countrybudget">
+<html class="nation-budget">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>CountryBudget</title>
-    <script src="static/assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="static/assets/vendor/angular/angular.js"></script>
+    <title>NationBudget</title>
     <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="static/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
   </head>
-  <body>
-    <div ng-view class="my-ngview"></div>
-
-    <!-- Main App Script -->
-    <script src="static/assets/js/CountryBudget.js"></script>
-
-    <!-- Controllers -->
-    <script src="static/controllers/EditRemoveItemController.js"></script>
-    <script src="static/controllers/GetBudgetController.js"></script>
-    <script src="static/controllers/GetItemController.js"></script>
-    <script src="static/controllers/HomeController.js"></script>
-
-    <!-- Services -->
-    <script src="static/services/BudgetService.js"></script>
-    <script src="static/services/ItemService.js"></script>
-    <script src="static/services/UserService.js"></script>
-
-    <!-- Assets -->
-    <script src="static/assets/vendor/angular-route/angular-route.js"></script>
-    <script src="static/assets/vendor/lodash/lodash.js"></script>
-    <script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="static/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="static/assets/vendor/angular-animate/angular-animate.js"></script>
-    <script src="static/assets/vendor/restangular/dist/restangular.min.js"></script>
-    <script src="static/assets/vendor/ngstorage/ngStorage.js"></script>
-    <script src="static/assets/vendor/angular-smart-table/dist/smart-table.js"></script>
-    <script src="static/assets/vendor/angular-messages/angular-messages.min.js"></script>
-    <script src="static/assets/vendor/d3/d3.min.js"></script>
-
-    <!-- Directives -->
-    <script src="static/assets/directives/cbCirclesReport/cbCirclesReport.js"></script>
-    <script src="static/assets/directives/cbTable/cbTable.js"></script>
-    <script src="static/assets/directives/validateBudgetName/validateBudgetName.js"></script>
+  <body class="logged-out-homepage">
+    <header>
+      <div>
+        <a class="company-logo" href="/">NationBudget</a>
+      </div>
+      <div class="h1-container">
+        <h1>A Financial Planner Modeled for Families and Businesses</h1>
+      </div>
+      <div></div>
+    </header>
+    <section>
+      <div>
+        <img src="http://cola.unh.edu/sites/cola.unh.edu/files/styles/homepage/public/images/homepagePhotoFRLrev.jpg?itok=wdJ0UxSm"
+             alt="Picture of Family"
+             class="family-pic">
+      </div>
+      <div class="get-started-container">
+        <form action="getstarted">
+          <input type="submit"
+                 class="get-started-button button"
+                 value="Get Started!">
+        </form>
+      </div>
+      <div class="flex-center">
+        <h2>Plan for Each Member of Your Family or Business</h2>
+      </div>
+      <div class="highlights-container">
+        <div>
+          <p>Track Purchases</p>
+          <img src="https://s-media-cache-ak0.pinimg.com/736x/7d/12/a8/7d12a8eee255933ed7f78a31d0c084de.jpg"
+               alt="History Table of Purchased Items">
+        </div>
+        <div>
+          <p>BillPay Reminder</p>
+          <img src="http://placehold.it/200x200"
+               alt="Image of BillPay Reminder">
+        </div>
+        <div>
+          <p>Plan Purchases</p>
+          <img src="http://placehold.it/200x200"
+               alt="Image of Planning Purchases">
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p class="flex-center">&#169;2015 NationBudget</p>
+    </footer>
   </body>
 </html>

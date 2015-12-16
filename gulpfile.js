@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var del = require('del');
 var bower = require('gulp-bower2');
 var sass = require('gulp-sass');
+var run = require('gulp-run');
 
 gulp.task('clean', function (cb) {
   del([

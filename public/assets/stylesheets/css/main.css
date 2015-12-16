@@ -1,31 +1,93 @@
-.countrybudget {
+.nation-budget {
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 100%; }
-  .countrybudget body, .countrybudget div, .countrybudget section, .countrybudget p, .countrybudget h1, .countrybudget header, .countrybudget footer, .countrybudget ng-include,
-  .countrybudget nav, .countrybudget ul, .countrybudget li, .countrybudget a, .countrybudget figure, .countrybudget img, .countrybudget aside, .countrybudget form, .countrybudget input {
+  width: 100%;
+  color: white; }
+  .nation-budget body, .nation-budget div, .nation-budget section, .nation-budget p, .nation-budget h1, .nation-budget h2, .nation-budget header, .nation-budget footer,
+  .nation-budget nav, .nation-budget ul, .nation-budget li, .nation-budget a, .nation-budget figure, .nation-budget img, .nation-budget aside, .nation-budget form, .nation-budget input {
     margin: 0;
     padding: 0; }
-  .countrybudget body {
+  .nation-budget body {
     height: 100%;
     width: 100%;
-    background-color: #5bc0de; }
-  .countrybudget circle {
-    display: block;
-    margin: 0 auto;
-    fill: steelblue; }
-  .countrybudget .nav, .countrybudget .pagination, .countrybudget .carousel, .countrybudget .panel-title a {
-    cursor: pointer; }
-  .countrybudget .input-container {
-    margin: 10px 0; }
-  .countrybudget .modal-dialog {
-    margin: 0 auto; }
-  .countrybudget .datepicker-container input {
-    width: 300px;
-    display: inline-block; }
-  .countrybudget .datepicker-container button {
-    position: relative;
-    bottom: 1px; }
-  .countrybudget .center-text {
+    background-color: darkturquoise;
+    display: flex;
+    flex-direction: column; }
+  .nation-budget header {
+    padding: 30px 0;
+    display: flex;
+    flex-direction: row;
+    background-color: darkturquoise; }
+  .nation-budget header > div {
+    width: 33.3%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center; }
+  .nation-budget .company-logo {
+    font-size: 30px;
+    margin-left: 10%;
+    text-decoration: none;
+    color: white; }
+  .nation-budget footer {
+    margin: 40px 0; }
+  .nation-budget h1, .nation-budget h2 {
+    font-size: 30px;
     text-align: center; }
+  .nation-budget .h1-container {
+    display: flex;
+    justify-content: center; }
+  .nation-budget .flex-center {
+    display: flex;
+    justify-content: center; }
+  .nation-budget .logged-out-homepage {
+    /*header,*/ }
+    .nation-budget .logged-out-homepage section > div {
+      margin-top: 30px; }
+    .nation-budget .logged-out-homepage section > div:first-child {
+      margin-top: 0; }
+    .nation-budget .logged-out-homepage .get-started-container {
+      display: flex;
+      justify-content: center; }
+    .nation-budget .logged-out-homepage .get-started-button {
+      font-size: 23px;
+      vertical-align: middle;
+      padding: 10px;
+      background-color: white; }
+    .nation-budget .logged-out-homepage .family-pic {
+      margin: 0 auto;
+      display: block;
+      width: 100%;
+      height: 450px; }
+    .nation-budget .logged-out-homepage .highlights-container {
+      display: flex;
+      flex-direction: row; }
+    .nation-budget .logged-out-homepage .highlights-container > div {
+      display: flex;
+      flex-direction: column;
+      width: 33.3%;
+      justify-content: flex-start;
+      align-items: center;
+      flex-grow: 1;
+      font-size: 25px;
+      font-weight: bold; }
+    .nation-budget .logged-out-homepage .highlights-container img {
+      display: block;
+      height: 200px;
+      width: 200px;
+      margin: 10px 0 0 0; }
+  .nation-budget .register-page input {
+    height: 30px;
+    width: 200px;
+    margin-bottom: 20px;
+    font-size: 15px; }
+  .nation-budget .register-page .get-started-container {
+    display: flex;
+    justify-content: center; }
+  .nation-budget .register-page .register-button {
+    height: auto;
+    margin: 0;
+    font-size: 23px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: white; }
