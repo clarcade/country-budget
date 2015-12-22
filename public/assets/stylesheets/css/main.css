@@ -34,12 +34,25 @@
   .nation-budget h1, .nation-budget h2 {
     font-size: 30px;
     text-align: center; }
+  .nation-budget input {
+    font-size: 15px; }
   .nation-budget .h1-container {
     display: flex;
     justify-content: center; }
-  .nation-budget .flex-center {
+  .nation-budget .flex-center, .nation-budget .getstarted-page .get-started-container {
     display: flex;
     justify-content: center; }
+  .nation-budget .flex-row {
+    display: flex;
+    flex-direction: row; }
+  .nation-budget .flex-column, .nation-budget .getstarted-page .get-started-container > div, .nation-budget .register-personal-page .main-container {
+    display: flex;
+    flex-direction: column; }
+  .nation-budget .button {
+    font-size: 23px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: white; }
   .nation-budget .logged-out-homepage {
     /*header,*/ }
     .nation-budget .logged-out-homepage section > div {
@@ -91,3 +104,16 @@
     vertical-align: middle;
     padding: 10px;
     background-color: white; }
+  .nation-budget .getstarted-page .get-started-container > div {
+    width: 33.3%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 1;
+    font-size: 25px;
+    font-weight: bold; }
+  .nation-budget .register-personal-page .main-container {
+    align-items: center; }
+    .nation-budget .register-personal-page .main-container form div input {
+      min-height: 30px;
+      width: 220px;
+      margin: 12px 0; }

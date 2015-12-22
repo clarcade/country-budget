@@ -44,6 +44,9 @@
     font-size: 30px;
     text-align: center;
   }
+  input {
+    font-size: 15px;
+  }
   .h1-container {
     display: flex;
     justify-content: center;
@@ -51,6 +54,20 @@
   .flex-center {
     display: flex;
     justify-content: center;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  .button {
+    font-size: 23px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: white;
   }
 
   // New Stuff Here
@@ -156,6 +173,39 @@
       vertical-align: middle;
       padding: 10px;
       background-color: white;
+    }
+  }
+
+  .getstarted-page {
+    .get-started-container {
+      @extend .flex-center;
+
+      & > div {
+        @extend .flex-column;
+        width: 33.3%;
+        justify-content: flex-start;
+        align-items: center;
+        flex-grow: 1;
+        font-size: 25px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .register-personal-page {
+    .main-container {
+      @extend .flex-column;
+      align-items: center;
+
+      form {
+        div {
+          input {
+            min-height: 30px;
+            width: 220px;
+            margin: 12px 0;
+          }
+        }
+      }
     }
   }
 }

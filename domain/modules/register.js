@@ -1,6 +1,5 @@
 var express = require('express');
-var account_service = require('../services/accountService.js');
-var user_service = require('../services/userService.js');
+
 var register_router = express.Router({mergeParams: true});
 
 register_router.route('/')
@@ -22,52 +21,26 @@ register_router.route('/')
       } else if (!response_data.password) {
         res.status(500).send('Item missing password.');
       } else {
-        var is_valid = true;
+        try {
+          var account_data = {};
+          account_data.type = response_data.type;
+          account_data.name = response_data.accountName;
 
-        // TODO: more validation of user provided data
+          var user_data = {};
 
-        if (is_valid) {
-          try {
-            var account_name = response_data.companyName;
+          user_data.firstName = response_data.firstName;
+          user_data.lastName = response_data.lastName;
+          user_data.companyName = response_data.companyName;
+          user_data.username = response_data.username;
+          user_data.password = response_data.password;
 
-            // TODO: add these services and their methods
-            account_service.createAccount(account_name).then( // TODO
-              addNewUser(account_id),
-              createAccountFailed(err)
-            ).then(
-              sendSuccessResponse(),
-              addUserFailed(err)
-            );
+          // TODO: Sanitize user input
 
-            // Function Declarations
-            function addNewUser(account_id) {
-              var user_data = {};
-              user_data.firstName = response_data.firstName;
-              user_data.lastName = response_data.lastName;
-              user_data.username = response_data.username;
-              user_data.password = response_data.password;
-              user_data.account_id = account_id;
+          // TODO: Insert data into database
 
-              return user_service.addUser(user_data); // TODO
-            }
-
-            function createAccountFailed(err) {
-              console.log("Error: ", err);
-              res.status(500).send("Failed to add new account.");
-            }
-
-            function addUserFailed(err) {
-              console.log("Error: ", err);
-              res.status(500).send("Failed to add new user.");
-            }
-
-            function sendSuccessResponse() {
-              res.send();
-            }
-          } catch (err) {
-            console.log("Error: ", err);
-            res.status(500).send('Failed to register new user/account');
-          }
+        } catch (err) {
+          console.log("Error: ", err);
+          res.status(500).send('Failed to register new user/account');
         }
       }
     }

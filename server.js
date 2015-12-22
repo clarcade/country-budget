@@ -12,15 +12,23 @@ function startServer() {
       res.sendFile(__dirname + '/public/views/index.html');
     });
 
-  app.route('/getstarted')
-    .get(function (req, res) {
-      res.sendFile(__dirname + '/public/views/getstarted.html');
-    });
+  //app.route('/getstarted')
+  //  .get(function (req, res) {
+  //    res.sendFile(__dirname + '/public/views/getstarted.html');
+  //  });
+  //
+  //app.route('/registerPersonal')
+  //  .get(function (req, res) {
+  //    res.sendFile(__dirname + '/public/views/registerPersonal.html');
+  //  });
 
   //app.route('/signin')
   //  .get(function (req, res) {
   //    res.sendFile(__dirname + '/public/views/signin.html');
   //  });
+
+  var getstarted_router = require('./domain/modules/getstarted');
+  app.use('/getstarted', getstarted_router);
 
   var register_router = require('./domain/modules/register');
   app.use('/register', register_router);

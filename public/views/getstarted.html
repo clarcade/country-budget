@@ -5,51 +5,34 @@
     <title>NationBudget</title>
     <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/main.css">
   </head>
-  <body class="register-page">
+  <body class="getstarted-page">
     <header>
       <div>
         <a class="company-logo" href="/">NationBudget</a>
       </div>
       <div class="h1-container">
-        <h1>Get Started!</h1>
+        <h1>Plans and Prices</h1>
       </div>
       <div></div>
     </header>
     <section>
       <div class="get-started-container">
-        <form action="register"
-              method="post">
-          <div>
-            <input type="text"
-                   placeholder="First Name"
-                   name="firstName">
-          </div>
-          <div>
-            <input type="text"
-                   placeholder="Last Name"
-                   name="lastName">
-          </div>
-          <div>
-            <input type="text"
-                   placeholder="Company Name"
-                   name="companyName">
-          </div>
-          <div>
-            <input type="text"
-                   placeholder="Username"
-                   name="username">
-          </div>
-          <div>
-            <input type="password"
-                   placeholder="Password"
-                   name="password">
-          </div>
-          <div>
+        <div>
+          <p>Personal</p>
+          <form method="get" action="getstarted/personal">
             <input type="submit"
-                   class="register-button button"
-                   value="Register!">
-          </div>
-        </form>
+                   class="button"
+                   value="Sign Up">
+          </form>
+        </div>
+        <div>
+          <p>Business</p>
+          <form method="get" action="getstarted/business">
+            <input type="submit"
+                   class="button"
+                   value="Sign Up">
+          </form>
+        </div>
       </div>
     </section>
     <footer>
