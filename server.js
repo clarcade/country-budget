@@ -2,6 +2,8 @@ var body_parser = require('body-parser');
 var express = require('express');
 var app = express();
 
+app.set('port', (process.env.PORT || 3000));
+
 function startServer() {
   app.use(body_parser.json()); // support json encoded bodies
   app.use(body_parser.urlencoded({extended: true})); // support encoded bodies
@@ -48,8 +50,11 @@ function startServer() {
   //var budgets_router = require('./domain/modules/budgets');
   //app.use('/user/:user_id/budgets', budgets_router);
 
-  app.listen(3000, function () {
-    console.log("started server");
+  //app.listen(3000, function () {
+  //  console.log("started server");
+  //});
+  app.listen(app.get('port'), function () {
+    console.log("Node app is running on port", app.get('port'));
   });
 }
 
