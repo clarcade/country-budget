@@ -6,7 +6,8 @@
   color: white;
 
   body, div, section, p, h1, h2, header, footer,
-  nav, ul, li, a, figure, img, aside, form, input {
+  nav, ul, li, a, figure, img, aside, form, input,
+  table, th, td {
     margin: 0;
     padding: 0;
   }
@@ -46,6 +47,15 @@
   }
   input {
     font-size: 15px;
+  }
+  tr:nth-child(even) {
+    background-color: darkgrey;
+  }
+  tr:nth-child(odd) {
+    background-color: white;
+  }
+  th, td {
+    font-size: 20px;
   }
   .h1-container {
     display: flex;
@@ -180,15 +190,33 @@
     .get-started-container {
       @extend .flex-center;
 
-      & > div {
-        @extend .flex-column;
-        width: 33.3%;
-        justify-content: flex-start;
-        align-items: center;
-        flex-grow: 1;
-        font-size: 25px;
-        font-weight: bold;
+      table {
+        color: black;
+        border-spacing: 0;
+
+        th, td {
+          padding: 10px 0;
+        }
+        th {
+          width: 145px;
+        }
+        td {
+          text-align: center;
+        }
+        td:first-child {
+          text-align: left;
+          padding-left: 20px;
+        }
       }
+      //& > div {
+      //  @extend .flex-column;
+      //  width: 33.3%;
+      //  justify-content: flex-start;
+      //  align-items: center;
+      //  flex-grow: 1;
+      //  font-size: 25px;
+      //  font-weight: bold;
+      //}
     }
   }
 

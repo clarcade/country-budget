@@ -5,7 +5,8 @@
   width: 100%;
   color: white; }
   .nation-budget body, .nation-budget div, .nation-budget section, .nation-budget p, .nation-budget h1, .nation-budget h2, .nation-budget header, .nation-budget footer,
-  .nation-budget nav, .nation-budget ul, .nation-budget li, .nation-budget a, .nation-budget figure, .nation-budget img, .nation-budget aside, .nation-budget form, .nation-budget input {
+  .nation-budget nav, .nation-budget ul, .nation-budget li, .nation-budget a, .nation-budget figure, .nation-budget img, .nation-budget aside, .nation-budget form, .nation-budget input,
+  .nation-budget table, .nation-budget th, .nation-budget td {
     margin: 0;
     padding: 0; }
   .nation-budget body {
@@ -36,6 +37,12 @@
     text-align: center; }
   .nation-budget input {
     font-size: 15px; }
+  .nation-budget tr:nth-child(even) {
+    background-color: darkgrey; }
+  .nation-budget tr:nth-child(odd) {
+    background-color: white; }
+  .nation-budget th, .nation-budget td {
+    font-size: 20px; }
   .nation-budget .h1-container {
     display: flex;
     justify-content: center; }
@@ -45,7 +52,7 @@
   .nation-budget .flex-row {
     display: flex;
     flex-direction: row; }
-  .nation-budget .flex-column, .nation-budget .getstarted-page .get-started-container > div, .nation-budget .register-personal-page .main-container {
+  .nation-budget .flex-column, .nation-budget .register-personal-page .main-container {
     display: flex;
     flex-direction: column; }
   .nation-budget .button {
@@ -104,13 +111,18 @@
     vertical-align: middle;
     padding: 10px;
     background-color: white; }
-  .nation-budget .getstarted-page .get-started-container > div {
-    width: 33.3%;
-    justify-content: flex-start;
-    align-items: center;
-    flex-grow: 1;
-    font-size: 25px;
-    font-weight: bold; }
+  .nation-budget .getstarted-page .get-started-container table {
+    color: black;
+    border-spacing: 0; }
+    .nation-budget .getstarted-page .get-started-container table th, .nation-budget .getstarted-page .get-started-container table td {
+      padding: 10px 0; }
+    .nation-budget .getstarted-page .get-started-container table th {
+      width: 145px; }
+    .nation-budget .getstarted-page .get-started-container table td {
+      text-align: center; }
+    .nation-budget .getstarted-page .get-started-container table td:first-child {
+      text-align: left;
+      padding-left: 20px; }
   .nation-budget .register-personal-page .main-container {
     align-items: center; }
     .nation-budget .register-personal-page .main-container form div input {
