@@ -1,0 +1,33 @@
+@import "base.scss";
+
+html {
+  background-color: darkturquoise;
+  color: white;
+}
+header {
+  padding: 10px 0;
+}
+.company-logo {
+  font-size: 30px;
+  text-decoration: none;
+  color: white;
+}
+section {
+  height: 100%;
+}
+footer {
+  margin: 40px 0;
+}
+h1, h2 {
+  font-size: 30px;
+  text-align: center;
+}
+.main-container {
+  @extend .flex-column;
+  align-items: center;
+}
+input {
+  min-height: 30px;
+  width: 220px;
+  margin: 12px 0;
+}

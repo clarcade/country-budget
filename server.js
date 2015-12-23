@@ -22,8 +22,8 @@ function startServer() {
   var register_router = require('./domain/modules/register');
   app.use('/register', register_router);
 
-  //var signin_router = require('./domain/modules/signin');
-  //app.use('/signin', signin_router);
+  var signin_router = require('./domain/modules/signin');
+  app.use('/signin', signin_router);
 
   //var item_router = require('./domain/modules/item');
   //app.use('/user/:user_id/item', item_router);

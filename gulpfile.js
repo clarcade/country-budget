@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var del = require('del');
 var bower = require('gulp-bower2');
 var sass = require('gulp-sass');
-var run = require('gulp-run');
 
 gulp.task('clean', function (cb) {
   del([
@@ -19,8 +18,6 @@ gulp.task('sass', function () {
   gulp.src('./public/assets/stylesheets/scss/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public/assets/stylesheets/css'));
-});
 
-gulp.task('sass:watch', function () {
   gulp.watch('./public/assets/stylesheets/scss/*.scss', ['sass']);
 });

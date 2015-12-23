@@ -1,10 +1,4 @@
 .idea/
-node_modules/
-vendor/
-vendor/peej/tonic/
-assets/vendor/
-assets/images/
-assets/stylesheets/css/
-phpinfo.php
 data/
-countrybudget-domain/
+node_modules/
+public/assets/stylesheets/css/
