@@ -1,0 +1,31 @@
+body, div, section, p, h1, h2, header, footer,
+nav, ul, li, a, figure, img, aside, form, input,
+table, th, td, html {
+  margin: 0;
+  padding: 0; }
+
+.flex-center {
+  display: flex;
+  justify-content: center; }
+
+.flex-row {
+  display: flex;
+  flex-direction: row; }
+
+.flex-column {
+  display: flex;
+  flex-direction: column; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column; }
+
+input {
+  font-size: 15px; }
+
+.button {
+  font-size: 23px;
+  padding: 10px;
+  background-color: white; }
