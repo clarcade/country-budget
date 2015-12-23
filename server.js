@@ -3,6 +3,8 @@ var express = require('express');
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
+app.set('views', __dirname + '/public/views');
+app.set('view engine', 'ejs');
 
 function startServer() {
   app.use(body_parser.json()); // support json encoded bodies
@@ -11,23 +13,8 @@ function startServer() {
 
   app.route('/')
     .get(function (req, res) {
-      res.sendFile(__dirname + '/public/views/index.html');
+      res.render('index');
     });
-
-  //app.route('/getstarted')
-  //  .get(function (req, res) {
-  //    res.sendFile(__dirname + '/public/views/getstarted.html');
-  //  });
-  //
-  //app.route('/registerPersonal')
-  //  .get(function (req, res) {
-  //    res.sendFile(__dirname + '/public/views/registerPersonal.html');
-  //  });
-
-  //app.route('/signin')
-  //  .get(function (req, res) {
-  //    res.sendFile(__dirname + '/public/views/signin.html');
-  //  });
 
   var getstarted_router = require('./domain/modules/getstarted');
   app.use('/getstarted', getstarted_router);

@@ -15,15 +15,11 @@ var REGISTER_ROUTER = (function(path) {
       res.sendFile(path.resolve(base_url + 'personal.html'));
     })
     .post(function (req, res) {
-
     });
 
   register_router.route('/business')
     .get(function (req, res) {
-      res.sendFile(path.resolve(base_url + 'business.html'));
-    })
-    .post(function (req, res) {
-
+      res.render('business');
     });
 
   return register_router;
