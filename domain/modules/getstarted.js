@@ -48,21 +48,23 @@ var REGISTER_ROUTER = (function() {
             }
 
             // TODO: Insert data into database
-            ACCOUNT_SERVICE.createAccount().then(
-              function (account_id) {
-                return USER_SERVICE.createUser();
-              },
-              function () {
-                throw "Failed to create account.";
-              }
-            ).then(
-              function () {
-                res.render('signin');
-              },
-              function () {
-                throw "Failed to create user.";
-              }
-            )
+            //ACCOUNT_SERVICE.createAccount().then(
+            //  function (account_id) {
+            //    return USER_SERVICE.createUser();
+            //  },
+            //  function () {
+            //    throw "Failed to create account.";
+            //  }
+            //).then(
+            //  function () {
+            //    res.render('signin');
+            //  },
+            //  function () {
+            //    throw "Failed to create user.";
+            //  }
+            //);
+
+            res.render('signin');
           } catch (err) {
             console.log("Error: ", err);
             res.status(500).send('Failed to register new account/user');

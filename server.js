@@ -25,6 +25,9 @@ function startServer() {
   var signin_router = require('./domain/modules/signin');
   app.use('/signin', signin_router);
 
+  var lihp_router = require('./domain/modules/lihp');
+  app.use('/lihp', lihp_router);
+
   //var item_router = require('./domain/modules/item');
   //app.use('/user/:user_id/item', item_router);
 
