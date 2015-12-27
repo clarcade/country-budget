@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>NationBudget</title>
-    <base href="http://fast-brook-4391.herokuapp.com/">
+    <!--<base href="http://fast-brook-4391.herokuapp.com/">-->
     <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/signin.css">
   </head>
   <body>
@@ -14,13 +14,15 @@
     </header>
     <section>
       <div class="main-container">
-        <form>
+        <form id="signin-form">
           <div>
             <input type="email"
                    placeholder="Email"
                    name="email"
                    maxlength="256"
+                   id="email-input"
                    required>
+            <span id="email-availability"></span>
           </div>
           <div>
             <input type="password"
@@ -31,10 +33,9 @@
                    required>
           </div>
           <div>
-            <input type="button"
-                   class="submit-button button"
-                   value="Sign In"
-                   disabled>
+            <input type="submit"
+                   class="button"
+                   value="Sign In">
           </div>
         </form>
       </div>
@@ -42,5 +43,6 @@
     <footer>
       <p class="flex-center">&#169;2015 NationBudget</p>
     </footer>
+    <script src="static/assets/js/main.js"></script>
   </body>
 </html>

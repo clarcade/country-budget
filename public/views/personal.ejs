@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>NationBudget</title>
-    <base href="http://fast-brook-4391.herokuapp.com/">
-    <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/personal.css">
-    <!--<link rel="stylesheet" type="text/css" href="http://localhost:3000/static/assets/stylesheets/css/personal.css">-->
+    <!--<base href="http://fast-brook-4391.herokuapp.com/">-->
+    <!--<link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/personal.css">-->
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/static/assets/stylesheets/css/personal.css">
   </head>
   <body>
     <header>
@@ -19,10 +19,11 @@
     </header>
     <section>
       <div class="main-container">
-        <form action="getstarted/personal"
-              method="post">
-        <!--<form action="http://localhost:3000/getstarted/personal"-->
+        <!--<form action="getstarted/personal"-->
               <!--method="post">-->
+        <form action="http://localhost:3000/getstarted/personal"
+              method="post"
+              onsubmit="return MAIN.checkDuplicateEmail()">
           <div>
             <input type="text"
                    placeholder="First Name"
@@ -46,6 +47,7 @@
                    placeholder="Email"
                    name="email"
                    maxlength="256"
+                   id="email-input"
                    required>
           </div>
           <div>
@@ -67,5 +69,7 @@
     <footer>
       <p class="flex-center">&#169;2015 NationBudget</p>
     </footer>
+    <!--<script src="static/assets/js/main.js"></script>-->
+    <script src="http://localhost:3000/static/assets/js/main.js"></script>
   </body>
 </html>

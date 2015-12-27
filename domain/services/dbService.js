@@ -1,19 +1,19 @@
-var q = require('q');
-var mongo = require('mongodb');
+var Q = require('q');
+var MONGO = require('mongodb');
 
-var DB_SERVICE = (function (db_service,
-                            mongo,
-                            q) {
+var DB_SERVICE = (function (db_service) {
   var db = null;
-  var main_deferred = q.defer();
+  var main_deferred = Q.defer();
   var main_promise = main_deferred.promise;
-  var mongo_client = mongo.MongoClient;
+  var mongo_client = MONGO.MongoClient;
   var url = 'mongodb://localhost:27017/test';
-  var items_collection = null;
-  var budgets_collection = null;
+  var users_collection = null;
+  //var items_collection = null;
+  //var budgets_collection = null;
   var get_db_instance_deferred = null;
-  var get_items_collection_deferred = null;
-  var get_budgets_collection_deferred = null;
+  var get_users_collection_deferred = null;
+  //var get_items_collection_deferred = null;
+  //var get_budgets_collection_deferred = null;
 
   mongo_client.connect(url, function (err, database) {
     if (err) {
@@ -21,8 +21,9 @@ var DB_SERVICE = (function (db_service,
       main_deferred.reject(err);
     } else {
       db = database;
-      items_collection = db.collection('items');
-      budgets_collection = db.collection('budgets');
+      users_collection = db.collection('users');
+      //items_collection = db.collection('items');
+      //budgets_collection = db.collection('budgets');
       //console.log("Successfully connected to database and setup collections.");
       main_deferred.resolve();
 
@@ -42,7 +43,7 @@ var DB_SERVICE = (function (db_service,
 
   db_service.getDBInstance = function () {
     if (!get_db_instance_deferred) {
-      get_db_instance_deferred = q.defer();
+      get_db_instance_deferred = Q.defer();
 
       main_promise.then(
         function () {
@@ -57,43 +58,60 @@ var DB_SERVICE = (function (db_service,
     return get_db_instance_deferred.promise;
   };
 
-  db_service.getItemsCollection = function () {
-    if (!get_items_collection_deferred) {
-      get_items_collection_deferred = q.defer();
+  db_service.getUsersCollection = function () {
+    if (!get_users_collection_deferred) {
+      get_users_collection_deferred = Q.defer();
 
       main_promise.then(
         function () {
-          get_items_collection_deferred.resolve(items_collection);
+          get_users_collection_deferred.resolve(users_collection);
         },
         function (err) {
-          get_items_collection_deferred.reject(err);
+          get_users_collection_deferred.reject(err);
         }
       );
     }
 
-    return get_items_collection_deferred.promise;
+    return get_users_collection_deferred.promise;
   };
 
-  db_service.getBudgetsCollection = function () {
-    if (!get_budgets_collection_deferred) {
-      get_budgets_collection_deferred = q.defer();
-
-      main_promise.then(
-        function () {
-          get_budgets_collection_deferred.resolve(budgets_collection);
-        },
-        function (err) {
-          get_budgets_collection_deferred.reject(err);
-        }
-      );
-    }
-
-    return get_budgets_collection_deferred.promise;
-  };
+  //db_service.getItemsCollection = function () {
+  //  if (!get_items_collection_deferred) {
+  //    get_items_collection_deferred = Q.defer();
+  //
+  //    main_promise.then(
+  //      function () {
+  //        get_items_collection_deferred.resolve(items_collection);
+  //      },
+  //      function (err) {
+  //        get_items_collection_deferred.reject(err);
+  //      }
+  //    );
+  //  }
+  //
+  //  return get_items_collection_deferred.promise;
+  //};
+  //
+  //db_service.getBudgetsCollection = function () {
+  //  if (!get_budgets_collection_deferred) {
+  //    get_budgets_collection_deferred = Q.defer();
+  //
+  //    main_promise.then(
+  //      function () {
+  //        get_budgets_collection_deferred.resolve(budgets_collection);
+  //      },
+  //      function (err) {
+  //        get_budgets_collection_deferred.reject(err);
+  //      }
+  //    );
+  //  }
+  //
+  //  return get_budgets_collection_deferred.promise;
+  //};
 
   // May not want to include in actual production code
   var dropCollectionByName = function (collection_name) {
-    var deferred = q.defer();
+    var deferred = Q.defer();
 
     if (db) {
       //console.log("attempting to drop: ", collection_name);
@@ -116,13 +134,13 @@ var DB_SERVICE = (function (db_service,
 
   // May not want to include in actual production code
   var dropAllCollections = function () {
-    var deferred = q.defer();
+    var deferred = Q.defer();
 
     if (db) {
       //console.log("Starting drop operation");
       var promises = [];
       var collection_deferred_map = {};
-      var done_deferred = q.defer(); // This will resolve when all promises have been added to promises[]
+      var done_deferred = Q.defer(); // This will resolve when all promises have been added to promises[]
 
       db.listCollections().toArray(function (err, collections) {
         if (err) {
@@ -138,7 +156,7 @@ var DB_SERVICE = (function (db_service,
                 var collection_name = collection.name;
                 //console.log("collection name: ", collection_name);
                 check_if_done++;
-                var new_deferred = q.defer();
+                var new_deferred = Q.defer();
                 promises.push(new_deferred.promise);
                 collection_deferred_map[collection_name] = new_deferred;
 
@@ -170,7 +188,7 @@ var DB_SERVICE = (function (db_service,
       done_deferred.promise.then(
         function () {
           //console.log("Got to done_deferred success");
-          q.all(promises).then(
+          Q.all(promises).then(
             function () {
               //console.log("Successfully dropped all collections.");
               deferred.resolve();
@@ -195,8 +213,6 @@ var DB_SERVICE = (function (db_service,
   };
 
   return db_service;
-}(DB_SERVICE || {},
-  mongo,
-  q));
+})(DB_SERVICE || {});
 
 module.exports = DB_SERVICE;

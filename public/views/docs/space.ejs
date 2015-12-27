@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!--<base href="http://fast-brook-4391.herokuapp.com/">-->
+    <!--<link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/docs.css">-->
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/static/assets/stylesheets/css/docs.css">
+    <title>NationBudget</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a class="company-logo" href="/">NationBudget</a>
+      </div>
+      <div class="flex-center">
+        <h1>User API Documentation</h1>
+      </div>
+      <div></div>
+    </header>
+    <section>
+      <div class="flex-center">
+        <table>
+          <tr>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>api/space</td>
+            <td>GET</td>
+            <td>Returns all planning spaces</td>
+          </tr>
+          <tr>
+            <td>api/space</td>
+            <td>POST</td>
+            <td>Create one or more planning spaces</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id</td>
+            <td>GET</td>
+            <td>Return the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id</td>
+            <td>DELETE</td>
+            <td>Delete the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/active</td>
+            <td>GET</td>
+            <td>Return the specified planning space's active status</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/active</td>
+            <td>PUT</td>
+            <td>Activate or deactivate the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/income_item</td>
+            <td>GET</td>
+            <td>Return the specified planning space's income items</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/income_item</td>
+            <td>POST</td>
+            <td>Add one or more income items to the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/expense_item</td>
+            <td>GET</td>
+            <td>Return the specified planning space's expense items</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/expense_item</td>
+            <td>POST</td>
+            <td>Add one or more expense items to the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/liability_item</td>
+            <td>GET</td>
+            <td>Return the specified planning space's liability items</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/liability_item</td>
+            <td>POST</td>
+            <td>Add one or more liability items to the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/asset</td>
+            <td>GET</td>
+            <td>Return the specified planning space's assets</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/asset</td>
+            <td>POST</td>
+            <td>Add one or more assets to the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/report</td>
+            <td>GET</td>
+            <td>Return the specified planning space's reports</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/report</td>
+            <td>POST</td>
+            <td>Add one or more reports to the specified planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/income_item/:income_item_id</td>
+            <td>GET</td>
+            <td>Return the specified income item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/income_item/:income_item_id</td>
+            <td>PUT</td>
+            <td>Update the specified income item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/income_item/:income_item_id</td>
+            <td>DELETE</td>
+            <td>Delete the specified income item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/expense_item/:expense_item_id</td>
+            <td>GET</td>
+            <td>Return the specified expense item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/expense_item/:expense_item_id</td>
+            <td>PUT</td>
+            <td>Update the specified expense item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/expense_item/:expense_item_id</td>
+            <td>DELETE</td>
+            <td>Delete the specified expense item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/liability_item/:liability_item_id</td>
+            <td>GET</td>
+            <td>Return the specified liability item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/liability_item/:liability_item_id</td>
+            <td>PUT</td>
+            <td>Update the specified liability item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/liability_item/:liability_item_id</td>
+            <td>DELETE</td>
+            <td>Delete the specified liability item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/asset_item/:asset_item_id</td>
+            <td>GET</td>
+            <td>Return the specified asset item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/asset_item/:asset_item_id</td>
+            <td>PUT</td>
+            <td>Update the specified asset item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/asset_item/:asset_item_id</td>
+            <td>DELETE</td>
+            <td>Delete the specified asset item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/report_item/:report_item_id</td>
+            <td>GET</td>
+            <td>Return the specified report item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/report_item/:report_item_id</td>
+            <td>PUT</td>
+            <td>Update the specified report item from the planning space</td>
+          </tr>
+          <tr>
+            <td>api/space/:space_id/report_item/:report_item_id</td>
+            <td>DELETE</td>
+            <td>Delete the specified report item from the planning space</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

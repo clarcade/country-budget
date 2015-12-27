@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!--<base href="http://fast-brook-4391.herokuapp.com/">-->
+    <!--<link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/docs.css">-->
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/static/assets/stylesheets/css/docs.css">
+    <title>NationBudget</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a class="company-logo" href="/">NationBudget</a>
+      </div>
+      <div class="flex-center">
+        <h1>Account API Documentation</h1>
+      </div>
+      <div></div>
+    </header>
+    <section>
+      <div class="flex-center">
+        <table>
+          <tr>
+            <th>Route</th>
+            <th>Method</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>api/account</td>
+            <td>GET</td>
+            <td>Return all accounts</td>
+          </tr>
+          <tr>
+            <td>api/account</td>
+            <td>POST</td>
+            <td>Add one or more accounts</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id</td>
+            <td>GET</td>
+            <td>Return a specific account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id</td>
+            <td>DELETE</td>
+            <td>Delete a specific account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/active</td>
+            <td>PUT</td>
+            <td>Activate or deactivate account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/type</td>
+            <td>PUT</td>
+            <td>Update account type</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/name</td>
+            <td>PUT</td>
+            <td>Update account name</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/user</td>
+            <td>GET</td>
+            <td>Return all of the account's users</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/user</td>
+            <td>POST</td>
+            <td>Add one or more users to an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/user</td>
+            <td>PUT</td>
+            <td>Replace the entirety of an account's users with the provided data</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/user</td>
+            <td>DELETE</td>
+            <td>Remove one or more users from an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/space</td>
+            <td>GET</td>
+            <td>Return all of the account's planning spaces</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/space</td>
+            <td>POST</td>
+            <td>Add one or more planning spaces to an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/space</td>
+            <td>PUT</td>
+            <td>Replace the entirety of an account's planning spaces with the provided data</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/space</td>
+            <td>DELETE</td>
+            <td>Remove one or more planning spaces from an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/user/:user_id</td>
+            <td>POST</td>
+            <td>Add a user to an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/user/:user_id</td>
+            <td>DELETE</td>
+            <td>Remove a user from an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/space/:space_id</td>
+            <td>POST</td>
+            <td>Add a planning space to an account</td>
+          </tr>
+          <tr>
+            <td>api/account/:account_id/space/:space_id</td>
+            <td>DELETE</td>
+            <td>Remove a planning space from an account</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

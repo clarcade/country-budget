@@ -1,0 +1,60 @@
+@import "base.scss";
+
+html {
+  background-color: darkturquoise;
+  color: white;
+}
+header {
+  @extend .flex-row;
+  padding: 30px 0;
+  background-color: darkturquoise;
+}
+header > div {
+  width: 33.3%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.company-logo {
+  font-size: 30px;
+  margin-left: 10%;
+  text-decoration: none;
+  color: white;
+}
+section {
+  height: 100%;
+}
+footer {
+  margin: 40px 0;
+}
+h1 {
+  font-size: 30px;
+  text-align: center;
+}
+table {
+  color: black;
+  border-spacing: 0;
+  width: 80%;
+}
+th, td {
+  padding: 10px 0;
+}
+th {
+  width: 145px;
+}
+td {
+  text-align: center;
+  width: 33.33%;
+}
+td:first-child, td:last-child {
+  text-align: left;
+}
+td:first-child {
+  padding-left: 20px;
+}
+tr:nth-child(even) {
+  background-color: darkgrey;
+}
+tr:nth-child(odd) {
+  background-color: white;
+}

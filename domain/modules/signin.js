@@ -5,6 +5,11 @@ var USER_SERVICE = require('../services/userService.js');
 var SIGNIN_ROUTER = (function() {
   var signin_router = express.Router({mergeParams: true});
 
+  signin_router.use(function (req, res, next) {
+    console.log("SIGNIN ROUTER.");
+    next();
+  });
+
   signin_router.route('/')
     .get(function (req, res) {
       res.render('signin');
@@ -25,7 +30,7 @@ var SIGNIN_ROUTER = (function() {
             var email = sanitizeEmail(response_data.email);
             var password = sanitizePassword(response_data.password);
 
-            if (!validEmail(email)) {
+            if (!validator.isEmail(email)) {
               res.status(500).send('Invalid value for email.');
             }
 
@@ -62,16 +67,6 @@ var SIGNIN_ROUTER = (function() {
 
   function sanitizePassword(password) {
     return trimAndEscape(password);
-  }
-
-  function validEmail(email) {
-    var isValid = true;
-
-    if (!validator.isEmail(email)) {
-      isValid = false;
-    }
-
-    return isValid;
   }
 
   return signin_router;
