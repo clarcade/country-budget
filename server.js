@@ -1,10 +1,12 @@
 var body_parser = require('body-parser');
 var express = require('express');
+var CONFIG = require('./config.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'ejs');
+app.set('superSecret', CONFIG.secret);
 
 app.use(body_parser.json()); // support json encoded bodies
 app.use(body_parser.urlencoded({extended: true})); // support encoded bodies

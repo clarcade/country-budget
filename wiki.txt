@@ -1,0 +1,19 @@
+Error Handling:
+
+Status Codes:
+User input errors - 400,
+Database and unexpected errors - 500
+Non-database expected errors - 200
+
+If an error occurs expectedly, have the promise resolve with an object using the following template:
+{
+    "success": false,
+    "message": (String),
+    "token": token (if appropriate)
+}
+
+If an error occurs unexpectedly, have the promise reject with an object using the following template:
+{
+    "message": (String),
+    "token": token (if appropriate)
+}

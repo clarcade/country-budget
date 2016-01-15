@@ -14,7 +14,7 @@
     </header>
     <section>
       <div class="main-container">
-        <form id="signin-form">
+        <form id="signin-form" action="signin">
           <div>
             <input type="email"
                    placeholder="Email"
@@ -30,12 +30,13 @@
                    name="password"
                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}"
                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters"
+                   id="password-input"
                    required>
           </div>
           <div>
-            <input type="submit"
+            <input type="button"
                    class="button"
-                   value="Sign In">
+                   value="Sign In" onclick="SIGNIN.submit()">
           </div>
         </form>
       </div>
@@ -43,6 +44,6 @@
     <footer>
       <p class="flex-center">&#169;2015 NationBudget</p>
     </footer>
-    <script src="static/assets/js/main.js"></script>
+    <script src="static/assets/js/signin.js"></script>
   </body>
 </html>

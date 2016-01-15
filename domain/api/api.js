@@ -16,6 +16,7 @@ var API_ROUTER = (function(express) {
     });
 
   api_router.use('/user', require('./user.js'));
+  api_router.use('/authenticate', require('./authenticate.js'));
 
   return api_router;
 })(EXPRESS);

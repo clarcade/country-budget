@@ -1,12 +1,16 @@
 var Q = require('q');
 var MONGO = require('mongodb');
+var CONFIG = require('../../config.js');
 
-var DB_SERVICE = (function (db_service) {
+var DB_SERVICE = (function (db_service,
+                            q,
+                            mongo,
+                            config) {
   var db = null;
-  var main_deferred = Q.defer();
+  var main_deferred = q.defer();
   var main_promise = main_deferred.promise;
-  var mongo_client = MONGO.MongoClient;
-  var url = 'mongodb://localhost:27017/test';
+  var mongo_client = mongo.MongoClient;
+  var url = config.database;
   var users_collection = null;
   //var items_collection = null;
   //var budgets_collection = null;
@@ -213,6 +217,9 @@ var DB_SERVICE = (function (db_service) {
   };
 
   return db_service;
-})(DB_SERVICE || {});
+})(DB_SERVICE || {},
+  Q,
+  MONGO,
+  CONFIG);
 
 module.exports = DB_SERVICE;
