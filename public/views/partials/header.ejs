@@ -50,22 +50,36 @@ var header_nav_items = [
       console.log("loadSubNav");
 
       if (current_showing_sub_nav === null) {
+        // Highlight header nav li
         header_li_items[sub_nav].className = 'selected';
+        // Show the subnav
         sub_navs[sub_nav].className = '';
+        // Set the current showing sub nav
         current_showing_sub_nav = sub_nav;
       } else if (current_showing_sub_nav === sub_nav) {
         console.log("Switching");
+        // Toggle the header nav li
         header_li_items[sub_nav].className = header_li_items[sub_nav].className === 'selected' ? '' : 'selected';
 
+        // Toggle subnav based on if the header nav li is selected
         sub_navs[sub_nav].className = header_li_items[sub_nav].className === 'selected' ? '' : 'hide';
+
+        // TODO: Hide any views that may be showing
       } else {
+        // De-select the current header nav li
         header_li_items[current_showing_sub_nav].className = '';
+        // Hide the current subnav
         sub_navs[current_showing_sub_nav].className = 'hide';
 
+        // Select the header nav li the user just clicked on
         header_li_items[sub_nav].className = 'selected';
+        // Load the subnav the user wants
         sub_navs[sub_nav].className = '';
 
+        // Set the current showing sub nav
         current_showing_sub_nav = sub_nav;
+
+        // TODO: Hide any views that may be showing
       }
     };
 
