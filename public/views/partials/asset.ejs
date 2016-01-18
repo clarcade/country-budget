@@ -1,15 +1,85 @@
+<%
+var sub_nav = [
+  {
+    'title': 'Add',
+    'subNavFunction': 'MAIN.ASSET.showAssetAddView()'
+  },
+  {
+    'title': 'Edit',
+    'subNavFunction': 'MAIN.ASSET.showAssetEditView()'
+  },
+  {
+    'title': 'Delete',
+    'subNavFunction': 'MAIN.ASSET.showAssetDeleteView()'
+  }
+];
+%>
+
 <script>
   var MAIN = (function (main) {
+    var asset_view_ids = null
+      , asset_views = null
+      , current_showing_asset_view = null;
+
+    var hideAssetViews = function (viewToShow) {
+      if (current_showing_asset_view !== viewToShow) {
+        console.log('Processing');
+        asset_view_ids.forEach(function (currentItemView) {
+          if (currentItemView !== viewToShow) {
+            asset_views[currentItemView].className = 'hide';
+          } else {
+            current_showing_asset_view = viewToShow;
+            asset_views[viewToShow].className = '';
+          }
+        });
+      }
+    };
+
     main.ASSET = {};
-    main.ASSET.showMain = function () {
-      console.log("Asset showMain");
-      document.getElementById('div-asset-main').className = '';
+
+    main.ASSET.init = function () {
+      asset_view_ids = [
+        'div-asset-add-view',
+        'div-asset-edit-view',
+        'div-asset-delete-view'
+      ];
+
+      asset_views = {
+        'div-asset-add-view': document.getElementById('div-asset-add-view'),
+        'div-asset-edit-view': document.getElementById('div-asset-edit-view'),
+        'div-asset-delete-view': document.getElementById('div-asset-delete-view')
+      };
+    };
+
+    main.ASSET.showAssetAddView = function () {
+      console.log("showAssetAddView");
+      hideAssetViews('div-asset-add-view');
+    };
+
+    main.ASSET.showAssetEditView = function () {
+      console.log("showAssetEditView");
+      hideAssetViews('div-asset-edit-view');
+    };
+
+    main.ASSET.showAssetDeleteView = function () {
+      console.log("showAssetDeleteView");
+      hideAssetViews('div-asset-delete-view');
     };
 
     return main;
   })(MAIN || {});
 </script>
 
-<!--<div id="div-asset-main" class="hide">-->
-  <!--<p class="flex-center">Asset Main Div!</p>-->
-<!--</div>-->
+<section id="section-asset-sub-nav" class="hide">
+  <nav id="sub-nav">
+    <ul id="ul-asset">
+      <% sub_nav.forEach(function (li_item) { %>
+      <li onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
+      <%}); %>
+    </ul>
+  </nav>
+</section>
+
+<% include ./assetaddview.ejs %>
+<% include ./asseteditview.ejs %>
+<% include ./assetdeleteview.ejs %>

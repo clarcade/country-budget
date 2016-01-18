@@ -18,23 +18,37 @@ header {
   }
   li {
     text-align: center;
-    width: 33.3%;
     list-style-type: none;
     padding: 10px 15px;
+    border-right-style: solid;
 
     &:hover {
       background-color: #006666;
       cursor: pointer;
+    }
+    &:last-child {
+      border-right-style: none;
+    }
+    &:only-child {
+      border-style: none;
     }
   }
 }
 #header-nav {
   font-size: 25px;
   width: 25%;
+
+  li {
+    width: 33.3%;
+  }
 }
 #sub-nav {
   font-size: 20px;
-  width: 15%;
+  width: 25%;
+
+  li {
+    width: 33.3%;
+  }
 }
 #section-main {
   @extend .flex-column;
@@ -59,4 +73,7 @@ footer {
 h1 {
   font-size: 30px;
   text-align: center;
+}
+.selected {
+  background-color: #006666;
 }

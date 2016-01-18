@@ -1,2 +1,5 @@
 @import "li-base.scss";
 
+#section-item-sub-nav, #section-asset-sub-nav, #section-report-sub-nav {
+  @extend .flex-center;
+}

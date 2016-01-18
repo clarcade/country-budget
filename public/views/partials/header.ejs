@@ -2,72 +2,18 @@
 var header_nav_items = [
   {
     'title': 'Item',
-    'subNavFunction': 'MAIN.HEADER.loadSubNav("item-ul")'
+    'id': 'header-li-item',
+    'subNavFunction': 'MAIN.HEADER.loadSubNav("section-item-sub-nav")'
   },
   {
     'title': 'Asset',
-    'subNavFunction': 'MAIN.HEADER.loadSubNav("asset-ul")'
+    'id': 'header-li-asset',
+    'subNavFunction': 'MAIN.HEADER.loadSubNav("section-asset-sub-nav")'
   },
   {
-    'title': 'Another',
-    'subNavFunction': 'MAIN.HEADER.loadSubNav("another-ul")'
-  }
-];
-
-var sub_nav_items = [
-  {
-    'id': 'item-ul',
-    'class': 'hide',
-    'li_items': [
-       {
-         'title': 'Add',
-         'subNavFunction': 'MAIN.ITEM.showItemAddView()'
-       },
-       {
-         'title': 'Edit',
-         'subNavFunction': 'MAIN.ITEM.showItemEditView()'
-       },
-       {
-         'title': 'Delete',
-         'subNavFunction': 'MAIN.ITEM.showItemDeleteView()'
-       }
-    ]
-  },
-  {
-    'id': 'asset-ul',
-    'class': 'hide',
-    'li_items': [
-      {
-        'title': 'Add',
-        'subNavFunction': 'MAIN.ASSET.showAssetAddView()'
-      },
-      {
-        'title': 'Edit',
-        'subNavFunction': 'MAIN.ASSET.showAssetEditView()'
-      },
-      {
-        'title': 'Delete',
-        'subNavFunction': 'MAIN.ASSET.showAssetDeleteView()'
-      }
-    ]
-  },
-  {
-    'id': 'another-ul',
-    'class': 'hide',
-    'li_items': [
-      {
-        'title': 'One',
-        'subNavFunction': 'MAIN.ANOTHER.addItems()'
-      },
-      {
-        'title': 'Two',
-        'subNavFunction': 'MAIN.ANOTHER.editItems()'
-      },
-      {
-        'title': 'Three',
-        'subNavFunction': 'MAIN.ANOTHER.deleteItems()'
-      }
-    ]
+    'title': 'Report',
+    'id': 'header-li-report',
+    'subNavFunction': 'MAIN.HEADER.loadSubNav("section-report-sub-nav")'
   }
 ];
 %>
@@ -76,6 +22,7 @@ var sub_nav_items = [
   var MAIN = (function (main) {
     var sub_nav_ids = null
       , sub_navs = null
+      , header_li_items = null
       , current_showing_sub_nav = null;
 
     // Header Nav Functions
@@ -83,31 +30,42 @@ var sub_nav_items = [
 
     main.HEADER.init = function () {
       sub_nav_ids = [
-        'item-ul',
-        'asset-ul',
-        'another-ul'
+        'section-item-sub-nav',
+        'section-asset-sub-nav',
+        'section-report-sub-nav'
       ];
-
+      header_li_items = {
+        'section-item-sub-nav': document.getElementById('header-li-item'),
+        'section-asset-sub-nav': document.getElementById('header-li-asset'),
+        'section-report-sub-nav': document.getElementById('header-li-report')
+      };
       sub_navs = {
-        'item-ul': document.getElementById('item-ul'),
-        'asset-ul': document.getElementById('asset-ul'),
-        'another-ul': document.getElementById('another-ul')
+        'section-item-sub-nav': document.getElementById('section-item-sub-nav'),
+        'section-asset-sub-nav': document.getElementById('section-asset-sub-nav'),
+        'section-report-sub-nav': document.getElementById('section-report-sub-nav')
       };
     };
 
     main.HEADER.loadSubNav = function (sub_nav) {
       console.log("loadSubNav");
-      console.log("sub_navs: ", sub_navs);
-      if (current_showing_sub_nav !== sub_nav) {
-        console.log('Processing');
-        sub_nav_ids.forEach(function (currentSubNav) {
-          if (currentSubNav !== sub_nav) {
-            sub_navs[currentSubNav].className = 'hide';
-          } else {
-            current_showing_sub_nav = sub_nav;
-            sub_navs[sub_nav].className = '';
-          }
-        });
+
+      if (current_showing_sub_nav === null) {
+        header_li_items[sub_nav].className = 'selected';
+        sub_navs[sub_nav].className = '';
+        current_showing_sub_nav = sub_nav;
+      } else if (current_showing_sub_nav === sub_nav) {
+        console.log("Switching");
+        header_li_items[sub_nav].className = header_li_items[sub_nav].className === 'selected' ? '' : 'selected';
+
+        sub_navs[sub_nav].className = header_li_items[sub_nav].className === 'selected' ? '' : 'hide';
+      } else {
+        header_li_items[current_showing_sub_nav].className = '';
+        sub_navs[current_showing_sub_nav].className = 'hide';
+
+        header_li_items[sub_nav].className = 'selected';
+        sub_navs[sub_nav].className = '';
+
+        current_showing_sub_nav = sub_nav;
       }
     };
 
@@ -118,25 +76,11 @@ var sub_nav_items = [
 <header>
   <nav id="header-nav">
     <ul>
-      <li class="selected"
-          onclick="<%= header_nav_items[0].subNavFunction %>"><%= header_nav_items[0].title %></li>
-    <%
-    var length = header_nav_items.length;
-    for (var i = 1; i < length; i++) { %>
-      <li onclick="<%= header_nav_items[i].subNavFunction %>"><%= header_nav_items[i].title %></li>
+    <% var length = header_nav_items.length;
+    for (var i = 0; i < length; i++) { %>
+      <li id="<%= header_nav_items[i].id %>"
+          onclick="<%= header_nav_items[i].subNavFunction %>"><%= header_nav_items[i].title %></li>
     <% } %>
     </ul>
   </nav>
 </header>
-
-<section id="section-sub-nav">
-  <nav id="sub-nav">
-    <% sub_nav_items.forEach(function (ul_item) { %>
-    <ul id="<%= ul_item.id %>" class="<%= ul_item.class %>">
-      <% ul_item.li_items.forEach(function (li_item) { %>
-      <li onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
-      <% })%>
-    </ul>
-    <% }); %>
-  </nav>
-</section>

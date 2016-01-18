@@ -48,20 +48,28 @@ header {
 
 #header-nav li, #sub-nav li {
   text-align: center;
-  width: 33.3%;
   list-style-type: none;
-  padding: 10px 15px; }
+  padding: 10px 15px;
+  border-right-style: solid; }
   #header-nav li:hover, #sub-nav li:hover {
     background-color: #006666;
     cursor: pointer; }
+  #header-nav li:last-child, #sub-nav li:last-child {
+    border-right-style: none; }
+  #header-nav li:only-child, #sub-nav li:only-child {
+    border-style: none; }
 
 #header-nav {
   font-size: 25px;
   width: 25%; }
+  #header-nav li {
+    width: 33.3%; }
 
 #sub-nav {
   font-size: 20px;
-  width: 15%; }
+  width: 25%; }
+  #sub-nav li {
+    width: 33.3%; }
 
 #section-main {
   padding: 15px 0; }
@@ -84,3 +92,6 @@ footer {
 h1 {
   font-size: 30px;
   text-align: center; }
+
+.selected {
+  background-color: #006666; }

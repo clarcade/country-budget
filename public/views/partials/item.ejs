@@ -1,22 +1,29 @@
+<%
+var sub_nav = [
+  {
+    'title': 'Add',
+    'id': 'sub-nav-li-add',
+    'subNavFunction': 'MAIN.ITEM.loadItemView("div-item-add-view")'
+  },
+  {
+    'title': 'Edit',
+    'id': 'sub-nav-li-edit',
+    'subNavFunction': 'MAIN.ITEM.loadItemView("div-item-edit-view")'
+  },
+  {
+    'title': 'Delete',
+    'id': 'sub-nav-li-delete',
+    'subNavFunction': 'MAIN.ITEM.loadItemView("div-item-delete-view")'
+  }
+];
+%>
+
 <script>
   var MAIN = (function (main) {
     var item_view_ids = null
       , item_views = null
+      , sub_nav_li_items = null
       , current_showing_item_view = null;
-
-    var hideItemViews = function (viewToShow) {
-      if (current_showing_item_view !== viewToShow) {
-        console.log('Processing');
-        item_view_ids.forEach(function (currentItemView) {
-          if (currentItemView !== viewToShow) {
-            item_views[currentItemView].className = 'hide';
-          } else {
-            current_showing_item_view = viewToShow;
-            item_views[viewToShow].className = '';
-          }
-        });
-      }
-    };
 
     main.ITEM = {};
 
@@ -27,6 +34,12 @@
         'div-item-delete-view'
       ];
 
+      sub_nav_li_items = {
+        'div-item-add-view': document.getElementById('sub-nav-li-add'),
+        'div-item-edit-view': document.getElementById('sub-nav-li-edit'),
+        'div-item-delete-view': document.getElementById('sub-nav-li-delete')
+      };
+
       item_views = {
         'div-item-add-view': document.getElementById('div-item-add-view'),
         'div-item-edit-view': document.getElementById('div-item-edit-view'),
@@ -34,25 +47,53 @@
       };
     };
 
-    main.ITEM.showItemAddView = function () {
-      console.log("showItemAddView");
-      hideItemViews('div-item-add-view');
-    };
+    main.ITEM.loadItemView = function (viewToLoad) {
+      console.log("loadSubNav");
 
-    main.ITEM.showItemEditView = function () {
-      console.log("showItemEditView");
-      hideItemViews('div-item-edit-view');
-    };
+      if (current_showing_item_view === null) {
+        // Highlight subnav li
+        sub_nav_li_items[viewToLoad].className = 'selected';
+        // Show the item view
+        item_views[viewToLoad].className = '';
+        // Set the current showing item view
+        current_showing_item_view = viewToLoad;
+      } else if (current_showing_item_view === viewToLoad) {
+        console.log("Switching");
+        // Toggle if subnav is selected
+        sub_nav_li_items[viewToLoad].className = sub_nav_li_items[viewToLoad].className === 'selected' ? '' : 'selected';
 
-    main.ITEM.showItemDeleteView = function () {
-      console.log("showItemDeleteView");
-      hideItemViews('div-item-delete-view');
+        // Toggle item view based on if the subnav is selected
+        item_views[viewToLoad].className = sub_nav_li_items[viewToLoad].className === 'selected' ? '' : 'hide';
+      } else {
+        // De-select the current sub nav
+        sub_nav_li_items[current_showing_item_view].className = '';
+        // Hide the current item view
+        item_views[current_showing_item_view].className = 'hide';
+
+        // Select the tab the user just clicked on
+        sub_nav_li_items[viewToLoad].className = 'selected';
+        // Load the tab the user wants
+        item_views[viewToLoad].className = '';
+
+        // Set the current showing item view
+        current_showing_item_view = viewToLoad;
+      }
     };
 
     return main;
   })(MAIN || {});
 </script>
 
+<section id="section-item-sub-nav" class="hide">
+  <nav id="sub-nav">
+    <ul id="ul-item">
+      <% sub_nav.forEach(function (li_item) { %>
+      <li id="<%= li_item.id %>"
+          onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
+      <%}); %>
+    </ul>
+  </nav>
+</section>
 
 <% include ./itemaddview.ejs %>
 <% include ./itemeditview.ejs %>

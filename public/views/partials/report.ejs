@@ -1,0 +1,85 @@
+<%
+var sub_nav = [
+  {
+    'title': 'Report 1',
+    'subNavFunction': 'MAIN.REPORT.showReport1iew()'
+  },
+  {
+    'title': 'Report 2',
+    'subNavFunction': 'MAIN.REPORT.showReport2View()'
+  },
+  {
+    'title': 'Report 3',
+    'subNavFunction': 'MAIN.REPORT.showReport3View()'
+  }
+];
+%>
+
+<script>
+  var MAIN = (function (main) {
+    var report_view_ids = null
+      , report_views = null
+      , current_showing_report_view = null;
+
+    var hideReportViews = function (viewToShow) {
+      if (current_showing_report_view !== viewToShow) {
+        console.log('Processing');
+        report_view_ids.forEach(function (currentReportView) {
+          if (currentReportView !== viewToShow) {
+            report_views[currentReportView].className = 'hide';
+          } else {
+            current_showing_report_view = viewToShow;
+            report_views[viewToShow].className = '';
+          }
+        });
+      }
+    };
+
+    main.REPORT = {};
+
+    main.REPORT.init = function () {
+      report_view_ids = [
+        'div-report-1-view',
+        'div-report-2-view',
+        'div-report-3-view'
+      ];
+
+      report_views = {
+        'div-report-1-view': document.getElementById('div-report-1-view'),
+        'div-report-2-view': document.getElementById('div-report-2-view'),
+        'div-report-3-view': document.getElementById('div-report-3-view')
+      };
+    };
+
+    main.REPORT.showReport1View = function () {
+      console.log("showReport1View");
+      hideReportViews('div-report-1-view');
+    };
+
+    main.REPORT.showReport2View = function () {
+      console.log("showReport2View");
+      hideReportViews('div-report-2-view');
+    };
+
+    main.REPORT.showReport3View = function () {
+      console.log("showReport3View");
+      hideReportViews('div-report-3-view');
+    };
+
+    return main;
+  })(MAIN || {});
+</script>
+
+<section id="section-report-sub-nav" class="hide">
+  <nav id="sub-nav">
+    <ul id="ul-asset">
+      <% sub_nav.forEach(function (li_item) { %>
+      <li onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
+      <%}); %>
+    </ul>
+  </nav>
+</section>
+
+<% include ./report1view.ejs %>
+<% include ./report2view.ejs %>
+<% include ./report3view.ejs %>
