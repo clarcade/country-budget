@@ -4,16 +4,20 @@
     <meta charset="utf-8">
     <title>NationBudget</title>
     <base href="http://fast-brook-4391.herokuapp.com/lihp">
-    <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/lihp.css">
-    <!--<link rel="stylesheet" type="text/css" href="http://localhost:3000/static/assets/stylesheets/css/lihp.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/lihp.css">-->
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/static/assets/stylesheets/css/lihp.css">
   </head>
-  <body>
+  <body onload="MAIN.init()">
     <% include partials/header.ejs %>
 
-    <section>
-      <p>LIHP!!</p>
+    <section id="section-main">
+      <% include partials/item.ejs %>
+      <% include partials/asset.ejs %>
     </section>
 
     <% include partials/footer.ejs %>
+
+    <!--<script src="static/assets/js/lihp.js"></script>-->
+    <script src="http://localhost:3000/static/assets/js/lihp.js"></script>
   </body>
 </html>

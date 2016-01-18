@@ -1,0 +1,62 @@
+@import "base.scss";
+
+html {
+  background-color: darkturquoise;
+  color: white;
+}
+header {
+  @extend .flex-center;
+  padding: 30px 0;
+  background-color: darkturquoise;
+}
+#header-nav, #sub-nav {
+  ul {
+    @extend .flex-row;
+    border-style: solid;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  li {
+    text-align: center;
+    width: 33.3%;
+    list-style-type: none;
+    padding: 10px 15px;
+
+    &:hover {
+      background-color: #006666;
+      cursor: pointer;
+    }
+  }
+}
+#header-nav {
+  font-size: 25px;
+  width: 25%;
+}
+#sub-nav {
+  font-size: 20px;
+  width: 15%;
+}
+#section-main {
+  @extend .flex-column;
+  padding: 15px 0;
+}
+#section-sub-nav {
+  @extend .flex-center;
+  padding: 10px 0;
+}
+.header-form {
+  margin-right: 10%;
+}
+.company-logo {
+  font-size: 30px;
+  margin-left: 10%;
+  text-decoration: none;
+  color: white;
+}
+footer {
+  margin: 20px 0;
+}
+h1 {
+  font-size: 30px;
+  text-align: center;
+}

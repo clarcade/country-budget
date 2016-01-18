@@ -1,0 +1,59 @@
+<script>
+  var MAIN = (function (main) {
+    var item_view_ids = null
+      , item_views = null
+      , current_showing_item_view = null;
+
+    var hideItemViews = function (viewToShow) {
+      if (current_showing_item_view !== viewToShow) {
+        console.log('Processing');
+        item_view_ids.forEach(function (currentItemView) {
+          if (currentItemView !== viewToShow) {
+            item_views[currentItemView].className = 'hide';
+          } else {
+            current_showing_item_view = viewToShow;
+            item_views[viewToShow].className = '';
+          }
+        });
+      }
+    };
+
+    main.ITEM = {};
+
+    main.ITEM.init = function () {
+      item_view_ids = [
+        'div-item-add-view',
+        'div-item-edit-view',
+        'div-item-delete-view'
+      ];
+
+      item_views = {
+        'div-item-add-view': document.getElementById('div-item-add-view'),
+        'div-item-edit-view': document.getElementById('div-item-edit-view'),
+        'div-item-delete-view': document.getElementById('div-item-delete-view')
+      };
+    };
+
+    main.ITEM.showItemAddView = function () {
+      console.log("showItemAddView");
+      hideItemViews('div-item-add-view');
+    };
+
+    main.ITEM.showItemEditView = function () {
+      console.log("showItemEditView");
+      hideItemViews('div-item-edit-view');
+    };
+
+    main.ITEM.showItemDeleteView = function () {
+      console.log("showItemDeleteView");
+      hideItemViews('div-item-delete-view');
+    };
+
+    return main;
+  })(MAIN || {});
+</script>
+
+
+<% include ./itemaddview.ejs %>
+<% include ./itemeditview.ejs %>
+<% include ./itemdeleteview.ejs %>

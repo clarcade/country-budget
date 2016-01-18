@@ -1,0 +1,24 @@
+<%
+%>
+<script>
+  var MAIN = (function (main) {
+    main.ITEM = {};
+    main.ITEM.showIncome = function () {
+      console.log("showIncome");
+    };
+    main.ITEM.showExpense = function () {
+      console.log("showExpense");
+    };
+
+    return main;
+  })(MAIN || {});
+</script>
+
+<div>
+  <button onclick="MAIN.ITEM.showIncome()">Income</button>
+  <button onclick="MAIN.ITEM.showExpense()">Expense</button>
+</div>
+
+<!--<form name="item_form">-->
+
+<!--</form>-->
