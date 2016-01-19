@@ -33,9 +33,7 @@ var header_nav_items = [
     var sub_nav_ids = null
       , sub_navs = null
       , header_li_items = null
-      , current_showing_sub_nav = null
-      , main_content_container = null
-      , main_content_container_showing = false;
+      , current_showing_sub_nav = null;
 
     // Header Nav Functions
     main.HEADER = main.HEADER || {};
@@ -61,10 +59,6 @@ var header_nav_items = [
         // Highlight header nav li
         header_li_items[sub_nav].className = 'selected';
 
-        // Show main content container
-        main_content_container.className = '';
-        main_content_container_showing = true;
-
         // Show the subnav
         sub_navs[sub_nav].className = '';
 
@@ -77,13 +71,9 @@ var header_nav_items = [
         if (header_li_items[sub_nav].className === 'selected') {
           header_li_items[sub_nav].className = '';
           sub_navs[sub_nav].className = 'hide';
-          main_content_container.className = 'hide';
-          main_content_container_showing = false;
         } else {
           header_li_items[sub_nav].className = 'selected';
           sub_navs[sub_nav].className = '';
-          main_content_container.className = '';
-          main_content_container_showing = true;
         }
 
         // Hide any views that may be showing
@@ -107,12 +97,6 @@ var header_nav_items = [
 
         // Set the current showing sub nav
         current_showing_sub_nav = sub_nav;
-
-        // Show main content container
-        if (!main_content_container_showing) {
-          main_content_container.className('');
-          main_content_container_showing = true;
-        }
 
         // Hide any views that may be showing
         if (main.HEADER.current_view) {

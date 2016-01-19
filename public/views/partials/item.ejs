@@ -1,27 +1,38 @@
 <%
+var item_view_ids = [
+  'div-item-add-view',
+  'div-item-edit-view',
+  'div-item-delete-view'
+];
+
+var sub_nav_ids = [
+  'sub-nav-li-add',
+  'sub-nav-li-edit',
+  'sub-nav-li-delete'
+];
+
 var sub_nav = [
   {
     'title': 'Add',
-    'id': 'sub-nav-li-add',
-    'subNavFunction': 'MAIN.ITEM.loadItemView("div-item-add-view")'
+    'id': sub_nav_ids[0],
+    'subNavFunction': 'MAIN.ITEM.loadItemView("' + item_view_ids[0] + '")'
   },
   {
     'title': 'Edit',
-    'id': 'sub-nav-li-edit',
-    'subNavFunction': 'MAIN.ITEM.loadItemView("div-item-edit-view")'
+    'id': sub_nav_ids[1],
+    'subNavFunction': 'MAIN.ITEM.loadItemView("' + item_view_ids[1] + '")'
   },
   {
     'title': 'Delete',
-    'id': 'sub-nav-li-delete',
-    'subNavFunction': 'MAIN.ITEM.loadItemView("div-item-delete-view")'
+    'id': sub_nav_ids[2],
+    'subNavFunction': 'MAIN.ITEM.loadItemView("' + item_view_ids[2] + '")'
   }
 ];
 %>
 
 <script>
   var MAIN = (function (main) {
-    var item_view_ids = null
-      , item_views = null
+    var item_views = null
       , sub_nav_li_items = null
       , current_showing_item_view = null;
 
@@ -30,22 +41,17 @@ var sub_nav = [
     main.ITEM = {};
 
     main.ITEM.init = function () {
-      item_view_ids = [
-        'div-item-add-view',
-        'div-item-edit-view',
-        'div-item-delete-view'
-      ];
 
       sub_nav_li_items = {
-        'div-item-add-view': document.getElementById('sub-nav-li-add'),
-        'div-item-edit-view': document.getElementById('sub-nav-li-edit'),
-        'div-item-delete-view': document.getElementById('sub-nav-li-delete')
+        '<%= item_view_ids[0] %>': document.getElementById('<%= sub_nav_ids[0] %>'),
+        '<%= item_view_ids[1] %>': document.getElementById('<%= sub_nav_ids[1] %>'),
+        '<%= item_view_ids[2] %>': document.getElementById('<%= sub_nav_ids[2] %>')
       };
 
       item_views = {
-        'div-item-add-view': document.getElementById('div-item-add-view'),
-        'div-item-edit-view': document.getElementById('div-item-edit-view'),
-        'div-item-delete-view': document.getElementById('div-item-delete-view')
+        '<%= item_view_ids[0] %>': document.getElementById('<%= item_view_ids[0] %>'),
+        '<%= item_view_ids[1] %>': document.getElementById('<%= item_view_ids[1] %>'),
+        '<%= item_view_ids[2] %>': document.getElementById('<%= item_view_ids[2] %>')
       };
     };
 
@@ -63,13 +69,20 @@ var sub_nav = [
         main.HEADER.current_view = item_views[viewToLoad];
       } else if (current_showing_item_view === viewToLoad) {
         console.log("Switching");
-        // Toggle if subnav is selected
-        sub_nav_li_items[viewToLoad].className = sub_nav_li_items[viewToLoad].className === 'selected' ? '' : 'selected';
-        main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad].className === 'selected' ? sub_nav_li_items[viewToLoad] : null;
 
-        // Toggle item view based on if the subnav is selected
-        item_views[viewToLoad].className = sub_nav_li_items[viewToLoad].className === 'selected' ? '' : 'hide';
-        main.HEADER.current_view = sub_nav_li_items[viewToLoad].className === 'selected' ? item_views[viewToLoad] : null;
+        if (sub_nav_li_items[viewToLoad].className === 'selected') {
+          // Unselect stuff
+          sub_nav_li_items[viewToLoad].className = '';
+          main.HEADER.selected_subnav = null;
+          item_views[viewToLoad].className = 'hide';
+          main.HEADER.current_view = null;
+        } else {
+          // Select stuff
+          sub_nav_li_items[viewToLoad].className = 'selected';
+          main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+          item_views[viewToLoad].className = '';
+          main.HEADER.current_view = item_views[viewToLoad];
+        }
       } else {
         // De-select the current sub nav
         sub_nav_li_items[current_showing_item_view].className = '';
