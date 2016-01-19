@@ -1,69 +1,103 @@
 <%
+var report_view_ids = [
+  'div-report-1-view',
+  'div-report-2-view',
+  'div-report-3-view'
+];
+
+var sub_nav_ids = [
+  'sub-nav-report-li-add',
+  'sub-nav-report-li-edit',
+  'sub-nav-report-li-delete'
+];
+
 var sub_nav = [
   {
     'title': 'Report 1',
-    'subNavFunction': 'MAIN.REPORT.showReport1iew()'
+    'id': sub_nav_ids[0],
+    'subNavFunction': 'MAIN.REPORT.loadView("' + report_view_ids[0] + '")'
   },
   {
     'title': 'Report 2',
-    'subNavFunction': 'MAIN.REPORT.showReport2View()'
+    'id': sub_nav_ids[1],
+    'subNavFunction': 'MAIN.REPORT.loadView("' + report_view_ids[1] + '")'
   },
   {
     'title': 'Report 3',
-    'subNavFunction': 'MAIN.REPORT.showReport3View()'
+    'id': sub_nav_ids[2],
+    'subNavFunction': 'MAIN.REPORT.loadView("' + report_view_ids[2] + '")'
   }
 ];
 %>
 
 <script>
   var MAIN = (function (main) {
-    var report_view_ids = null
-      , report_views = null
+    var report_views = null
+      , sub_nav_li_items = null
       , current_showing_report_view = null;
 
-    var hideReportViews = function (viewToShow) {
-      if (current_showing_report_view !== viewToShow) {
-        console.log('Processing');
-        report_view_ids.forEach(function (currentReportView) {
-          if (currentReportView !== viewToShow) {
-            report_views[currentReportView].className = 'hide';
-          } else {
-            current_showing_report_view = viewToShow;
-            report_views[viewToShow].className = '';
-          }
-        });
-      }
-    };
+    main.HEADER = main.HEADER || {};
 
     main.REPORT = {};
 
     main.REPORT.init = function () {
-      report_view_ids = [
-        'div-report-1-view',
-        'div-report-2-view',
-        'div-report-3-view'
-      ];
+      sub_nav_li_items = {
+        '<%= report_view_ids[0] %>': document.getElementById('<%= sub_nav_ids[0] %>'),
+        '<%= report_view_ids[1] %>': document.getElementById('<%= sub_nav_ids[1] %>'),
+        '<%= report_view_ids[2] %>': document.getElementById('<%= sub_nav_ids[2] %>')
+      };
 
       report_views = {
-        'div-report-1-view': document.getElementById('div-report-1-view'),
-        'div-report-2-view': document.getElementById('div-report-2-view'),
-        'div-report-3-view': document.getElementById('div-report-3-view')
+        '<%= report_view_ids[0] %>': document.getElementById('<%= report_view_ids[0] %>'),
+        '<%= report_view_ids[1] %>': document.getElementById('<%= report_view_ids[1] %>'),
+        '<%= report_view_ids[2] %>': document.getElementById('<%= report_view_ids[2] %>')
       };
     };
 
-    main.REPORT.showReport1View = function () {
-      console.log("showReport1View");
-      hideReportViews('div-report-1-view');
-    };
+    main.REPORT.loadView = function (viewToLoad) {
+      console.log("loadSubNav");
 
-    main.REPORT.showReport2View = function () {
-      console.log("showReport2View");
-      hideReportViews('div-report-2-view');
-    };
+      if (current_showing_report_view === null) {
+        // Highlight subnav li
+        sub_nav_li_items[viewToLoad].className = 'selected';
+        // Show the item view
+        report_views[viewToLoad].className = '';
+        // Set the current showing item view
+        current_showing_report_view = viewToLoad;
+        main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+        main.HEADER.current_view = report_views[viewToLoad];
+      } else if (current_showing_report_view === viewToLoad) {
+        console.log("Switching");
 
-    main.REPORT.showReport3View = function () {
-      console.log("showReport3View");
-      hideReportViews('div-report-3-view');
+        if (sub_nav_li_items[viewToLoad].className === 'selected') {
+          // Unselect stuff
+          sub_nav_li_items[viewToLoad].className = '';
+          main.HEADER.selected_subnav = null;
+          report_views[viewToLoad].className = 'hide';
+          main.HEADER.current_view = null;
+        } else {
+          // Select stuff
+          sub_nav_li_items[viewToLoad].className = 'selected';
+          main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+          report_views[viewToLoad].className = '';
+          main.HEADER.current_view = report_views[viewToLoad];
+        }
+      } else {
+        // De-select the current sub nav
+        sub_nav_li_items[current_showing_report_view].className = '';
+        // Hide the current item view
+        report_views[current_showing_report_view].className = 'hide';
+
+        // Select the tab the user just clicked on
+        sub_nav_li_items[viewToLoad].className = 'selected';
+        // Load the tab the user wants
+        report_views[viewToLoad].className = '';
+
+        // Set the current showing item view
+        current_showing_report_view = viewToLoad;
+        main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+        main.HEADER.current_view = report_views[viewToLoad];
+      }
     };
 
     return main;
@@ -72,9 +106,10 @@ var sub_nav = [
 
 <section id="section-report-sub-nav" class="hide">
   <nav id="sub-nav">
-    <ul id="ul-asset">
+    <ul id="ul-report">
       <% sub_nav.forEach(function (li_item) { %>
-      <li onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
+      <li id="<%= li_item.id %>"
+          onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
       <%}); %>
     </ul>
   </nav>
