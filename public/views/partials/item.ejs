@@ -6,26 +6,26 @@ var item_view_ids = [
 ];
 
 var sub_nav_ids = [
-  'sub-nav-li-add',
-  'sub-nav-li-edit',
-  'sub-nav-li-delete'
+  'sub-nav-item-li-add',
+  'sub-nav-item-li-edit',
+  'sub-nav-item-li-delete'
 ];
 
 var sub_nav = [
   {
     'title': 'Add',
     'id': sub_nav_ids[0],
-    'subNavFunction': 'MAIN.ITEM.loadItemView("' + item_view_ids[0] + '")'
+    'subNavFunction': 'MAIN.ITEM.loadView("' + item_view_ids[0] + '")'
   },
   {
     'title': 'Edit',
     'id': sub_nav_ids[1],
-    'subNavFunction': 'MAIN.ITEM.loadItemView("' + item_view_ids[1] + '")'
+    'subNavFunction': 'MAIN.ITEM.loadView("' + item_view_ids[1] + '")'
   },
   {
     'title': 'Delete',
     'id': sub_nav_ids[2],
-    'subNavFunction': 'MAIN.ITEM.loadItemView("' + item_view_ids[2] + '")'
+    'subNavFunction': 'MAIN.ITEM.loadView("' + item_view_ids[2] + '")'
   }
 ];
 %>
@@ -55,7 +55,7 @@ var sub_nav = [
       };
     };
 
-    main.ITEM.loadItemView = function (viewToLoad) {
+    main.ITEM.loadView = function (viewToLoad) {
       console.log("loadSubNav");
 
       if (current_showing_item_view === null) {

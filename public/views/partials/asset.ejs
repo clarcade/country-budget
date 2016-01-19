@@ -1,71 +1,103 @@
 <%
+var asset_view_ids = [
+  'div-asset-add-view',
+  'div-asset-edit-view',
+  'div-asset-delete-view'
+];
+
+var sub_nav_ids = [
+  'sub-nav-asset-li-add',
+  'sub-nav-asset-li-edit',
+  'sub-nav-asset-li-delete'
+];
+
 var sub_nav = [
   {
     'title': 'Add',
-    'subNavFunction': 'MAIN.ASSET.showAssetAddView()'
+    'id': sub_nav_ids[0],
+    'subNavFunction': 'MAIN.ASSET.loadView("' + asset_view_ids[0] + '")'
   },
   {
     'title': 'Edit',
-    'subNavFunction': 'MAIN.ASSET.showAssetEditView()'
+    'id': sub_nav_ids[1],
+    'subNavFunction': 'MAIN.ASSET.loadView("' + asset_view_ids[1] + '")'
   },
   {
     'title': 'Delete',
-    'subNavFunction': 'MAIN.ASSET.showAssetDeleteView()'
+    'id': sub_nav_ids[2],
+    'subNavFunction': 'MAIN.ASSET.loadView("' + asset_view_ids[2] + '")'
   }
 ];
 %>
 
 <script>
   var MAIN = (function (main) {
-    var asset_view_ids = null
-      , asset_views = null
+    var asset_views = null
+      , sub_nav_li_items = null
       , current_showing_asset_view = null;
-
-    var hideAssetViews = function (viewToShow) {
-      if (current_showing_asset_view !== viewToShow) {
-        console.log('Processing');
-        asset_view_ids.forEach(function (currentItemView) {
-          if (currentItemView !== viewToShow) {
-            asset_views[currentItemView].className = 'hide';
-          } else {
-            current_showing_asset_view = viewToShow;
-            asset_views[viewToShow].className = '';
-          }
-        });
-      }
-    };
 
     main.HEADER = main.HEADER || {};
 
     main.ASSET = {};
 
     main.ASSET.init = function () {
-      asset_view_ids = [
-        'div-asset-add-view',
-        'div-asset-edit-view',
-        'div-asset-delete-view'
-      ];
+      sub_nav_li_items = {
+        '<%= asset_view_ids[0] %>': document.getElementById('<%= sub_nav_ids[0] %>'),
+        '<%= asset_view_ids[1] %>': document.getElementById('<%= sub_nav_ids[1] %>'),
+        '<%= asset_view_ids[2] %>': document.getElementById('<%= sub_nav_ids[2] %>')
+      };
 
       asset_views = {
-        'div-asset-add-view': document.getElementById('div-asset-add-view'),
-        'div-asset-edit-view': document.getElementById('div-asset-edit-view'),
-        'div-asset-delete-view': document.getElementById('div-asset-delete-view')
+        '<%= asset_view_ids[0] %>': document.getElementById('<%= asset_view_ids[0] %>'),
+        '<%= asset_view_ids[1] %>': document.getElementById('<%= asset_view_ids[1] %>'),
+        '<%= asset_view_ids[2] %>': document.getElementById('<%= asset_view_ids[2] %>')
       };
     };
 
-    main.ASSET.showAssetAddView = function () {
-      console.log("showAssetAddView");
-      hideAssetViews('div-asset-add-view');
-    };
+    main.ASSET.loadView = function (viewToLoad) {
+      console.log("loadSubNav");
 
-    main.ASSET.showAssetEditView = function () {
-      console.log("showAssetEditView");
-      hideAssetViews('div-asset-edit-view');
-    };
+      if (current_showing_asset_view === null) {
+        // Highlight subnav li
+        sub_nav_li_items[viewToLoad].className = 'selected';
+        // Show the item view
+        asset_views[viewToLoad].className = '';
+        // Set the current showing item view
+        current_showing_asset_view = viewToLoad;
+        main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+        main.HEADER.current_view = asset_views[viewToLoad];
+      } else if (current_showing_asset_view === viewToLoad) {
+        console.log("Switching");
 
-    main.ASSET.showAssetDeleteView = function () {
-      console.log("showAssetDeleteView");
-      hideAssetViews('div-asset-delete-view');
+        if (sub_nav_li_items[viewToLoad].className === 'selected') {
+          // Unselect stuff
+          sub_nav_li_items[viewToLoad].className = '';
+          main.HEADER.selected_subnav = null;
+          asset_views[viewToLoad].className = 'hide';
+          main.HEADER.current_view = null;
+        } else {
+          // Select stuff
+          sub_nav_li_items[viewToLoad].className = 'selected';
+          main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+          asset_views[viewToLoad].className = '';
+          main.HEADER.current_view = asset_views[viewToLoad];
+        }
+      } else {
+        // De-select the current sub nav
+        sub_nav_li_items[current_showing_asset_view].className = '';
+        // Hide the current item view
+        asset_views[current_showing_asset_view].className = 'hide';
+
+        // Select the tab the user just clicked on
+        sub_nav_li_items[viewToLoad].className = 'selected';
+        // Load the tab the user wants
+        asset_views[viewToLoad].className = '';
+
+        // Set the current showing item view
+        current_showing_asset_view = viewToLoad;
+        main.HEADER.selected_subnav = sub_nav_li_items[viewToLoad];
+        main.HEADER.current_view = asset_views[viewToLoad];
+      }
     };
 
     return main;
@@ -76,7 +108,8 @@ var sub_nav = [
   <nav id="sub-nav">
     <ul id="ul-asset">
       <% sub_nav.forEach(function (li_item) { %>
-      <li onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
+      <li id="<%= li_item.id %>"
+          onclick="<%= li_item.subNavFunction %>"><%= li_item.title %></li>
       <%}); %>
     </ul>
   </nav>
