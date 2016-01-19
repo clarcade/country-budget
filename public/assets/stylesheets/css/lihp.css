@@ -95,3 +95,6 @@ h1 {
 
 .selected {
   background-color: #006666; }
+
+#section-item-sub-nav, #section-asset-sub-nav, #section-report-sub-nav {
+  margin: 10px 0; }

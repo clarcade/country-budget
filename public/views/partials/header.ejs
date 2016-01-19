@@ -1,19 +1,29 @@
 <%
+var sub_nav_ids = [
+  'section-item-sub-nav',
+  'section-asset-sub-nav',
+  'section-report-sub-nav'
+];
+var header_li_ids = [
+  'header-li-item',
+  'header-li-asset',
+  'header-li-report'
+];
 var header_nav_items = [
   {
     'title': 'Item',
-    'id': 'header-li-item',
-    'subNavFunction': 'MAIN.HEADER.loadSubNav("section-item-sub-nav")'
+    'id': header_li_ids[0],
+    'subNavFunction': 'MAIN.HEADER.loadSubNav("' + sub_nav_ids[0] + '")'
   },
   {
     'title': 'Asset',
-    'id': 'header-li-asset',
-    'subNavFunction': 'MAIN.HEADER.loadSubNav("section-asset-sub-nav")'
+    'id': header_li_ids[1],
+    'subNavFunction': 'MAIN.HEADER.loadSubNav("' + sub_nav_ids[1] + '")'
   },
   {
     'title': 'Report',
-    'id': 'header-li-report',
-    'subNavFunction': 'MAIN.HEADER.loadSubNav("section-report-sub-nav")'
+    'id': header_li_ids[2],
+    'subNavFunction': 'MAIN.HEADER.loadSubNav("' + sub_nav_ids[2] + '")'
   }
 ];
 %>
@@ -23,26 +33,24 @@ var header_nav_items = [
     var sub_nav_ids = null
       , sub_navs = null
       , header_li_items = null
-      , current_showing_sub_nav = null;
+      , current_showing_sub_nav = null
+      , main_content_container = null
+      , main_content_container_showing = false;
 
     // Header Nav Functions
     main.HEADER = main.HEADER || {};
 
     main.HEADER.init = function () {
-      sub_nav_ids = [
-        'section-item-sub-nav',
-        'section-asset-sub-nav',
-        'section-report-sub-nav'
-      ];
+      main_content_container = document.getElementById('section-main');
       header_li_items = {
-        'section-item-sub-nav': document.getElementById('header-li-item'),
-        'section-asset-sub-nav': document.getElementById('header-li-asset'),
-        'section-report-sub-nav': document.getElementById('header-li-report')
+        '<%= sub_nav_ids[0] %>': document.getElementById('<%= header_li_ids[0] %>'),
+        '<%= sub_nav_ids[1] %>': document.getElementById('<%= header_li_ids[1] %>'),
+        '<%= sub_nav_ids[2] %>': document.getElementById('<%= header_li_ids[2] %>')
       };
       sub_navs = {
-        'section-item-sub-nav': document.getElementById('section-item-sub-nav'),
-        'section-asset-sub-nav': document.getElementById('section-asset-sub-nav'),
-        'section-report-sub-nav': document.getElementById('section-report-sub-nav')
+        '<%= sub_nav_ids[0] %>': document.getElementById('<%= sub_nav_ids[0] %>'),
+        '<%= sub_nav_ids[1] %>': document.getElementById('<%= sub_nav_ids[1] %>'),
+        '<%= sub_nav_ids[2] %>': document.getElementById('<%= sub_nav_ids[2] %>')
       };
     };
 
@@ -52,19 +60,40 @@ var header_nav_items = [
       if (current_showing_sub_nav === null) {
         // Highlight header nav li
         header_li_items[sub_nav].className = 'selected';
+
+        // Show main content container
+        main_content_container.className = '';
+        main_content_container_showing = true;
+
         // Show the subnav
         sub_navs[sub_nav].className = '';
+
         // Set the current showing sub nav
         current_showing_sub_nav = sub_nav;
       } else if (current_showing_sub_nav === sub_nav) {
         console.log("Switching");
-        // Toggle the header nav li
-        header_li_items[sub_nav].className = header_li_items[sub_nav].className === 'selected' ? '' : 'selected';
 
-        // Toggle subnav based on if the header nav li is selected
-        sub_navs[sub_nav].className = header_li_items[sub_nav].className === 'selected' ? '' : 'hide';
+        // Toggle the header nav li and subnav based on if the header nav li is selected
+        if (header_li_items[sub_nav].className === 'selected') {
+          header_li_items[sub_nav].className = '';
+          sub_navs[sub_nav].className = 'hide';
+          main_content_container.className = 'hide';
+          main_content_container_showing = false;
+        } else {
+          header_li_items[sub_nav].className = 'selected';
+          sub_navs[sub_nav].className = '';
+          main_content_container.className = '';
+          main_content_container_showing = true;
+        }
 
-        // TODO: Hide any views that may be showing
+        // Hide any views that may be showing
+        if (main.HEADER.current_view) {
+          main.HEADER.current_view.className = 'hide';
+        }
+        // De-select any previously selected subnav
+        if (main.HEADER.selected_subnav) {
+          main.HEADER.selected_subnav.className = '';
+        }
       } else {
         // De-select the current header nav li
         header_li_items[current_showing_sub_nav].className = '';
@@ -79,7 +108,20 @@ var header_nav_items = [
         // Set the current showing sub nav
         current_showing_sub_nav = sub_nav;
 
-        // TODO: Hide any views that may be showing
+        // Show main content container
+        if (!main_content_container_showing) {
+          main_content_container.className('');
+          main_content_container_showing = true;
+        }
+
+        // Hide any views that may be showing
+        if (main.HEADER.current_view) {
+          main.HEADER.current_view.className = 'hide';
+        }
+        // De-select any previously selected subnav
+        if (main.HEADER.selected_subnav) {
+          main.HEADER.selected_subnav.className = '';
+        }
       }
     };
 
