@@ -11,7 +11,7 @@ var REGISTER_ROUTER = (function(express,
 
   register_router.route('/')
     .get(function (req, res) {
-      res.render('getstarted');
+      res.render('getstarted', {'base_url': req.app.get('base_url')});
     });
 
   register_router.route('/personal')
@@ -21,18 +21,18 @@ var REGISTER_ROUTER = (function(express,
     .post(function (req, res) {
       if (!req.body) {
         console.log("Error: request missing body.");
-        res.status(500).send("Couldn't create new account/user.");
+        res.status(400).send("Couldn't create new account/user.");
       } else {
         var response_data = req.body;
 
         if (!response_data.firstName) {
-          res.status(500).send('Missing first name.');
+          res.status(400).send('Missing first name.');
         } else if (!response_data.lastName) {
-          res.status(500).send('Missing last name.');
+          res.status(400).send('Missing last name.');
         } else if (!response_data.email) {
-          res.status(500).send('Missing email.');
+          res.status(400).send('Missing email.');
         } else if (!response_data.password) {
-          res.status(500).send('Missing password.');
+          res.status(400).send('Missing password.');
         } else {
           try {
             // Sanitize User Input
@@ -45,11 +45,11 @@ var REGISTER_ROUTER = (function(express,
 
             // Validate User Input
             if (!valid_name_expression.test(first_name)) {
-              res.status(500).send('Invalid value for first name.');
+              res.status(400).send('Invalid value for first name.');
             } else if (!valid_name_expression.test(last_name)) {
-              res.status(500).send('Invalid value for last name.');
+              res.status(400).send('Invalid value for last name.');
             } else if (!normalized_email) {
-              res.status(500).send('Invalid value for email.');
+              res.status(400).send('Invalid value for email.');
             } else {
               var user_data = {
                 "first_name": first_name,

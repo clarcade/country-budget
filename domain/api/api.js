@@ -12,11 +12,12 @@ var API_ROUTER = (function(express) {
   // Webpage for List of APIs
   api_router.route('/')
     .get(function (req, res) {
-      res.render('api');
+      res.render('/docs/docs'); // TODO: FIX AS IT'S NOT WORKING
     });
 
-  api_router.use('/user', require('./user.js'));
   api_router.use('/authenticate', require('./authenticate.js'));
+  api_router.use('/space', require('./space.js'));
+  api_router.use('/user', require('./user.js'));
 
   return api_router;
 })(EXPRESS);

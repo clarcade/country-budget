@@ -2,14 +2,12 @@ var Q = require('q');
 var VALIDATOR = require('validator');
 var HELPERS = require('../helpers/helpers.js');
 var DB_SERVICE = require('./dbService.js');
-var JWT = require('jwt-simple');
 
 var USER_SERVICE = (function (user_service,
                               q,
                               validator,
                               helpers,
-                              db_service,
-                              jwt) {
+                              db_service) {
   user_service.checkEmailAvailable = function (email) {
     console.log("checkEmailAvailable");
     var deferred = q.defer();
@@ -52,46 +50,65 @@ var USER_SERVICE = (function (user_service,
       main_deferred.reject("Email must be provided");
     } else if (!user_data.password) {
       main_deferred.reject("Password must be provided");
+    } else if (!user_data.contact_info) {
+      main_deferred.reject("Contact Info must be provided");
+    } else if (!user_data.contact_info.first_name) {
+      main_deferred.reject("First name must be provided");
+    } else if (!user_data.contact_info.last_name) {
+      main_deferred.reject("Last name must be provided");
     } else {
       data_to_save.email = helpers.sanitizeEmail(user_data.email);
       data_to_save.password = user_data.password;
+      data_to_save.contact_info = {};
+      data_to_save.contact_info.first_name = validator.trim(user_data.contact_info.first_name);
+      data_to_save.contact_info.last_name = validator.trim(user_data.contact_info.last_name);
 
-      user_service.checkEmailAvailable(data_to_save.email).then(
-        function (email_available) {
-          var deferred = null;
-          var promise = null;
+      if (!data_to_save.email) {
+        main_deferred.reject('Error: invalid email provided');
+      } else if (!data_to_save.password) {
+        main_deferred.reject('Error: invalid password provided');
+      } else if (!data_to_save.contact_info.first_name) {
+        main_deferred.reject('Error: invalid first name provided');
+      } else if (!data_to_save.contact_info.last_name) {
+        main_deferred.reject('Error: invalid last name provided');
+      } else {
+        user_service.checkEmailAvailable(data_to_save.email).then(
+          function (email_available) {
+            var deferred = null;
+            var promise = null;
 
-          if (email_available) {
-            promise = db_service.getUsersCollection();
-          } else {
-            deferred = q.defer();
-            promise = deferred.promise;
-            deferred.reject("Email not available");
-          }
-
-          return promise;
-        },
-        function (err) {
-          main_deferred.reject(err);
-        }
-      ).then(
-        function (users_collection) {
-          users_collection.insertOne(
-            data_to_save,
-            function (err, result) {
-              if (err) {
-                main_deferred.reject(err);
-              } else {
-                main_deferred.resolve();
-              }
+            if (email_available) {
+              promise = db_service.getUsersCollection();
+            } else {
+              deferred = q.defer();
+              promise = deferred.promise;
+              deferred.reject("Email not available");
             }
-          );
-        },
-        function (err) {
-          console.error("Error: ", err);
-          main_deferred.reject(err);
-        }
-      );
+
+            return promise;
+          },
+          function (err) {
+            main_deferred.reject(err);
+          }
+        ).then(
+          function (users_collection) {
+            users_collection.insertOne(
+              data_to_save,
+              function (err, result) {
+                if (err) {
+                  main_deferred.reject(err);
+                } else {
+                  main_deferred.resolve();
+                }
+              }
+            );
+          },
+          function (err) {
+            console.error("Error: ", err);
+            main_deferred.reject(err);
+          }
+        );
+      }
     }
 
     return main_deferred.promise;
@@ -156,7 +173,6 @@ var USER_SERVICE = (function (user_service,
   Q,
   VALIDATOR,
   HELPERS,
-  DB_SERVICE,
-  JWT);
+  DB_SERVICE);
 
 module.exports = USER_SERVICE;

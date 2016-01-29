@@ -3,3 +3,7 @@
 #section-item-sub-nav, #section-asset-sub-nav, #section-report-sub-nav {
   @extend .flex-center;
 }
+
+#div-item-add-view, #div-item-edit-view, #div-item-delete-view {
+  margin: 20px 0 0 0;
+}

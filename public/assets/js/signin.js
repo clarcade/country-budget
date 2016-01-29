@@ -2,15 +2,8 @@ var SIGNIN = (function (signin) {
   signin.submit = function () {
     console.log("submit");
 
-    var form = document.getElementById("signin-form");
-
-    if (form.checkValidity()) {
-
-    } else {
-
-    }
-    var email_name = document.getElementById("email-input").value;
-    var url = "http://localhost:3000/api/users/email/" + email_name
+    var email_name = document.getElementById("email-input").value
+      , url = "http://localhost:3000/api/users/email/" + email_name
       , method = "HEAD"
       , async = true;
 

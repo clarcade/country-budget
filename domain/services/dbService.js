@@ -29,6 +29,8 @@ var DB_SERVICE = (function (db_service,
       //items_collection = db.collection('items');
       //budgets_collection = db.collection('budgets');
       //console.log("Successfully connected to database and setup collections.");
+
+      // Regular
       main_deferred.resolve();
 
       // Use this to drop all collections
