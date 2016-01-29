@@ -31,7 +31,12 @@ var USER_ROUTER = (function(express,
     })
     .post(function (req, res) { // ENDPOINT DOES NOT NEED TO BE SECURE
       if (!req.body || !req.body.data) {
-        res.status(400).send("Error: request missing user data.");
+        res.status(400).json({
+          "success": false,
+          "error": {
+            "message": "Missing user data."
+          }
+        });
       } else {
         var request_data = req.body.data;
 
@@ -41,13 +46,37 @@ var USER_ROUTER = (function(express,
               request_data = request_data[0];
             }
             if (!request_data.email) {
-              res.status(400).send("Email missing.");
+              res.status(400).json({
+                "success": false,
+                "error": {
+                  "field": 'email',
+                  "message": 'Email missing'
+                }
+              });
             } else if (!request_data.password) {
-              res.status(400).send("Password missing.");
+              res.status(400).json({
+                "success": false,
+                "error": {
+                  "field": 'password',
+                  "message": 'Password missing'
+                }
+              });
             } else if (!request_data.first_name) {
-              res.status(400).send("First name missing.");
+              res.status(400).json({
+                "success": false,
+                "error": {
+                  "field": 'first_name',
+                  "message": 'First name missing'
+                }
+              });
             } else if (!request_data.last_name) {
-              res.status(400).send("Last name missing.");
+              res.status(400).json({
+                "success": false,
+                "error": {
+                  "field": 'last_name',
+                  "message": 'Last name missing'
+                }
+              });
             } else {
               var user_data = {};
               user_data.email = helpers.sanitizeEmail(request_data.email);
@@ -59,13 +88,37 @@ var USER_ROUTER = (function(express,
               user_data.password = bcrypt.hashSync(request_data.password, salt);
 
               if (!user_data.email) {
-                res.status(400).send('Error: invalid email provided');
+                res.status(400).json({
+                  "success": false,
+                  "error": {
+                    "field": 'email',
+                    "message": 'Invalid email provided'
+                  }
+                });
               } else if (!user_data.password) {
-                res.status(400).send('Error: invalid password provided');
+                res.status(400).json({
+                  "success": false,
+                  "error": {
+                    "field": 'password',
+                    "message": 'Invalid password provided'
+                  }
+                });
               } else if (!user_data.contact_info.first_name) {
-                res.status(400).send('Error: invalid first name provided');
+                res.status(400).json({
+                  "success": false,
+                  "error": {
+                    "field": 'first_name',
+                    "message": 'Invalid first name provided'
+                  }
+                });
               } else if (!user_data.contact_info.last_name) {
-                res.status(400).send('Error: invalid last name provided');
+                res.status(400).json({
+                  "success": false,
+                  "error": {
+                    "field": 'last_name',
+                    "message": 'Invalid last name provided'
+                  }
+                });
               } else {
                 user_service.addUser(user_data).then(
                   function () {
@@ -76,7 +129,9 @@ var USER_ROUTER = (function(express,
                   function (err) {
                     res.json({
                       "success": false,
-                      "message": err
+                      "error": {
+                        "message": err
+                      }
                     });
                   }
                 );
@@ -87,10 +142,20 @@ var USER_ROUTER = (function(express,
 
             res.send('TODO: Add multiple users');
           } else {
-            res.status(400).send("Error: Malformed user data");
+            res.status(400).json({
+              "success": false,
+              "error": {
+                "message": 'Malformed user data'
+              }
+            });
           }
         } else {
-          res.status(400).send("Error: Malformed user data");
+          res.status(400).json({
+            "success": false,
+            "error": {
+              "message": 'Malformed user data'
+            }
+          });
         }
       }
     });

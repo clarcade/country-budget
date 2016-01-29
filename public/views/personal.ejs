@@ -19,10 +19,7 @@
     </header>
     <section>
       <div class="main-container">
-        <form id="personal-form"
-              action="http://localhost:3000/getstarted/personal"
-              method="post"
-              onsubmit="return REGISTER.submit()">
+        <form id="form-personal">
           <div>
             <input type="text"
                    placeholder="First Name"
@@ -58,9 +55,10 @@
                    required>
           </div>
           <div>
-            <input type="submit"
+            <input type="button"
                    class="register-button button"
-                   value="Register!">
+                   value="Register!"
+                   onclick="REGISTER.submit()">
           </div>
         </form>
       </div>

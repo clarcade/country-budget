@@ -2,34 +2,59 @@ var REGISTER = (function (register) {
   register.submit = function () {
     console.log("submit");
 
-    //var email_name = document.getElementById("email-input").value;
-    //var url = "http://localhost:3000/api/users/email/" + email_name
+    var form = document.getElementById('form-personal');
 
-    var url = base_url + "/api/user"
+    if (form.checkValidity()) {
+      console.log("form valid");
+
+      var user_data = {
+        'data': {
+          'first_name': form['firstName'].value,
+          'last_name': form['lastName'].value,
+          'email': form['email'].value,
+          'password': form['password'].value
+        }
+      }
+      , url = "http://localhost:3000/api/user"
       , method = "POST"
       , async = true
       , ajax = new XMLHttpRequest();
 
-    ajax.open(method, url, async);
-
-    ajax.onreadystatechange = function() {
-      console.log("here");
-      if (ajax.readyState === 4) {
-        if (ajax.status === 200) {
+      ajax.onreadystatechange = function() {
+        if (ajax.readyState === 4) {
           var status = ajax.status;
+          if (status === 200 || status === 400) {
+            var response_text = ajax.responseText;
 
-          console.log("status: ", status);
-          console.log("response: ", ajax.responseText);
+            try {
+              var data = JSON.parse(response_text);
 
-          return false;
-        } else {
-          console.log("status: ", ajax.status);
-          return false;
+              if (data.success) {
+                console.log("route to signin page");
+                window.location.href = 'http://localhost:3000/signin'
+              } else {
+                if (data.error && data.error.message) {
+                  console.error(data.error.message);
+                  if (data.error.message === "") {
+
+                  }
+                } else {
+                  console.error("Failed to register new user account");
+                }
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          }
         }
-      }
-    };
+      };
 
-    ajax.send();
+      ajax.open(method, url, async);
+      ajax.setRequestHeader("Content-type","application/json");
+      ajax.send(JSON.stringify(user_data));
+    } else {
+      console.log("form not valid");
+    }
   };
 
   return register;
