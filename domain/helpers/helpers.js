@@ -12,6 +12,19 @@ var HELPERS = (function (helpers,
     return sanitized_email;
   };
 
+  // Code from http://stackoverflow.com/questions/3393854/get-and-set-a-single-cookie-with-node-js-http-server
+  helpers.parseCookies = function (request) {
+    var list = {}
+      , rc = request.headers.cookie;
+
+    rc && rc.split(';').forEach(function( cookie ) {
+      var parts = cookie.split('=');
+      list[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+
+    return list;
+  };
+
   return helpers;
 })(HELPERS || {},
   Q,

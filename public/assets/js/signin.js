@@ -1,39 +1,56 @@
 var SIGNIN = (function (signin) {
   signin.submit = function () {
-    console.log("submit");
+    var form = document.getElementById("form-signin");
 
-    var email_name = document.getElementById("email-input").value
-      , url = "http://localhost:3000/api/users/email/" + email_name
-      , method = "HEAD"
-      , async = true;
+    if (form.checkValidity()) {
+      console.log("Form valid");
 
-    var ajax = new XMLHttpRequest();
-    ajax.onreadystatechange = function() {
-      if (ajax.readyState === 4) {
-        var submit = true;
-        var status = ajax.status;
-        var email_span_elem = document.getElementById("email-availability");
-
-        if (status === 200) { // Found a match
-          email_span_elem.innerText = "Email is not available.";
-
-          submit = false;
-        }/* else if (status === 204) { // No matches found
-          email_span_elem.innerText = "Email is available.";
-        }*/ else {
-          email_span_elem.innerText = "Still sorting stuff out.";
-          submit = false;
+      var user_data = {
+        'data': {
+          'email': form['email'].value,
+          'password': form['password'].value
         }
-
-        return submit;
       }
-    };
+      , url = "http://localhost:3000/api/authenticate"
+      , method = "POST"
+      , async = true
+      , ajax = new XMLHttpRequest();
 
-    ajax.open(method, url, async);
-    ajax.send();
+      ajax.onreadystatechange = function() {
+        if (ajax.readyState === 4) {
+          var status = ajax.status;
 
-    // TODO: PREVENT SUBMIT FOR TESTING PURPOSES ONLY
-    return false;
+          if (status === 200 || status === 400) {
+            var response_text = ajax.responseText;
+
+            try {
+              var data = JSON.parse(response_text);
+
+              if (data.success) {
+                console.log("success!");
+                // save token to session... either that or it's already saved in a cookie
+                window.location.href = "http://localhost:3000/lihp";
+              } else {
+                // TODO
+                if (data.error && data.error.message) {
+                  console.error(data.error.message);
+                } else {
+                  console.error("Failed to register new user account");
+                }
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          }
+        }
+      };
+
+      ajax.open(method, url, async);
+      ajax.setRequestHeader("Content-type","application/json");
+      ajax.send(JSON.stringify(user_data));
+    } else {
+      console.error("Form not valid.");
+    }
   };
 
   return signin;

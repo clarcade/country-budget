@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>NationBudget</title>
     <!--<base href="http://fast-brook-4391.herokuapp.com/">-->
+    <base href="http://localhost:3000">
     <link rel="stylesheet" type="text/css" href="static/assets/stylesheets/css/signin.css">
   </head>
   <body>
@@ -14,7 +15,7 @@
     </header>
     <section>
       <div class="main-container">
-        <form id="signin-form" action="signin">
+        <form id="form-signin">
           <div>
             <input type="email"
                    placeholder="Email"
@@ -36,7 +37,8 @@
           <div>
             <input type="button"
                    class="button"
-                   value="Sign In" onclick="SIGNIN.submit()">
+                   value="Sign In"
+                   onclick="SIGNIN.submit()">
           </div>
         </form>
       </div>

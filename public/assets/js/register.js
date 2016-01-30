@@ -1,11 +1,9 @@
 var REGISTER = (function (register) {
   register.submit = function () {
-    console.log("submit");
-
     var form = document.getElementById('form-personal');
 
     if (form.checkValidity()) {
-      console.log("form valid");
+      console.log("Form valid");
 
       var user_data = {
         'data': {
@@ -23,6 +21,7 @@ var REGISTER = (function (register) {
       ajax.onreadystatechange = function() {
         if (ajax.readyState === 4) {
           var status = ajax.status;
+
           if (status === 200 || status === 400) {
             var response_text = ajax.responseText;
 
@@ -31,7 +30,7 @@ var REGISTER = (function (register) {
 
               if (data.success) {
                 console.log("route to signin page");
-                window.location.href = 'http://localhost:3000/signin'
+                window.location.href = 'http://localhost:3000/signin';
               } else {
                 if (data.error && data.error.message) {
                   console.error(data.error.message);
@@ -53,7 +52,7 @@ var REGISTER = (function (register) {
       ajax.setRequestHeader("Content-type","application/json");
       ajax.send(JSON.stringify(user_data));
     } else {
-      console.log("form not valid");
+      console.log("Form not valid");
     }
   };
 
