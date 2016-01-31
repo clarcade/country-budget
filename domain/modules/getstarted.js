@@ -61,7 +61,7 @@ var REGISTER_ROUTER = (function(express,
     //          // TODO: Insert data into database
     //          // TODO: 1) Create new user
     //          // TODO: 2) Create new account
-    //          //user_service.addUser(user_data).then(
+    //          //user_service.createUser(user_data).then(
     //          //  function (user_id) {
     //          //    // Create new account
     //          //    return account_service.addAccount(user_id);

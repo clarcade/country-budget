@@ -1,49 +1,82 @@
-var express = require('express');
+var EXPRESS = require('express');
+var ACCOUNT_SERVICE = require('../services/accountService.js');
+var USER_SERVICE = require('../services/userService.js');
+var Q = require('q');
 
-var register_router = express.Router({mergeParams: true});
+var REGISTER_ROUTER = (function(express,
+                                account_service,
+                                user_service,
+                                q) {
+  var register_router = express.Router({mergeParams: true});
 
-register_router.route('/')
-  .post(function (req, res) {
-    if (!req.body) {
-      console.log("Error: request missing body.");
-      res.status(500).send("Couldn't create new user/account.");
-    } else {
-      var response_data = req.body;
-
-      if (!response_data.firstName) {
-        res.status(500).send('Item missing first name.');
-      } else if (!response_data.lastName) {
-        res.status(500).send('Item missing last name.');
-      } else if (!response_data.companyName) {
-        res.status(500).send('Item missing company name.');
-      } else if (!response_data.username) {
-        res.status(500).send('Item missing username.');
-      } else if (!response_data.password) {
-        res.status(500).send('Item missing password.');
+  register_router.route('/')
+    .post(function (req, res) {
+      if (!req.body || !req.body.data) {
+        res.status(400).json({
+          "success": false,
+          "error": {
+            "message": "Missing user data"
+          }
+        });
       } else {
-        try {
-          var account_data = {};
-          account_data.type = response_data.type;
-          account_data.name = response_data.accountName;
+        var request_data = req.body.data;
 
-          var user_data = {};
+        var MAX_ATTEMPTS = 3
+          , attempt_count = 0
+          , createUserPromise = null;
 
-          user_data.firstName = response_data.firstName;
-          user_data.lastName = response_data.lastName;
-          user_data.companyName = response_data.companyName;
-          user_data.username = response_data.username;
-          user_data.password = response_data.password;
+        function provisionNewUser() {
+          if (attempt_count < MAX_ATTEMPTS) {
+            // CREATE USER
+            if (!createUserPromise) {
+              createUserPromise = user_service.createUser(request_data);
+            }
 
-          // TODO: Sanitize user input
+            createUserPromise.then(
+              function (user_email) {
+                // CREATE ACCOUNT
+                return account_service.createAccount(user_email);
+              },
+              function (err) {
+                var deferred = q.defer();
 
-          // TODO: Insert data into database
+                deferred.reject(err);
 
-        } catch (err) {
-          console.log("Error: ", err);
-          res.status(500).send('Failed to register new user/account');
+                return deferred.promise;
+              }
+            ).then(
+              function () {
+                // SUCCESS!
+                res.json({
+                  "success": true
+                });
+              },
+              function (err) {
+                // RETRY
+                console.error(err);
+                attempt_count++;
+                provisionNewUser();
+              }
+            );
+          } else {
+            // FAILED
+            res.status(500).json({
+              "success": false,
+              "error": {
+                "message": "Failed to register new user account"
+              }
+            });
+          }
         }
-      }
-    }
-  });
 
-module.exports = register_router;
+        provisionNewUser();
+      }
+    });
+
+  return register_router;
+})(EXPRESS,
+  ACCOUNT_SERVICE,
+  USER_SERVICE,
+  Q);
+
+module.exports = REGISTER_ROUTER;

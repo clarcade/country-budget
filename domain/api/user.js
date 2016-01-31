@@ -34,7 +34,7 @@ var USER_ROUTER = (function(express,
         res.status(400).json({
           "success": false,
           "error": {
-            "message": "Missing user data."
+            "message": "Missing user data"
           }
         });
       } else {
@@ -120,7 +120,7 @@ var USER_ROUTER = (function(express,
                   }
                 });
               } else {
-                user_service.addUser(user_data).then(
+                user_service.createUser(user_data).then(
                   function () {
                     res.json({
                       "success": true
@@ -137,8 +137,9 @@ var USER_ROUTER = (function(express,
                 );
               }
             }
-          } else if (request_data && request_data.length > 2) { // Add multiple user
-            // MIGHT NOT WANT TO TODO ACTUALLY
+          } else if (request_data && request_data.length > 2) {
+            // Add multiple users
+            // MIGHT NOT WANT TO DO ACTUALLY
 
             res.send('TODO: Add multiple users');
           } else {

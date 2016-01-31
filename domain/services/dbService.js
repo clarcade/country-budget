@@ -12,10 +12,12 @@ var DB_SERVICE = (function (db_service,
   var mongo_client = mongo.MongoClient;
   var url = config.database;
   var users_collection = null;
+  var account_collection = null;
   //var items_collection = null;
   //var budgets_collection = null;
   var get_db_instance_deferred = null;
   var get_users_collection_deferred = null;
+  var get_account_collection_deferred = null;
   //var get_items_collection_deferred = null;
   //var get_budgets_collection_deferred = null;
 
@@ -26,6 +28,7 @@ var DB_SERVICE = (function (db_service,
     } else {
       db = database;
       users_collection = db.collection('users');
+      account_collection = db.collection('account');
       //items_collection = db.collection('items');
       //budgets_collection = db.collection('budgets');
       //console.log("Successfully connected to database and setup collections.");
@@ -44,8 +47,6 @@ var DB_SERVICE = (function (db_service,
       //);
     }
   });
-
-  // TODO: Write stuff to seed database
 
   db_service.getDBInstance = function () {
     if (!get_db_instance_deferred) {
@@ -79,6 +80,23 @@ var DB_SERVICE = (function (db_service,
     }
 
     return get_users_collection_deferred.promise;
+  };
+
+  db_service.getAccountCollection = function () {
+    if (!get_account_collection_deferred) {
+      get_account_collection_deferred = Q.defer();
+
+      main_promise.then(
+        function () {
+          get_account_collection_deferred.resolve(account_collection);
+        },
+        function (err) {
+          get_account_collection_deferred.reject(err);
+        }
+      );
+    }
+
+    return get_account_collection_deferred.promise;
   };
 
   //db_service.getItemsCollection = function () {

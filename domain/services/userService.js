@@ -41,12 +41,14 @@ var USER_SERVICE = (function (user_service,
     return deferred.promise;
   };
 
-  user_service.addUser = function (user_data) {
-    console.log("addUser");
+  user_service.createUser = function (user_data) {
+    console.log("createUser");
     var main_deferred = q.defer();
     var data_to_save = {};
 
-    if (!user_data.email) {
+    if (!user_data) {
+      main_deferred.reject("User data must be provided");
+    } else if (!user_data.email) {
       main_deferred.reject("Email must be provided");
     } else if (!user_data.password) {
       main_deferred.reject("Password must be provided");
@@ -98,7 +100,17 @@ var USER_SERVICE = (function (user_service,
                 if (err) {
                   main_deferred.reject(err);
                 } else {
-                  main_deferred.resolve();
+                  users_collection
+                    .findOne(
+                      {"email": data_to_save.email},
+                      function (err, user_doc) {
+                        if (err) {
+                          main_deferred.reject(err);
+                        } else {
+                          main_deferred.resolve(user_doc.email);
+                        }
+                      }
+                    );
                 }
               }
             );
@@ -131,7 +143,7 @@ var USER_SERVICE = (function (user_service,
       },
       function (err) {
         console.error("Error: ", err);
-        deferred.reject("Server error.");
+        deferred.reject("Server error");
       }
     );
 

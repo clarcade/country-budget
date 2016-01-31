@@ -7,9 +7,11 @@ var LIHP_ROUTER = (function(express,
                             jwt) {
   var lihp_router = express.Router({mergeParams: true});
 
+  // MIDDLEWARE FOR LIHP ROUTES
   lihp_router.use(function (req, res, next) {
     console.log('LIHP ROUTER.');
 
+    // VERIFY USER IS LOGGED IN WITH VALID TOKEN
     var cookies = helpers.parseCookies(req);
     var token = cookies.token;
 

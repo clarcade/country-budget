@@ -13,7 +13,8 @@ var REGISTER = (function (register) {
           'password': form['password'].value
         }
       }
-      , url = "http://localhost:3000/api/user"
+      //, url = "http://localhost:3000/api/user"
+      , url = "http://localhost:3000/register"
       , method = "POST"
       , async = true
       , ajax = new XMLHttpRequest();
@@ -30,13 +31,12 @@ var REGISTER = (function (register) {
 
               if (data.success) {
                 console.log("route to signin page");
-                window.location.href = 'http://localhost:3000/signin';
+                //window.location.href = 'http://localhost:3000/signin';
               } else {
                 if (data.error && data.error.message) {
                   console.error(data.error.message);
-                  if (data.error.message === "") {
-
-                  }
+                  //if (data.error.message === "") {
+                  //}
                 } else {
                   console.error("Failed to register new user account");
                 }

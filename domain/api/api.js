@@ -16,6 +16,7 @@ var API_ROUTER = (function(express) {
     });
 
   api_router.use('/authenticate', require('./authenticate.js'));
+  api_router.use('/account', require('./account.js'));
   api_router.use('/space', require('./space.js'));
   api_router.use('/user', require('./user.js'));
 
