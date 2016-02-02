@@ -7,10 +7,12 @@ var REGISTER = (function (register) {
 
       var user_data = {
         'data': {
-          'first_name': form['firstName'].value,
-          'last_name': form['lastName'].value,
           'email': form['email'].value,
-          'password': form['password'].value
+          'password': form['password'].value,
+          'contact_info': {
+            'first_name': form['firstName'].value,
+            'last_name': form['lastName'].value
+          }
         }
       }
       //, url = "http://localhost:3000/api/user"
@@ -31,7 +33,7 @@ var REGISTER = (function (register) {
 
               if (data.success) {
                 console.log("route to signin page");
-                //window.location.href = 'http://localhost:3000/signin';
+                window.location.href = 'http://localhost:3000/signin';
               } else {
                 if (data.error && data.error.message) {
                   console.error(data.error.message);

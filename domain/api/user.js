@@ -2,13 +2,11 @@ var EXPRESS = require('express');
 var VALIDATOR = require('validator');
 var HELPERS = require('../helpers/helpers.js');
 var USER_SERVICE = require('../services/userService.js');
-var BCRYPT = require('bcrypt');
 
 var USER_ROUTER = (function(express,
                             validator,
                             helpers,
-                            user_service,
-                            bcrypt) {
+                            user_service) {
   var user_router = express.Router({mergeParams: true});
 
   // MIDDLEWARE
@@ -84,8 +82,7 @@ var USER_ROUTER = (function(express,
               user_data.contact_info.first_name = validator.trim(request_data.first_name);
               user_data.contact_info.last_name = validator.trim(request_data.last_name);
 
-              var salt = bcrypt.genSaltSync(10);
-              user_data.password = bcrypt.hashSync(request_data.password, salt);
+              user_data.password = request_data.password;
 
               if (!user_data.email) {
                 res.status(400).json({
@@ -215,7 +212,6 @@ var USER_ROUTER = (function(express,
 })(EXPRESS,
   VALIDATOR,
   HELPERS,
-  USER_SERVICE,
-  BCRYPT);
+  USER_SERVICE);
 
 module.exports = USER_ROUTER;

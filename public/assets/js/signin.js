@@ -35,7 +35,7 @@ var SIGNIN = (function (signin) {
                 if (data.error && data.error.message) {
                   console.error(data.error.message);
                 } else {
-                  console.error("Failed to register new user account");
+                  console.error("Failed to authenticate email/password");
                 }
               }
             } catch (err) {

@@ -2,12 +2,14 @@ var Q = require('q');
 var VALIDATOR = require('validator');
 var HELPERS = require('../helpers/helpers.js');
 var DB_SERVICE = require('./dbService.js');
+var BCRYPT = require('bcrypt');
 
 var USER_SERVICE = (function (user_service,
                               q,
                               validator,
                               helpers,
-                              db_service) {
+                              db_service,
+                              bcrypt) {
   user_service.checkEmailAvailable = function (email) {
     console.log("checkEmailAvailable");
     var deferred = q.defer();
@@ -60,7 +62,10 @@ var USER_SERVICE = (function (user_service,
       main_deferred.reject("Last name must be provided");
     } else {
       data_to_save.email = helpers.sanitizeEmail(user_data.email);
-      data_to_save.password = user_data.password;
+
+      var salt = bcrypt.genSaltSync(10);
+      data_to_save.password = bcrypt.hashSync(user_data.password, salt);
+
       data_to_save.contact_info = {};
       data_to_save.contact_info.first_name = validator.trim(user_data.contact_info.first_name);
       data_to_save.contact_info.last_name = validator.trim(user_data.contact_info.last_name);
@@ -185,6 +190,7 @@ var USER_SERVICE = (function (user_service,
   Q,
   VALIDATOR,
   HELPERS,
-  DB_SERVICE);
+  DB_SERVICE,
+  BCRYPT);
 
 module.exports = USER_SERVICE;
