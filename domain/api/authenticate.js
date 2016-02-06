@@ -20,46 +20,6 @@ var AUTHENTICATE_ROUTER = (function(express,
   });
 
   authenticate_router.route('/')
-  // THIS GET FUNCTION IS A TEMPLATE TO BE USED IN OTHER ROUTES THAT REQUIRE A SECURE TOKEN CHECK
-    //.get(function (req, res) { // ENDPOINT DOES NOT NEED TO BE SECURE
-    //  if (!req.body || !req.body.data) {
-    //    res.status(400).send("Error: request missing user data.");
-    //  } else {
-    //    var request_data = req.body.data;
-    //
-    //    if (!request_data.token) {
-    //      res.status(400).send('Missing token');
-    //    } else {
-    //      var token = request_data.token;
-    //
-    //      try {
-    //        var decoded = jwt.verify(token, req.app.get('superSecret'));
-    //
-    //        res.json({
-    //          "success": true,
-    //          "message": "Sweet, your token was all good!",
-    //          "decoded": decoded.foo
-    //        });
-    //      } catch (err) {
-    //        console.log("Error: ", err);
-    //
-    //        var message = "Token Bad";
-    //
-    //        if (err.name === 'JsonWebTokenError') {
-    //          message = "Invalid Token";
-    //        } else if (err.name === 'TokenExpiredError') {
-    //          message = "Token Expired";
-    //        }
-    //
-    //        res.json({
-    //          "success": false,
-    //          "message": message
-    //        });
-    //      }
-    //    }
-    //  }
-    //});
-
     .post(function (req, res) { // ENDPOINT DOES NOT NEED TO BE SECURE
       if (!req.body || !req.body.data) {
         res.status(400).json({
@@ -110,7 +70,8 @@ var AUTHENTICATE_ROUTER = (function(express,
 
                   var cert = req.app.get('superSecret')
                     , jwt_options = {
-                      'expiresIn': '3m'
+                      //'expiresIn': '3m'
+                      'expiresIn': '1d'
                     }
                     , token = jwt.sign(payload, cert, jwt_options)
                     , cookie_options = {
@@ -141,6 +102,22 @@ var AUTHENTICATE_ROUTER = (function(express,
             );
           }
         }
+      }
+    })
+    .delete(function (req, res) {
+      try {
+        res.clearCookie('token');
+        res.status(200).json({
+          "success": true,
+          "message": "Successfully invalidated token"
+        });
+      } catch (err) {
+        res.status(500).json({
+          "success": false,
+          "error": {
+            "message": "Failed to invalidate token"
+          }
+        });
       }
     });
 

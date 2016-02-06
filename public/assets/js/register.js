@@ -15,7 +15,6 @@ var REGISTER = (function (register) {
           }
         }
       }
-      //, url = "http://localhost:3000/api/user"
       , url = "http://localhost:3000/register"
       , method = "POST"
       , async = true
@@ -37,8 +36,6 @@ var REGISTER = (function (register) {
               } else {
                 if (data.error && data.error.message) {
                   console.error(data.error.message);
-                  //if (data.error.message === "") {
-                  //}
                 } else {
                   console.error("Failed to register new user account");
                 }

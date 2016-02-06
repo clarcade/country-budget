@@ -1,4 +1,35 @@
 var SIGNIN = (function (signin) {
+  var form_field_ids = ['email-input', 'password-input'];
+  var form_field_elements = [];
+
+  form_field_ids.forEach(function (field_id) {
+    form_field_elements.push(document.getElementById(field_id));
+  });
+
+  form_field_elements.forEach(function (field_element) {
+    field_element.addEventListener('keypress', function (event) {
+      if (event.keyCode === 13) {
+        signin.submit();
+      }
+    })
+  });
+
+  function validateFormFields() {
+    form_field_elements.forEach(function (form_element) {
+      if (form_element.checkValidity()) {
+        if (form_element.className === 'input-error') {
+          form_element.className = '';
+          form_element.onchange = null;
+        }
+      } else {
+        if (form_element.className === '') {
+          form_element.className = 'input-error';
+          form_element.onchange = validateFormFields;
+        }
+      }
+    });
+  }
+
   signin.submit = function () {
     var form = document.getElementById("form-signin");
 
@@ -28,10 +59,8 @@ var SIGNIN = (function (signin) {
 
               if (data.success) {
                 console.log("success!");
-                // save token to session... either that or it's already saved in a cookie
                 window.location.href = "http://localhost:3000/lihp";
               } else {
-                // TODO
                 if (data.error && data.error.message) {
                   console.error(data.error.message);
                 } else {
@@ -50,6 +79,8 @@ var SIGNIN = (function (signin) {
       ajax.send(JSON.stringify(user_data));
     } else {
       console.error("Form not valid.");
+
+      validateFormFields();
     }
   };
 

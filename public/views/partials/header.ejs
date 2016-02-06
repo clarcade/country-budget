@@ -114,6 +114,19 @@ var header_nav_items = [
 </script>
 
 <header>
+  <div class="header-div">
+    <div></div> <!-- For spacing -->
+    <div class="logo-container">
+      <a class="logo"
+         href="/">NationBudget</a>
+    </div>
+    <div class="signout-button-container">
+      <input class="signout-button"
+             type="button"
+             value="Sign Out"
+             onclick="MAIN.signout()">
+    </div>
+  </div>
   <nav id="header-nav">
     <ul>
     <% var length = header_nav_items.length;

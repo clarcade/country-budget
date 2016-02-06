@@ -4,15 +4,15 @@ table, th, td, html {
   margin: 0;
   padding: 0; }
 
-.flex-center, header, #section-sub-nav {
+.flex-center, .logo-container, #section-sub-nav {
   display: flex;
   justify-content: center; }
 
-.flex-row, #header-nav ul, #sub-nav ul {
+.flex-row, #header-nav ul, #sub-nav ul, .header-div {
   display: flex;
   flex-direction: row; }
 
-.flex-column, #section-main {
+.flex-column, header, #section-main {
   display: flex;
   flex-direction: column; }
 
@@ -25,7 +25,11 @@ html, body {
 input {
   font-size: 15px; }
 
-.button {
+.input-error {
+  border: solid red 2px;
+  border-radius: 4px; }
+
+.button, .signout-button {
   font-size: 23px;
   padding: 10px;
   background-color: white; }
@@ -59,9 +63,18 @@ header {
   #header-nav li:only-child, #sub-nav li:only-child {
     border-style: none; }
 
+.logo-container {
+  margin-bottom: 20px; }
+
+.logo {
+  text-decoration: none;
+  color: white;
+  font-size: 30px; }
+
 #header-nav {
   font-size: 25px;
-  width: 25%; }
+  width: 25%;
+  margin: 0 auto; }
   #header-nav li {
     width: 33.3%; }
 
@@ -70,6 +83,23 @@ header {
   width: 25%; }
   #sub-nav li {
     width: 33.3%; }
+
+.header-div div {
+  flex-grow: 1;
+  width: 33.3%; }
+
+.signout-button-container {
+  display: flex;
+  justify-content: flex-end; }
+
+.signout-button {
+  margin-right: 10%;
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45px; }
 
 #section-sub-nav {
   padding: 10px 0; }

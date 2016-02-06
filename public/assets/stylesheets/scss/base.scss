@@ -25,6 +25,10 @@ html, body {
 input {
   font-size: 15px;
 }
+.input-error {
+  border: solid red 2px;
+  border-radius: 4px;
+}
 .button {
   font-size: 23px;
   padding: 10px;

@@ -5,7 +5,7 @@ html {
   color: white;
 }
 header {
-  @extend .flex-center;
+  @extend .flex-column;
   padding: 30px 0 10px 0;
   background-color: darkturquoise;
 }
@@ -34,9 +34,20 @@ header {
     }
   }
 }
+.logo-container {
+  @extend .flex-center;
+
+  margin-bottom: 20px;
+}
+.logo {
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+}
 #header-nav {
   font-size: 25px;
   width: 25%;
+  margin: 0 auto;
 
   li {
     width: 33.3%;
@@ -49,6 +60,29 @@ header {
   li {
     width: 33.3%;
   }
+}
+.header-div {
+  @extend .flex-row;
+
+  div {
+    flex-grow: 1;
+    width: 33.3%;
+  }
+}
+.signout-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.signout-button {
+  @extend .button;
+
+  margin-right: 10%;
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
 }
 #section-main {
   @extend .flex-column;
