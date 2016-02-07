@@ -23,7 +23,6 @@
                    maxlength="256"
                    id="email-input"
                    required>
-            <span id="email-availability"></span>
           </div>
           <div>
             <input type="password"
@@ -38,6 +37,18 @@
                    value="Sign In"
                    onclick="SIGNIN.submit()">
           </div>
+          <div id="email-invalid"
+               class="hide"></div>
+          <div id="password-invalid"
+               class="hide"></div>
+          <div id="auth-invalid"
+               class="hide"></div>
+          <!--<div>-->
+            <!--<input type="button"-->
+                   <!--class="button"-->
+                   <!--value="Add Error Alert"-->
+                   <!--onclick="MAIN.alertService.addAlert()">-->
+          <!--</div>-->
         </form>
       </div>
     </section>
@@ -45,5 +56,6 @@
       <p class="flex-center">&#169;2015 NationBudget</p>
     </footer>
     <script src="static/assets/js/signin.js"></script>
+    <script src="static/assets/js/common/alertService.js"></script>
   </body>
 </html>

@@ -24,7 +24,9 @@ var AUTHENTICATE_ROUTER = (function(express,
       if (!req.body || !req.body.data) {
         res.status(400).json({
           "success": false,
-          "message": "Missing user data"
+          "error": {
+            "message": "Missing user data"
+          }
         });
       } else {
         var request_data = req.body.data;
@@ -32,14 +34,18 @@ var AUTHENTICATE_ROUTER = (function(express,
         if (!request_data.email) {
           res.status(400).json({
             "success": false,
-            "field": "email",
-            "message": "Email missing"
+            "error": {
+              "field": "email",
+              "message": "Email missing"
+            }
           });
         } else if (!request_data.password) {
           res.status(400).json({
             "success": false,
-            "field": "password",
-            "message": "Password missing"
+            "error": {
+              "field": "password",
+              "message": "Password missing"
+            }
           });
         } else {
           var data = {};
@@ -49,54 +55,83 @@ var AUTHENTICATE_ROUTER = (function(express,
           if (!data.email) {
             res.status(400).json({
               "success": false,
-              "field": 'email',
-              "message": "Invalid email"
+              "error": {
+                "field": 'email',
+                "message": "Email must be in the form **@**.com"
+              }
             });
           } else if (!data.password) {
             res.status(400).json({
               "success": false,
-              "field": 'password',
-              "message": "Password incorrect"
+              "error": {
+                "field": 'password',
+                "message": "Please enter password"
+              }
             });
           } else {
             user_service.getUserByEmail(data.email).then(
               function (user_data) {
-                var result = bcrypt.compareSync(data.password, user_data.password);
+                if (user_data && user_data.password) {
+                  var result = null;
+                  try {
+                    result = bcrypt.compareSync(data.password, user_data.password);
+                  } catch (err) {
+                    console.error(err);
 
-                if (user_data && result) {
-                  var payload = {};
-                  payload.email = user_data.email;
-                  payload.password = user_data.password;
+                    res.status(500).json({
+                      "success": false,
+                      "error": {
+                        "message": "Server error occurred."
+                      }
+                    });
+                  }
 
-                  var cert = req.app.get('superSecret')
-                    , jwt_options = {
-                      //'expiresIn': '3m'
-                      'expiresIn': '1d'
-                    }
-                    , token = jwt.sign(payload, cert, jwt_options)
-                    , cookie_options = {
-                      httpOnly: true,
-                      //maxAge: "180000" // 3 minutes
-                      maxAge: "86400000" // 24 hours
-                    };
+                  if (result) {
+                    var payload = {};
+                    payload.email = user_data.email;
+                    payload.password = user_data.password;
 
-                  res.cookie('token', token, cookie_options);
+                    var cert = req.app.get('superSecret')
+                      , jwt_options = {
+                        //'expiresIn': '3m'
+                        'expiresIn': '1d'
+                      }
+                      , token = jwt.sign(payload, cert, jwt_options)
+                      , cookie_options = {
+                        httpOnly: true,
+                        //maxAge: "180000" // 3 minutes
+                        maxAge: "86400000" // 24 hours
+                      };
 
-                  res.json({
-                    "success": true,
-                    "message": "Enjoy the token!"
-                  });
+                    res.cookie('token', token, cookie_options);
+
+                    res.json({
+                      "success": true,
+                      "message": "Enjoy the token!"
+                    });
+                  } else {
+                    res.status(400).json({
+                      "success": false,
+                      "error": {
+                        "message": "Failed to authenticate email/password"
+                      }
+                    });
+                  }
                 } else {
-                  res.json({
+                  res.status(400).json({
                     "success": false,
-                    "message": "Username or password incorrect."
+                    "error": {
+                      "message": "Failed to authenticate email/password"
+                    }
                   });
                 }
               },
               function (err) {
                 res.status(400).json({
                   "success": false,
-                  "message": err
+                  "error": {
+                    "message": err
+                  }
                 });
               }
             );

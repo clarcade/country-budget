@@ -4,15 +4,15 @@ table, th, td, html {
   margin: 0;
   padding: 0; }
 
-.flex-center, .logo-container, #section-sub-nav, #section-item-sub-nav, #section-asset-sub-nav, #section-report-sub-nav {
+.flex-center, .exit-button, .logo-container, #section-sub-nav, #section-item-sub-nav, #section-asset-sub-nav, #section-report-sub-nav {
   display: flex;
   justify-content: center; }
 
-.flex-row, #header-nav ul, #sub-nav ul, .header-div {
+.flex-row, .alert-title-container, .alert-button-container, #header-nav ul, #sub-nav ul, .header-div {
   display: flex;
   flex-direction: row; }
 
-.flex-column, header, #section-main {
+.flex-column, .alert-container, header, #section-main {
   display: flex;
   flex-direction: column; }
 
@@ -36,6 +36,40 @@ input {
 
 .hide {
   display: none !important; }
+
+.alert-container {
+  width: 500px;
+  position: absolute;
+  color: black;
+  top: 0;
+  right: 0; }
+  .alert-container p {
+    background-color: white;
+    padding: 0 40px;
+    text-align: center; }
+
+.alert-title-container div {
+  width: 33.3%; }
+
+.alert-button-container {
+  justify-content: flex-end; }
+  .alert-button-container .button, .alert-button-container .signout-button {
+    margin-right: 15px; }
+
+.exit-button-container {
+  display: flex;
+  justify-content: flex-end; }
+
+.exit-button {
+  border: solid 1px black; }
+  .exit-button:hover {
+    cursor: pointer; }
+
+.alert-base, .alert-error {
+  font-size: 14px; }
+
+.alert-error {
+  background-color: red; }
 
 html {
   background-color: darkturquoise;

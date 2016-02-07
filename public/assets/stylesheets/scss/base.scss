@@ -37,3 +37,55 @@ input {
 .hide {
   display: none !important;
 }
+.alert-container {
+  @extend .flex-column;
+
+  width: 500px;
+  position: absolute;
+  color: black;
+  top: 0;
+  right: 0;
+
+  p {
+    background-color: white;
+    padding: 0 40px;
+    text-align: center;
+  }
+}
+.alert-title-container {
+  @extend .flex-row;
+
+  div {
+    width: 33.3%;
+  }
+}
+.alert-button-container {
+  @extend .flex-row;
+
+  justify-content: flex-end;
+
+  .button {
+    margin-right: 15px;
+  }
+}
+.exit-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.exit-button {
+  @extend .flex-center;
+
+  border: solid 1px black;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.alert-base {
+  font-size: 14px;
+}
+.alert-error {
+  @extend .alert-base;
+
+  background-color: red;
+}

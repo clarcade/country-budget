@@ -31,3 +31,16 @@ input {
   width: 220px;
   margin: 12px 0;
 }
+#email-valid, #password-valid {
+  color: red;
+}
+#form-signin {
+  @extend .flex-column;
+
+  width: 100%;
+
+  & > div {
+    align-self: center;
+    color: red;
+  }
+}
