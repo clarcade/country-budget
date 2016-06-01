@@ -101,6 +101,7 @@ var AUTHENTICATE_ROUTER = (function(express,
                         httpOnly: true,
                         //maxAge: "180000" // 3 minutes
                         maxAge: "86400000" // 24 hours
+                        // secure: true // later
                       };
 
                     res.cookie('token', token, cookie_options);

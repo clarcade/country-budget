@@ -25,7 +25,7 @@ var ACCOUNT_ROUTER = (function(express,
         }
       );
     })
-    .post(function (req, res) { // ENDPOINT DOES NOT NEED TO BE SECURE
+    .post(function (req, res) {
       if (!req.body || !req.body.data) {
         res.status(400).json({
           "success": false,
